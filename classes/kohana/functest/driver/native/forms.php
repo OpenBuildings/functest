@@ -1,7 +1,12 @@
 <?php
 /**
-* Native Driver exception for avoiding exit on redirect
-*/
+ * Func_Test Native Driver Helper - handles forms interacion
+ *
+ * @package    Func_Test
+ * @author     Ivan Kerin
+ * @copyright  (c) 2012 OpenBuildings Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
+ */
 class Kohana_FuncTest_Driver_Native_Forms
 {
 	protected $dom;

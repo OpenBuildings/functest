@@ -1,5 +1,13 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
+/**
+ * Func_Test Native Driver request. Uses Native Kohana Requests with a little patching to make them work with tests
+ *
+ * @package    Func_Test
+ * @author     Ivan Kerin
+ * @copyright  (c) 2012 OpenBuildings Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
+ */
 class Kohana_FuncTest_Driver_Native_Request extends Request {
 
 	function __construct($mthod, $uri = TRUE, HTTP_Cache $cache = NULL, $injected_routes = array()) 

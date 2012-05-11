@@ -1,9 +1,11 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 /**
- * @package    FuncTest
+ * Func_Test Exception for not implemented driver features
+ *
+ * @package    Func_Test
  * @author     Ivan Kerin
- * @copyright  (c) 20011-2012 Despark Ltd.
- * @license    http://creativecommons.org/licenses/by-sa/3.0/legalcode
+ * @copyright  (c) 2012 OpenBuildings Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
  */
 class Kohana_FuncTest_Exception_NotImplemented extends Kohana_Exception {
 

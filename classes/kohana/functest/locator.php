@@ -1,5 +1,13 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
+/**
+ * Func_Test Locator - converts varios locator formats into xpath
+ *
+ * @package    Func_Test
+ * @author     Ivan Kerin
+ * @copyright  (c) 2012 OpenBuildings Ltd.
+ * @license    http://www.opensource.org/licenses/isc-license.txt
+ */
 class Kohana_FuncTest_Locator {
 
 	static public $default_type = 'css';
