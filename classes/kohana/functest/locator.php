@@ -1,0 +1,135 @@
+<?php defined('SYSPATH') OR die('No direct script access.');
+
+class Kohana_FuncTest_Locator {
+
+	static public $default_type = 'css';
+
+	protected $xpath;
+	protected $type;
+	protected $selector;
+	protected $filters;
+
+	function __construct($selector, array $filters = NULL)
+	{
+		if ( ! is_array($selector))
+		{
+			$selector = array(
+				FuncTest_Locator::$default_type,
+				$selector,
+				$filters
+			);
+		}
+		$this->type = $selector[0];
+		$this->selector = $selector[1];
+		$this->filters = Arr::get($selector, 2, array());
+
+		if ( ! method_exists($this, "{$this->type}_to_xpath"))
+			throw new Kohana_Exception('Locator type ":type" does not exist', array(':type' => $this->type));
+
+		foreach ($this->filters as $filter => $value) 
+		{
+			if ( ! method_exists($this, "filter_by_{$filter}"))
+				throw new Kohana_Exception('Filter ":filter" does not exist', array(':filter' => $filter));
+		}
+	}
+
+	public function is_filtered(FuncTest_Node $item)
+	{
+		foreach ($this->filters as $filter => $value) 
+		{
+			if ( ! $this->{"filter_by_{$filter}"}($item, $value))
+			{
+				return FALSE;
+			}
+		}
+		return TRUE;
+	}
+
+	public function filter(array $nodes)
+	{
+		$filtered = array();
+		foreach ($nodes as $node) 
+		{
+			if ($this->is_filtered($node))
+			{
+				$filtered[] = $node;
+			}
+		}
+		return $filtered;
+	}
+
+	public function filter_by_value(FuncTest_Node $item, $filter)
+	{
+		return $item->value() == $filter;
+	}
+
+	public function filter_by_text(FuncTest_Node $item, $filter)
+	{
+		return strpos($item->text(), $filter) !== FALSE;
+	}
+
+	public function filter_by_visible(FuncTest_Node $item, $filter)
+	{
+		return $item->visible() === $filter;
+	}
+
+	public function xpath()
+	{
+		if ( ! $this->xpath)
+		{
+			$this->xpath = $this->{"{$this->type}_to_xpath"}($this->selector);
+		}
+		return $this->xpath;
+	}
+
+	public function type()
+	{
+		return $this->type;
+	}
+
+	public function css_to_xpath($locator)
+	{
+		return FuncTest_Util::css2xpath($locator);
+	}
+
+	public function xpath_to_xpath($locator)
+	{
+		return $locator;
+	}
+
+	public function field_to_xpath($locator)
+	{
+		$type = "(self::input and (not(@type) or @type != 'submit')) or self::textarea or self::select";
+			
+		$matchers['by name']        = "@name = '$locator'";
+		$matchers['by id']          = "@id = '$locator'";
+		$matchers['by placeholder'] = "@placeholder = '$locator'";
+		$matchers['by label for']   = "@id = //label[contains(text(), '$locator')]/@for";
+
+		return "//*[($type) and (".join(' or ', $matchers).")]";
+	}
+
+	public function link_to_xpath($locator)
+	{
+		$matchers['by title']        = "contains(@title, '$locator')";
+		$matchers['by id']           = "@id = '$locator'";
+		$matchers['by content text'] = "contains(text(), '$locator')";
+		$matchers['by img alt']      = "descendant::img[contains(@alt, '$locator')]";
+
+		return "//a[".join('or', $matchers)."]";	
+	}
+
+	public function button_to_xpath($locator)
+	{
+		$type = "(self::input and @type = 'submit') or self::button";
+
+		$matchers['by title']        = "contains(@title, '$locator')";
+		$matchers['by id']           = "@id = '$locator'";
+		$matchers['by content text'] = "contains(text(), '$locator')";
+		$matchers['by img alt']      = "descendant::img[contains(@alt, '$locator')]";
+		$matchers['by value']        = "contains(@value, '$locator')";
+		$matchers['by name']         = "@name = '$locator'";
+
+		return "//*[($type) and (".join(' or ', $matchers).")]";
+	}
+}
