@@ -22,17 +22,16 @@ class PHPUnit_Framework_Constraint_Locator extends PHPUnit_Framework_Constraint 
 		}
 		else
 		{
-			$dom = $other->dom();
-			$node_string = $other->tagName;
+			$node_string = $other->tag_name();
 
-			if ($dom->hasAttribute('id'))
+			if ($id = $other->attribute('id'))
 			{
-				$node_string .= '#'.$dom->getAttribute('id');
+				$node_string .= '#'.$id;
 			}
 
-			if ($dom->hasAttribute('class'))
+			if ($class = $other->attribute('class'))
 			{
-				$node_string .= '.'.join('.', explode(' ',$dom->getAttribute('class')));
+				$node_string .= '.'.join('.', explode(' ', $class));
 			}
 		}
 		return "$node_string ".$this->toString();

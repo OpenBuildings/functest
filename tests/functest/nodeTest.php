@@ -57,7 +57,7 @@ class FuncTest_NodeTest extends FuncTest_Database_TestCase {
 
 		$this->assertNode(array('form', 'action' => '/test_functest/contact'), $form->dom(), 'Should extract the right DOMElement');
 
-		$this->assertEquals("(//form)[1]", $form->selector());
+		$this->assertEquals("(//form)[1]", $form->id());
 
 		$this->assertEquals('<input id="name" name="name" value="Tomas"/>', $input->html());
 		

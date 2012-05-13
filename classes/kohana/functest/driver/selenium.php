@@ -3,7 +3,7 @@
 /**
  * Func_Test Selenium driver. 
  *
- * @package    Func_Test
+ * @package    FuncTest
  * @author     Ivan Kerin
  * @copyright  (c) 2012 OpenBuildings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
@@ -11,19 +11,13 @@
 class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 
 	public $name = 'selenium';
+	public $_next_query = array();
 
-	protected $_session_id;
-	
-	protected $_timeout;
-
-	protected $_url;
-
+	protected $_webdriver;
 
 	function __construct()
 	{
-		parent::__construct($name, $config);
-		$this->_url = 'http://'.$this->config('selenium.host').':'.$this->config('selenium.port').'/selenium-server/driver/';
-		$this->_timeout = $this->config('selenium.timeout');
+		$config = Kohana::$config->load('functest.drivers.selenium');
 	}
 
 	public function clear()
@@ -33,169 +27,162 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		// 	$this->execute('testComplete');
 		// 	$this->_session_id = NULL;
 		// }
-
 	}
 
-	public function content()
+	public function session()
 	{
-		return $this->action('getHtmlSource');
+		return $this->_session_id;
 	}
 
-	public function initialize()
+	public function content($content = NULL)
 	{
-		if ($this->_session_id !== NULL)
-			throw new Kohana_Exception("Session already started", array('driver' => 'selenium'));
-
-		$this->_session_id = $this->action('getNewBrowserSession', $this->config('browser.type'), $this->config('browser.start_url'), FALSE);
-		
-		$this->action('setTimeout', $this->config('selenium.timeout'));
+		return $this->webdriver()->get('source');
 	}
 
-	public function forms()
+	public function webdriver()
 	{
-		return $this->forms;
+		if ( ! $this->_webdriver)
+		{
+			$this->_webdriver = new FuncTest_Driver_Selenium_Webdriver();
+		}
+		return $this->_webdriver;
 	}
 
-	public function xpath()
-	{
-		return $this->xpath;
-	}
 
-	public function dom($xpath)
-	{
-		return $xpath ? $this->xpath()->find($xpath) : $this->dom;
-	}
-
-	public function get($uri, array $query = NULL)
-	{
-		return $this->request(Request::GET, $uri, $query);
-	}
-
-	public function post($uri, array $query = NULL, array $post = NULL, array $files = NULL)
-	{
-		return $this->request(Request::POST, $uri, $query, $post, $files);
-	}
-
-	public function request($type, $uri, array $query = NULL, array $post = NULL, array $files = NULL)
-	{
-		$this->response = Response::factory();
-
-		$url = $uri.URL::query($query, FALSE);
-		$query = parse_url($url, PHP_URL_QUERY);
-		parse_str($query, $query);
-
-		$this->environment->update_environment(array('_GET' => $query, '_POST' => $post, '_FILES' => $files));
-
-		$this->request = new FuncTest_Driver_Native_Request($type, $url);
-
-		$this->response = $this->request->execute();
-		$this->initialize();
-		return $this;
-	}
-
+	// public function dom($id)
+	// {
+	// 	return $id ? $this->xpath()->find($xpath) : $this->dom;
+	// }
 
 	/**
 	 * GETTERS
 	 */
 
-	public function tag_name($xpath)
+	public function tag_name($id)
 	{
-		return $this->dom($xpath)->tagName;
+		return $this->webdriver()->get("element/$id/name");	
 	}
 
-	public function attribute($xpath, $name)
+	public function attribute($id, $name)
 	{
-		$node = $this->dom($xpath);
-
-		return $node->hasAttribute($name) ? $node->getAttribute($name) : NULL;
+		return $this->webdriver()->get("element/$id/attribute/$name");	
 	}
 
-	public function html($xpath)
+	public function html($id)
 	{
-		if ( ! $xpath)
-			return $this->dom->saveHTML();
+		if ( ! $id)
+			return $this->content();
+
+		return $this->webdriver()->get('execute', array(
+			'script' => 'arguments[0].outerHTML',
+			'args' => array(
+				array('ELEMENT' => $id)
+			)
+		));	
+	}
+
+	public function text($id)
+	{
+		return $this->webdriver()->get("element/$id/text");	
+	}
+
+	public function value($id)
+	{
+		return $this->webdriver()->get("element/$id/value");	
+	}
+
+	public function visible($id)
+	{
+		return $this->webdriver()->get("element/$id/displayed");	
+	}
+
+	public function set($id, $value)
+	{
+		$tag_name = $this->tag_name($id);
 		
-		$node = $this->dom($xpath);
-
-		return $node->ownerDocument->saveXml($node);
-	}
-
-	public function text($xpath)
-	{
-		return $this->dom($xpath)->textContent;	
-	}
-
-	public function value($xpath)
-	{
-		return $this->forms->get_value($xpath);
-	}
-
-	public function visible($xpath)
-	{
-		$node = $this->dom($xpath);
-
-		$hidden_nodes = $this->xpath()->query("./ancestor-or-self::*[contains(@style, 'display:none') or contains(@style, 'display: none') or name()='script' or name()='head']", $node);
-		return $hidden_nodes->length == 0;
-	}
-
-	public function set($xpath, $value)
-	{
-		$this->forms->set_value($xpath, $value);
-	}
-
-	public function select_option($xpath, $value)
-	{
-		$node = $this->forms->set_value($xpath, $value);
-	}
-
-	public function click($xpath)
-	{
-		$node = $this->dom($xpath);
-
-		if ($node->hasAttribute('href'))
+		if ($tag_name == 'textarea')
 		{
-			$this->get($node->getAttribute('href'));
+			$this->webdriver()->post("element/$id/value", array('value' => str_split($value)));	
 		}
-		elseif (($node->tagName == 'input' AND $node->getAttribute('type') == 'submit') OR $node->tagName == 'button') 
+		elseif ($tag_name == 'input') 
 		{
-			$form = $this->xpath->find('./ancestor::form', $node);
-
-			$action = $form->hasAttribute('action') ? $form->getAttribute('action') : $this->request->uri();
-
-			$post = $this->forms->serialize_form($form);
-
-			if ($node->tagName == 'input' AND $node->hasAttribute('name'))
+			$type = $this->attribute($id, 'type');
+			if ($type == 'checkbox' OR $type == 'radio')
 			{
-				$post = $post.'&'.$node->getAttribute('name').'='.$node->getAttribute('value');
+				$this->webdriver()->post("element/$id/click");
 			}
-			parse_str($post, $post);
+			else
+			{
+				$this->webdriver()->post("element/$id/value", array('value' => str_split($value)));	
+			}
+		}
+		elseif ($tag_name == 'option')
+		{
+			$this->webdriver()->post("element/$id/click");
+		}
+	}
 
-			$this->post($action, NULL, $post);
+	public function select_option($id, $value)
+	{
+		$this->webdriver()->post("element/$id/click");
+	}
+
+	public function confirm($confirm)
+	{
+		if ($confirm)
+		{
+			$this->webdriver()->post('accept_alert');
 		}
 		else
 		{
-			throw new Kohana_Exception('The html tag :tag cannot be clicked', array(':tag' => $node->tagName));
+			$this->webdriver()->post('dismiss_alert');	
 		}
+	}
+
+	public function click($id)
+	{
+		$this->webdriver()->post("element/$id/click");
 	}
 
 	public function visit($uri, array $query = NULL)
 	{
-		return $this->get($uri, $query);
+		$query = Arr::merge((array) $this->_next_query, (array) $query);
+
+		$this->_next_query = NULL;
+		$url = URL::site($uri, 'http').URL::query($query, FALSE);
+
+		$this->webdriver()->post('url', array('url' => $url));
 	}
 
 	public function current_path()
 	{
-		return $this->request->uri();
+		$url = parse_url($this->webdriver()->get('url'));
+		return join('?', array_filter(Arr::extract($url, array('path', 'query'))));
 	}
 
 	public function current_url()
 	{
-		return URL::site($this->request->uri(), TRUE);
+		return $this->webdriver()->get('url');
 	}
 
-	public function count($xpath)
+	public function all($xpath)
 	{
-		return $this->xpath()->query($xpath)->length;
+		$elements = $this->webdriver()->get('elements', array('using' => 'xpath', 'value' => $xpath));
+		foreach ($elements as & $element) 
+		{
+			$element = $element['ELEMENT'];
+		}
+		return $elements;
+	}
+
+	public function next_query(array $query)
+	{
+		$this->_next_query = $query;
+	}
+
+	public function has_page()
+	{
+		return (bool) $this->webdriver()->session_id();
 	}
 
 }

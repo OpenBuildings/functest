@@ -126,7 +126,7 @@ class Kohana_FuncTest_Locator {
 		$matchers['by content text'] = "contains(text(), '$locator')";
 		$matchers['by img alt']      = "descendant::img[contains(@alt, '$locator')]";
 
-		return "//a[".join('or', $matchers)."]";	
+		return "//a[".join(' or ', $matchers)."]";	
 	}
 
 	public function button_to_xpath($locator)

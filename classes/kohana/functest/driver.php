@@ -16,12 +16,12 @@ abstract class Kohana_FuncTest_Driver {
 
 	/**
 	 * Return an array of HTML fragments that match a given XPath query
-	 * @param  string $xpath 
+	 * @param  string $id 
 	 * @return array        
 	 */
-	public function all($xpath)
+	public function all($id)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
@@ -31,52 +31,52 @@ abstract class Kohana_FuncTest_Driver {
 	 */
 	public function content($content = NULL)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
 	 * Return the tag name of a HTML fragemnt, specified by the XPath query. 
 	 * If multiple tags match - return the first one.
-	 * @param  string $xpath 
+	 * @param  string $id 
 	 * @return string        
 	 */
-	public function tag_name($xpath)
+	public function tag_name($id)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
 	 * Return the tag attribute of an HTML fragment, spesified by the XPath query. 
 	 * If multiple tags match - return the first one.
-	 * @param  [type] $xpath [description]
-	 * @param  [type] $name  [description]
-	 * @return [type]        [description]
+	 * @param  string $id 
+	 * @param  string $name 
+	 * @return string
 	 */
-	public function attribute($xpath, $name)
+	public function attribute($id, $name)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
 	 * Return the HTML fragment, spesified by the XPath query. 
 	 * If multiple tags match - return the first one.
-	 * @param  string $xpath 
+	 * @param  string $id 
 	 * @return string        
 	 */
-	public function html($xpath)
+	public function html($id)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
 	 * Return the plain text of an HTML fragment, spesified by the XPath query. 
 	 * If multiple tags match - return the first one.
-	 * @param  string $xpath
+	 * @param  string $id
 	 * @return string
 	 */
-	public function text($xpath)
+	public function text($id)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
@@ -89,49 +89,49 @@ abstract class Kohana_FuncTest_Driver {
 	 * - radios -> checked
 	 * - select -> selected option
 	 * 
-	 * @param  string $xpath 
+	 * @param  string $id 
 	 * @return string        
 	 */
-	public function value($xpath)
+	public function value($id)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
 	 * Return the visibility of an HTML fragment, spesified by the XPath query. 
 	 * If multiple tags match - return the first one.
 	 * 
-	 * @param  string $xpath 
+	 * @param  string $id 
 	 * @return string        
 	 */
-	public function visible($xpath)
+	public function visible($id)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
 	 * Set the value for a form input tag.
 	 * If multiple tags match - use the first one.
 	 * 
-	 * @param string $xpath 
+	 * @param string $id 
 	 * @param mixed $value value
 	 */
-	public function set($xpath, $value)
+	public function set($id, $value)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
 	 * Set an HTML option tag as selected or remove selection for a given XPath query.
 	 * If multiple tags match - use the first one.
 	 * 
-	 * @param  string $xpath 
+	 * @param  string $id 
 	 * @param  boolean $value
 	 * @return $this
 	 */
-	public function select_option($xpath, $value)
+	public function select_option($id, $value)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
@@ -139,12 +139,12 @@ abstract class Kohana_FuncTest_Driver {
 	 * If multiple tags match - use the first one.
 	 * You can click on anchor and submit buttons.
 	 * 
-	 * @param  string $xpath
+	 * @param  string $id
 	 * @return $this
 	 */
-	public function click($xpath)
+	public function click($id)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
@@ -155,7 +155,7 @@ abstract class Kohana_FuncTest_Driver {
 	 */
 	public function visit($uri, array $query = NULL)
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
@@ -164,7 +164,7 @@ abstract class Kohana_FuncTest_Driver {
 	 */
 	public function current_path()
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**
@@ -173,7 +173,25 @@ abstract class Kohana_FuncTest_Driver {
 	 */
 	public function current_url()
 	{
-		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
+	}
+
+	/**
+	 * Confirm or cancel for the next confirmation dialog
+	 * @param  bool $confirm 
+	 */
+	public function confirm($confirm)
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
+	}
+
+	/**
+	 * Return The root node
+	 * @return FuncTest_Node 
+	 */
+	public function has_page()
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
 	/**

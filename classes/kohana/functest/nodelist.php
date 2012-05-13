@@ -13,11 +13,11 @@ class Kohana_FuncTest_NodeList implements Iterator, Countable, SeekableIterator,
 	protected $_driver;
 	protected $_parent;
 
-	protected $_node_indexes;
+	protected $_list_ids;
 	protected $_node;
 	protected $_current = 0;
 
-	function __construct(FuncTest_Driver $driver, FuncTest_Locator $locator, FuncTest_Node $parent = NULL)
+	function __construct(FuncTest_Driver $driver, FuncTest_Locator $locator, FuncTest_Node $parent)
 	{
 		$this->_driver  = $driver;
 		$this->_locator = $locator;
@@ -57,7 +57,8 @@ class Kohana_FuncTest_NodeList implements Iterator, Countable, SeekableIterator,
 	 */
 	public function current()
 	{
-		return $this->_load($this->_current);
+		$ids = $this->list_ids();
+		return $this->_load($ids[$this->_current]);
 	}
 
 	/**
@@ -102,7 +103,7 @@ class Kohana_FuncTest_NodeList implements Iterator, Countable, SeekableIterator,
 	 */
 	public function count()
 	{
-		return count($this->node_indexes());
+		return count($this->list_ids());
 	}
 
 	/**
@@ -142,8 +143,8 @@ class Kohana_FuncTest_NodeList implements Iterator, Countable, SeekableIterator,
 	{
 		if ( ! $this->offsetExists($offset))
 			return NULL;
-		
-		return $this->_load($offset);
+		$ids = $this->list_ids();
+		return $this->_load($ids[$offset]);
 	}
 
 	/**
@@ -171,46 +172,30 @@ class Kohana_FuncTest_NodeList implements Iterator, Countable, SeekableIterator,
 		throw new Kohana_Exception('Cannot modify FuncTest_NodeList');
 	}
 
-	protected function _selector_for($offset)
+	protected function _load($id)
 	{
-		$selector = '';
-		if ($this->_parent AND $this->_parent->selector())
-		{
-			$selector = $this->_parent->selector();
-		}
-		$index = Arr::get($this->node_indexes(), $offset);
-
-		return "({$selector}{$this->_locator->xpath()})[$index]";
+		return $this->_node->load_vars($id);
 	}
 
-	protected function _load($offset)
+	protected function list_ids()
 	{
-		return $this->_node->load_vars($this->_selector_for($offset));
-	}
-
-	protected function node_indexes()
-	{
-		if ($this->_node_indexes === NULL)
+		if ($this->_list_ids === NULL)
 		{
-			$total_count = $this->_driver->count($this->_locator->xpath());
-			$this->_node_indexes = $total_count ? array_combine(range(0, $total_count - 1), range(1, $total_count)) : array();
+			$this->_list_ids = $this->_driver->all($this->_locator->xpath(), $this->_parent->id());
 
 			if ($this->_locator->filters())
 			{
-				$indexes = array();
-				foreach ($this->_node_indexes as $offset => $index) 
+				foreach ($this->_list_ids as $offset => $id) 
 				{
-					if ($this->_locator->is_filtered($this->_load($offset), $offset))
+					if ( ! $this->_locator->is_filtered($this->_load($id), $offset))
 					{
-						$indexes[] = $index;
+						unset($this->_list_ids[$offset]);
 					}
 				}
-				$this->_node_indexes = $indexes;
 			}
-
 		}
 
-		return $this->_node_indexes;
+		return $this->_list_ids;
 	}
 
 	public function locator()
@@ -225,10 +210,12 @@ class Kohana_FuncTest_NodeList implements Iterator, Countable, SeekableIterator,
 
 	public function first()
 	{
-		if ($this->count() <= 0)
+		$ids = $this->list_ids();
+
+		if (count($ids) <= 0)
 			return NULL;
 
-		return $this->_load(0);
+		return $this->_load(reset($ids));
 	}
 
 	public function at($index)
@@ -238,18 +225,20 @@ class Kohana_FuncTest_NodeList implements Iterator, Countable, SeekableIterator,
 
 	public function last()
 	{
-		if ($this->count() <= 0)
+		$ids = $this->list_ids();
+
+		if (count($ids) <= 0)
 			return NULL;
 
-		return $this->_load($this->count() - 1);
+		return $this->_load(end($ids));
 	}
 
 	public function as_array()
 	{
 		$nodes = array();
-		foreach ($this->node_indexes() as $i => $index) 
+		foreach ($this->list_ids() as $i => $id) 
 		{
-			$nodes[] = FuncTest::node($this->_driver, $this->_parent, $this->_selector_for($i));
+			$nodes[] = FuncTest::node($this->_driver, $this->_parent, $id);
 		}
 		return $nodes;
 	}

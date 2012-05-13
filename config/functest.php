@@ -3,6 +3,8 @@
 return array(
 	'default_driver' => 'native',
 	'default_locator_type' => 'css',
+	'save_on_failure' => TRUE,
+	'failures_dir' => APPPATH.'logs/functest/',
 
 	'drivers' => array(
 		'native' => array(
@@ -12,8 +14,11 @@ return array(
 			)
 		),
 		'selenium' => array(
-			'url' => 'http://localhost:4444/selenium-server/driver/',
-			'timeout' => 2000
+			'url' => 'http://33.33.33.1:4444/wd/hub/',
+			'implicit_wait' => 2000,
+			'desired' => array(
+				'browserName' => 'firefox'
+			)
 		),
 	)
 );

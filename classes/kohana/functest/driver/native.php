@@ -48,7 +48,7 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 
 	public function initialize()
 	{
-		@ $this->dom->loadHTML($this->response->body());
+		@ $this->dom->loadHTML($this->content());
 		$this->xpath = new FuncTest_Driver_Native_XPath($this->dom);
 		$this->forms = new FuncTest_Driver_Native_Forms($this->dom, $this->xpath);
 	}
@@ -63,9 +63,9 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		return $this->xpath;
 	}
 
-	public function dom($xpath)
+	public function dom($id)
 	{
-		return $xpath ? $this->xpath()->find($xpath) : $this->dom;
+		return $id ? $this->xpath()->find($id) : $this->dom;
 	}
 
 	public function get($uri, array $query = NULL)
@@ -100,59 +100,59 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 	 * GETTERS
 	 */
 
-	public function tag_name($xpath)
+	public function tag_name($id)
 	{
-		return $this->dom($xpath)->tagName;
+		return $this->dom($id)->tagName;
 	}
 
-	public function attribute($xpath, $name)
+	public function attribute($id, $name)
 	{
-		$node = $this->dom($xpath);
+		$node = $this->dom($id);
 
 		return $node->hasAttribute($name) ? $node->getAttribute($name) : NULL;
 	}
 
-	public function html($xpath)
+	public function html($id)
 	{
-		if ( ! $xpath)
+		if ( ! $id)
 			return $this->dom->saveHTML();
 		
-		$node = $this->dom($xpath);
+		$node = $this->dom($id);
 
 		return $node->ownerDocument->saveXml($node);
 	}
 
-	public function text($xpath)
+	public function text($id)
 	{
-		return $this->dom($xpath)->textContent;	
+		return $this->dom($id)->textContent;	
 	}
 
-	public function value($xpath)
+	public function value($id)
 	{
-		return $this->forms->get_value($xpath);
+		return $this->forms->get_value($id);
 	}
 
-	public function visible($xpath)
+	public function visible($id)
 	{
-		$node = $this->dom($xpath);
+		$node = $this->dom($id);
 
 		$hidden_nodes = $this->xpath()->query("./ancestor-or-self::*[contains(@style, 'display:none') or contains(@style, 'display: none') or name()='script' or name()='head']", $node);
 		return $hidden_nodes->length == 0;
 	}
 
-	public function set($xpath, $value)
+	public function set($id, $value)
 	{
-		$this->forms->set_value($xpath, $value);
+		$this->forms->set_value($id, $value);
 	}
 
-	public function select_option($xpath, $value)
+	public function select_option($id, $value)
 	{
-		$node = $this->forms->set_value($xpath, $value);
+		$node = $this->forms->set_value($id, $value);
 	}
 
-	public function click($xpath)
+	public function click($id)
 	{
-		$node = $this->dom($xpath);
+		$node = $this->dom($id);
 
 		if ($node->hasAttribute('href'))
 		{
@@ -195,9 +195,21 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		return URL::site($this->request->uri(), TRUE);
 	}
 
-	public function count($xpath)
+	public function all($xpath, $parent = NULL)
 	{
-		return $this->xpath()->query($xpath)->length;
+		$xpath = $parent.$xpath;
+		$ids = array();
+		foreach ($this->xpath()->query($xpath) as $index => $elmenets) 
+		{
+			$ids[] = "($xpath)[".($index+1)."]";
+		}
+		return $ids;
 	}
+
+	public function has_page()
+	{
+		return (bool) $this->content();
+	}
+
 
 }

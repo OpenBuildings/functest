@@ -12,18 +12,18 @@ class Kohana_FuncTest_Node {
 
 	protected $driver;
 	protected $parent;
-	protected $selector;
+	protected $id;
 
-	function __construct(FuncTest_Driver $driver, FuncTest_Node $parent = NULL, $selector = '')
+	function __construct(FuncTest_Driver $driver, FuncTest_Node $parent = NULL, $id = '')
 	{
 		$this->driver = $driver;
 		$this->parent = $parent;
-		$this->selector = $selector;
+		$this->id = $id;
 	}
 
-	public function load_vars($selector)
+	public function load_vars($id)
 	{
-		$this->selector = $selector;
+		$this->id = $id;
 		return $this;
 	}
 
@@ -33,22 +33,22 @@ class Kohana_FuncTest_Node {
 	
 	public function is_root()
 	{
-		return ! (bool) $this->selector;
+		return ! (bool) $this->id;
 	}
 
 	public function dom()
 	{
-		return $this->driver->dom($this->selector);
+		return $this->driver->dom($this->id);
 	}
 
-	public function selector()
+	public function id()
 	{
-		return $this->selector;
+		return $this->id;
 	}
 
 	public function html()
 	{
-		return $this->driver->html($this->selector);
+		return $this->driver->html($this->id);
 	}
 
 	public function __toString()
@@ -58,27 +58,27 @@ class Kohana_FuncTest_Node {
 
 	public function tag_name()
 	{
-		return $this->driver->tag_name($this->selector);
+		return $this->driver->tag_name($this->id);
 	}
 
 	public function attribute($name)
 	{
-		return $this->driver->attribute($this->selector, $name);
+		return $this->driver->attribute($this->id, $name);
 	}
 
 	public function text()
 	{
-		return $this->driver->text($this->selector);
+		return $this->driver->text($this->id);
 	}
 
 	public function visible()
 	{
-		return $this->driver->visible($this->selector);	
+		return $this->driver->visible($this->id);	
 	}
 
 	public function value()
 	{
-		return $this->driver->value($this->selector);
+		return $this->driver->value($this->id);
 	}
 
 
@@ -88,25 +88,25 @@ class Kohana_FuncTest_Node {
 	
 	public function set($value)
 	{
-		$this->driver->set($this->selector, $value);
+		$this->driver->set($this->id, $value);
 		return $this;
 	}
 
 	public function click()
 	{
-		$this->driver->click($this->selector);
+		$this->driver->click($this->id);
 		return $this;
 	}
 
 	public function select_option()
 	{
-		$this->driver->select_option($this->selector, TRUE);
+		$this->driver->select_option($this->id, TRUE);
 		return $this;
 	}
 
 	public function unselect_option()
 	{
-		$this->driver->select_option($this->selector, FALSE);
+		$this->driver->select_option($this->id, FALSE);
 		return $this;
 	}
 
@@ -180,6 +180,12 @@ class Kohana_FuncTest_Node {
 		}
 
 		$this->find_field($selector)->find('option', $option_filters)->unselect_option();
+		return $this;
+	}
+
+	public function confirm($confirm)
+	{
+		$this->driver->confirm($confirm);
 		return $this;
 	}
 

@@ -16,27 +16,40 @@ class FuncTest_TestCase extends Unittest_TestCase {
 		return array($selector, $filters, strtr($message, array(':type' => $type, ':selector' => $selector)));
 	}
 
+	protected $driver_name;
 	protected $driver;
 
 	public function setUp()
 	{
 		parent::setUp();
-		$this->driver = FuncTest::driver($this->driver ? $this->driver : Kohana::$config->load('functest.default_driver'));
+
+		$this->driver_name = $this->driver_name ? $this->driver_name : Kohana::$config->load('functest.default_driver');
+
 		FuncTest_Locator::$default_type = Kohana::$config->load('functest.default_locator_type');
 	}
 
 	public function tearDown()
 	{
-		if ($this->driver)
+		if ($this->has_driver())
 		{
-			$this->driver->clear();
+			$this->driver()->clear();
 		}
 		
 		parent::tearDown();
 	}
 
-	public function driver($driver = NULL)
+	public function has_driver()
 	{
+		return $this->driver instanceof FuncTest_Driver;
+	}
+
+	public function driver()
+	{
+		if ( ! $this->has_driver())
+		{
+			$this->driver = FuncTest::driver($this->driver_name);
+		}
+
 		return $this->driver;
 	}
 
