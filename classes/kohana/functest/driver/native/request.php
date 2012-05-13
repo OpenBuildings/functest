@@ -10,25 +10,22 @@
  */
 class Kohana_FuncTest_Driver_Native_Request extends Request {
 
-	function __construct($mthod, $uri = TRUE, HTTP_Cache $cache = NULL, $injected_routes = array()) 
+	function __construct($method, $uri, HTTP_Cache $cache = NULL, $injected_routes = array()) 
 	{
-		$request = parent::__construct($uri, $cache, $injected_routes);
+		parent::__construct($uri, $cache, $injected_routes);
 
-		if ( ! $request)
+		if ( ! $this->route())
 			throw new Kohana_Exception("Route :uri not found", array(':uri' => $uri));
 
-		$request->method($method);
+		$this->method($method);
 
-		if ($query = parse_url($uri, PHP_URL_QUERY))
-		{
-			$request->query($query);
-			$_GET = $query;
-		}
+		$this->_query = $_GET;
+		$this->_post = $_POST;
 
-		Request::$initial = $request;
-
-		return $request;
+		Request::$initial = $this;
 	}
+
+	static public $redirects_count = 0;
 
 	public function redirect($url = '', $code = 302)
 	{
@@ -45,34 +42,41 @@ class Kohana_FuncTest_Driver_Native_Request extends Request {
 			$url .= '#'.$url_parts['fragment'];
 		}
 
-		$referrer = $this->uri();
-
-		if (($response = $this->response()) === NULL)
-		{
-			$response = $this->create_response();
-		}
-
-		$response->status($code)
-			->headers('Location', $url)
-			->headers('Referer', $referrer);
-
 		// Stop execution
-		throw new FuncTest_Driver_Native_Redirect($response);
+		throw new FuncTest_Driver_Native_Redirect($url);
 	}
 
 	public function execute() 
 	{
 		try
 		{
-			$response = $this->execute();
+			$response = parent::execute();
+			FuncTest_Driver_Native_Request::$redirects_count = 0;
 		}
 		catch (FuncTest_Driver_Native_Redirect $exception)
 		{
-			$response = $exception->getResponse();
+			FuncTest_Driver_Native_Request::$redirects_count += 1;
+
+			if (FuncTest_Driver_Native_Request::$redirects_count >= 5)
+				throw new Kohana_Exception("Maximum Number of redirects (5) for url :url", array(':url' => $this->uri()));
+
+			$query = parse_url($exception->url(), PHP_URL_QUERY);
+			parse_str($query, $query);
+			$_GET = $query;
+			$redirected_request = new FuncTest_Driver_Native_Request(Request::GET, $exception->url());
+
+			$response = $redirected_request->execute();
 		}
 		catch (HTTP_Exception $exception)
 		{
-			$response = Response::factory()->body("HTTP Exception: \n".$exception->getMessage())->status($exception->getCode());
+			$action = $exception->getCode() ? $exception->getCode() : 500;
+			$response = Request::factory(Route::get('error_handler')
+				->uri(array(
+					'controller' => 'errors',
+					'action' => $action,
+					'message' => base64_encode($exception->getMessage()))
+				))
+				->execute();
 		}
 		catch (Kohana_Exception $exception)
 		{

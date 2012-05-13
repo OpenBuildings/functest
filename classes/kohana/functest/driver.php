@@ -159,6 +159,24 @@ abstract class Kohana_FuncTest_Driver {
 	}
 
 	/**
+	 * Get the current url without domain
+	 * @return string
+	 */
+	public function current_path()
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+	}
+
+	/**
+	 * Get the current url with domain
+	 * @return string
+	 */
+	public function current_url()
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this->name);
+	}
+
+	/**
 	 * Return The root node
 	 * @return FuncTest_Node 
 	 */

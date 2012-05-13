@@ -14,17 +14,28 @@ class Kohana_FuncTest_Node {
 	protected $parent;
 	protected $selector;
 
-	function __construct(FuncTest_Driver $driver, $parent = NULL, $selector = '')
+	function __construct(FuncTest_Driver $driver, FuncTest_Node $parent = NULL, $selector = '')
 	{
 		$this->driver = $driver;
 		$this->parent = $parent;
 		$this->selector = $selector;
 	}
 
+	public function load_vars($selector)
+	{
+		$this->selector = $selector;
+		return $this;
+	}
+
 	/**
 	 * GETTERS
 	 */
 	
+	public function is_root()
+	{
+		return ! (bool) $this->selector;
+	}
+
 	public function dom()
 	{
 		return $this->driver->dom($this->selector);
@@ -81,7 +92,7 @@ class Kohana_FuncTest_Node {
 		return $this;
 	}
 
-	public function click($value)
+	public function click()
 	{
 		$this->driver->click($this->selector);
 		return $this;
@@ -95,7 +106,7 @@ class Kohana_FuncTest_Node {
 
 	public function unselect_option()
 	{
-		$this->driver->unselect_option($this->selector, TRUE);
+		$this->driver->select_option($this->selector, FALSE);
 		return $this;
 	}
 
@@ -111,43 +122,43 @@ class Kohana_FuncTest_Node {
 
 	public function click_link($selector, array $filters = NULL)
 	{
-		$this->find_link($selector, $filters)->click();
+		$this->find(array('link', $selector, $filters))->click();
 		return $this;
 	}
 
 	public function click_button($selector, array $filters = NULL)
 	{
-		$this->find_button($selector, $filters)->click();
+		$this->find(array('button', $selector, $filters))->click();
 		return $this;
 	}
 
 	public function fill_in($selector, $with, array $filters = NULL)
 	{
-		$this->driver()->find_field($selector, $filters)->set($with);
+		$this->find(array('field', $selector, $filters))->set($with);
 		return $this;
 	}
 
 	public function choose($selector, array $filters = NULL)
 	{
-		$this->find_field($selector, $filters)->set(TRUE);
+		$this->find(array('field', $selector, $filters))->set(TRUE);
 		return $this;
 	}
 
 	public function check($selector, array $filters = NULL)
 	{
-		$this->find_field($selector, $filters)->set(TRUE);
+		$this->find(array('field', $selector, $filters))->set(TRUE);
 		return $this;
 	}
 
 	public function uncheck($selector, array $filters = NULL)
 	{
-		$this->find_field($selector, $filters)->set(FALSE);
+		$this->find(array('field', $selector, $filters))->set(FALSE);
 		return $this;
 	}
 
-	public function attach_file($locator, $file, array $filters = NULL)
+	public function attach_file($selector, $file, array $filters = NULL)
 	{
-		$this->find_field($locator, $filters)->set($file);
+		$this->find(array('field', $selector, $filters))->set($file);
 		return $this;
 	}
 
@@ -157,7 +168,7 @@ class Kohana_FuncTest_Node {
 		{
 			$option_filters = array('value' => $option_filters);
 		}
-		$this->find_field($selector, $filters)->find('option', $option_filters)->select_option();
+		$this->find(array('field', $selector, $filters))->find('option', $option_filters)->select_option();
 		return $this;
 	}
 
@@ -193,7 +204,13 @@ class Kohana_FuncTest_Node {
 
 	public function find($selector, array $filters = NULL)
 	{
-		return Arr::get($this->all($selector, $filters), 0);
+		$locator = FuncTest::locator($selector, $filters);
+		$node = $this->all($locator)->first();
+
+		if ($node == NULL)
+			throw new FuncTest_Exception_NotFound($locator, $this->driver);
+
+		return $node;
 	}
 
 	public function end()
@@ -203,18 +220,16 @@ class Kohana_FuncTest_Node {
 
 	public function all($selector, array $filters = NULL)
 	{
-		$locator = FuncTest::locator($selector, $filters);
-
-		$xpath = $this->selector.$locator->xpath();
-
-		$elements = array();
-
-		foreach($this->driver->all($xpath) as $i => $element)
+		if ($selector instanceof FuncTest_Locator)
 		{
-			$elements[] = FuncTest::node($this->driver, $this, "({$xpath})[".($i+1)."]");
+			$locator = $selector;
+		}
+		else
+		{
+			$locator = FuncTest::locator($selector, $filters);
 		}
 
-		return $locator->filter($elements);
+		return FuncTest::nodelist($this->driver, $locator, $this);
 	}
 
 }

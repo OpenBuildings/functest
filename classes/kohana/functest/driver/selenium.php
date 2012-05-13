@@ -1,56 +1,54 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
 /**
- * Func_Test Native driver. 
- * In memory kohana request response classes. 
- * No Javascript
+ * Func_Test Selenium driver. 
  *
  * @package    Func_Test
  * @author     Ivan Kerin
  * @copyright  (c) 2012 OpenBuildings Ltd.
  * @license    http://www.opensource.org/licenses/isc-license.txt
  */
-class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
+class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 
-	public $name = 'native';
+	public $name = 'selenium';
 
-	protected $resuqest;
-	protected $response;
-	protected $dom;
-	protected $xpath;
-	protected $forms;
-	protected $environment;
+	protected $_session_id;
+	
+	protected $_timeout;
+
+	protected $_url;
+
 
 	function __construct()
 	{
-		$this->response = Response::factory();
-		$this->dom = new DOMDocument();
-
-		$this->environment = new FuncTest_Driver_Native_Environment();
+		parent::__construct($name, $config);
+		$this->_url = 'http://'.$this->config('selenium.host').':'.$this->config('selenium.port').'/selenium-server/driver/';
+		$this->_timeout = $this->config('selenium.timeout');
 	}
 
 	public function clear()
 	{
-		$this->environment->clear();	
+		// if ($this->_session_id !== NULL)
+		// {
+		// 	$this->execute('testComplete');
+		// 	$this->_session_id = NULL;
+		// }
+
 	}
 
-	public function content($content = NULL)
+	public function content()
 	{
-		if ($content !== NULL)
-		{
-			$this->response->body($content);
-			$this->initialize();
-
-			return $this;
-		}
-		return $this->response->body();
+		return $this->action('getHtmlSource');
 	}
 
 	public function initialize()
 	{
-		@ $this->dom->loadHTML($this->response->body());
-		$this->xpath = new FuncTest_Driver_Native_XPath($this->dom);
-		$this->forms = new FuncTest_Driver_Native_Forms($this->dom, $this->xpath);
+		if ($this->_session_id !== NULL)
+			throw new Kohana_Exception("Session already started", array('driver' => 'selenium'));
+
+		$this->_session_id = $this->action('getNewBrowserSession', $this->config('browser.type'), $this->config('browser.start_url'), FALSE);
+		
+		$this->action('setTimeout', $this->config('selenium.timeout'));
 	}
 
 	public function forms()

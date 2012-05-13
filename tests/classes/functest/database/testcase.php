@@ -37,7 +37,7 @@ class FuncTest_Database_TestCase extends Unittest_TestCase {
 					$this->assertEquals($value, $tag->textContent, "The tag should have text {$value} but had {$tag->textContent}");	
 				break;
 				default:
-					$this->assertTrue($tag->hasAttribute($name), 'Tag should have attribute {$name}');
+					$this->assertTrue($tag->hasAttribute($name), "Tag should have attribute {$name}");
 					$this->assertEquals($value, $tag->getAttribute($name), "Tag's attribute {$name} should be {$value} but was {$tag->getAttribute($name)}");
 			}
 		}

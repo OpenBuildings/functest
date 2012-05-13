@@ -41,11 +41,11 @@ class Kohana_FuncTest_Locator {
 		}
 	}
 
-	public function is_filtered(FuncTest_Node $item)
+	public function is_filtered(FuncTest_Node $item, $index)
 	{
 		foreach ($this->filters as $filter => $value) 
 		{
-			if ( ! $this->{"filter_by_{$filter}"}($item, $value))
+			if ( ! $this->{"filter_by_{$filter}"}($item, $index, $value))
 			{
 				return FALSE;
 			}
@@ -53,32 +53,24 @@ class Kohana_FuncTest_Locator {
 		return TRUE;
 	}
 
-	public function filter(array $nodes)
+	public function filter_by_at(FuncTest_Node $item, $index, $value)
 	{
-		$filtered = array();
-		foreach ($nodes as $node) 
-		{
-			if ($this->is_filtered($node))
-			{
-				$filtered[] = $node;
-			}
-		}
-		return $filtered;
+		return $index == $value;
 	}
 
-	public function filter_by_value(FuncTest_Node $item, $filter)
+	public function filter_by_value(FuncTest_Node $item, $index, $value)
 	{
-		return $item->value() == $filter;
+		return $item->value() == $value;
 	}
 
-	public function filter_by_text(FuncTest_Node $item, $filter)
+	public function filter_by_text(FuncTest_Node $item, $index, $value)
 	{
-		return strpos($item->text(), $filter) !== FALSE;
+		return strpos($item->text(), $value) !== FALSE;
 	}
 
-	public function filter_by_visible(FuncTest_Node $item, $filter)
+	public function filter_by_visible(FuncTest_Node $item, $index, $value)
 	{
-		return $item->visible() === $filter;
+		return $item->visible() === $value;
 	}
 
 	public function xpath()
@@ -93,6 +85,16 @@ class Kohana_FuncTest_Locator {
 	public function type()
 	{
 		return $this->type;
+	}
+
+	public function selector()
+	{
+		return $this->selector;
+	}
+
+	public function filters()
+	{
+		return $this->filters;
 	}
 
 	public function css_to_xpath($locator)
@@ -139,5 +141,23 @@ class Kohana_FuncTest_Locator {
 		$matchers['by name']         = "@name = '$locator'";
 
 		return "//*[($type) and (".join(' or ', $matchers).")]";
+	}
+
+	public function __toString()
+	{
+		if ($this->filters)
+		{
+			$filters = array();
+			foreach ($this->filters as $name => $value) 
+			{
+				$filters[] = "$name  => $value";
+			}
+			$filters = " filters: [".join(', ', $filters);
+		}
+		else
+		{
+			$filters = '';
+		}
+		return "Locator: ({$this->type}) {$this->selector}".$filters;
 	}
 }

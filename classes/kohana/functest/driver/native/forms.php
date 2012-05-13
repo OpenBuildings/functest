@@ -34,7 +34,6 @@ class Kohana_FuncTest_Driver_Native_Forms
 				{
 					$options[] = $option->hasAttribute('value') ? $option->getAttribute('value') : $option->textContent;
 				}
-
 				return $node->hasAttribute('multiple') ? $options : Arr::get($options, 0);
 			break;
 			default:
@@ -86,9 +85,9 @@ class Kohana_FuncTest_Driver_Native_Forms
 	public function set_value_radio(DOMNode $radio, $value)
 	{
 		$name = $radio->getAttribute('name');
-		foreach ($this->xpath->query("//input[@type='radio' and @name='$name' and @checked]") as $radio) 
+		foreach ($this->xpath->query("//input[@type='radio' and @name='$name' and @checked]") as $other_radio) 
 		{
-			$radio->removeAttribute('checked');
+			$other_radio->removeAttribute('checked');
 		}
 		if ($value)
 		{
@@ -131,7 +130,7 @@ class Kohana_FuncTest_Driver_Native_Forms
 	public function serialize_form($xpath)
 	{
 		$form = $this->xpath->find($xpath);
-		$fields = "//*[(self::input and (((@type = 'radio' or @type = 'checkbox') and @checked) or (@type = 'hidden') or (@type = 'text') or not(@type))) or self::select or self::textarea]";
+		$fields = ".//*[(self::input and (((@type = 'radio' or @type = 'checkbox') and @checked) or (@type = 'hidden') or (@type = 'text') or not(@type))) or self::select or self::textarea]";
 
 		$data = array();
 		foreach ($this->xpath->query($fields, $form) as $field) 

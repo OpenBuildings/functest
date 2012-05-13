@@ -9,16 +9,16 @@
  */
 class Kohana_FuncTest_Driver_Native_Redirect extends Kohana_Exception
 {
-	protected $response;
+	protected $url;
 
-	function __construct(Response $response)
+	function __construct($url)
 	{
-		$this->response = $response;
+		$this->url = $url;
 		parent::__construct("Redirected");
 	}
 
-	public function getResponse()
+	public function url()
 	{
-		return $this->response;
+		return $this->url;
 	}
 }

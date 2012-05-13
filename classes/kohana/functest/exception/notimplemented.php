@@ -9,9 +9,9 @@
  */
 class Kohana_FuncTest_Exception_NotImplemented extends Kohana_Exception {
 
-	public function __construct($method, $driver)
+	public function __construct($method, FuncTest_Driver $driver)
 	{
-		parent::__construct("Method ':method' not implemented by driver 'driver'", array(':method' => $method, ':driver' => $driver));
+		parent::__construct("Method ':method' not implemented by driver ':driver'", array(':method' => $method, ':driver' => $driver->name));
 	}
 
 }

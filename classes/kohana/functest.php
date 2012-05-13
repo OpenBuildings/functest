@@ -17,9 +17,14 @@ class Kohana_FuncTest {
 		return new FuncTest_Locator($locator, $filters);
 	}
 
-	static public function node(FuncTest_Driver $driver, $parent = NULL, $selector = NULL)
+	static public function node(FuncTest_Driver $driver, FuncTest_Node $parent = NULL, $selector = '')
 	{
 		return new FuncTest_Node($driver, $parent, $selector);
+	}
+
+	static public function nodelist(FuncTest_Driver $driver, FuncTest_Locator $locator, FuncTest_Node $parent = NULL, $selector = '')
+	{
+		return new FuncTest_NodeList($driver, $locator, $parent, $selector);
 	}
 
 	static public function driver($name)
