@@ -24,6 +24,18 @@ abstract class Kohana_FuncTest_Driver {
 		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
+
+	/**
+	 * Return an the id of the html elemenet
+	 * @throws FuncTest_Exception_NotFound If element not found
+	 * @param  string $id 
+	 * @return array        
+	 */
+	public function find($id)
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
+	}
+
 	/**
 	 * Return the HTML content of the current page or set it manually
 	 * @param  string $content 

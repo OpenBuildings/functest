@@ -57,7 +57,7 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 	/**
 	 * GETTERS
 	 */
-
+	
 	public function tag_name($id)
 	{
 		return $this->webdriver()->get("element/$id/name");	
@@ -131,17 +131,17 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 	{
 		if ($confirm)
 		{
-			$this->webdriver()->post('accept_alert');
+			$this->webdriver()->post('accept_alert', array());
 		}
 		else
 		{
-			$this->webdriver()->post('dismiss_alert');	
+			$this->webdriver()->post('dismiss_alert', array());	
 		}
 	}
 
 	public function click($id)
 	{
-		$this->webdriver()->post("element/$id/click");
+		$this->webdriver()->post("element/$id/click", array());
 	}
 
 	public function visit($uri, array $query = NULL)
@@ -165,13 +165,29 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		return $this->webdriver()->get('url');
 	}
 
-	public function all($xpath)
+	public function all($xpath, $parent = NULL)
 	{
-		$elements = $this->webdriver()->get('elements', array('using' => 'xpath', 'value' => $xpath));
+		try 
+		{
+			$elements = $this->webdriver()->post(($parent === NULL ? '' : 'element/'.$parent.'/').'elements', array('using' => 'xpath', 'value' => '.'.$xpath));
+		} 
+		catch (FuncTest_Exception_Webdriver $exception) 
+		{
+			if ($exception->error() == 'NoSuchElement')
+			{
+				return array();
+			}
+			else
+			{
+				throw $exception;
+			}
+		}
+
 		foreach ($elements as & $element) 
 		{
 			$element = $element['ELEMENT'];
 		}
+
 		return $elements;
 	}
 

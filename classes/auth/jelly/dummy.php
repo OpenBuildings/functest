@@ -29,9 +29,9 @@ class Auth_Jelly_Dummy extends Auth_Clippings {
 		if ($user = parent::auto_login())
 			return $user;
 
-		if (Kohana::$environment === Kohana::TESTING AND ($user_id = Request::initial()->query('_logged_in')))
+		if (Kohana::$environment === Kohana::TESTING AND ($user = Request::initial()->query('_logged_in')))
 		{
-			$user = Jelly::factory('user', $user_id);
+			$user = $this->_load_user($user);
 			$this->complete_login($user);
 			return $user;
 		}

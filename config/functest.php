@@ -3,6 +3,7 @@
 return array(
 	'default_driver' => 'native',
 	'default_locator_type' => 'css',
+	'default_wait_time' => 2000,
 	'save_on_failure' => TRUE,
 	'failures_dir' => APPPATH.'logs/functest/',
 
@@ -15,7 +16,6 @@ return array(
 		),
 		'selenium' => array(
 			'url' => 'http://33.33.33.1:4444/wd/hub/',
-			'implicit_wait' => 2000,
 			'desired' => array(
 				'browserName' => 'firefox'
 			)

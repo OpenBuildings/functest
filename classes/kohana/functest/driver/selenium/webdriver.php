@@ -18,14 +18,14 @@ class Kohana_FuncTest_Driver_Selenium_WebDriver
 	{
 		$config = Kohana::$config->load('functest.drivers.selenium');
 		$this->_url = $config['url'];
-		$this->_curl = curl_init();
+		
 
 		$session = $this->post('session', array('desiredCapabilities' => $config['desired']));
 		
-		$this->_session_id = $session['sessionId'];
+		$this->_session_id = $session['webdriver.remote.sessionid'];
 		$this->_url .= "session/{$this->_session_id}/";
 
-		$this->post('timeouts/implicit_wait', array('ms' => $config['implicit_wait']));
+		//$this->post('timeouts/implicit_wait', array('ms' => $config['implicit_wait']));
 	}
 
 	public function session_id()
@@ -56,6 +56,9 @@ class Kohana_FuncTest_Driver_Selenium_WebDriver
 
 	public function call($command, array $options = array())
 	{
+		Kohana::$log->add(Log::DEBUG, 'WebDriver: '.$this->_url.$command);
+
+		$curl = curl_init();
 		$options[CURLOPT_URL] = $this->_url.$command;
 		$options[CURLOPT_RETURNTRANSFER] = TRUE;
 		$options[CURLOPT_FOLLOWLOCATION] = TRUE;
@@ -64,18 +67,22 @@ class Kohana_FuncTest_Driver_Selenium_WebDriver
 			'Accept: application/json',
 		);
 
-		curl_setopt_array($this->_curl, $options);
+		curl_setopt_array($curl, $options);
 		
-		$raw = trim(curl_exec($this->_curl));
+		$raw = trim(curl_exec($curl));
+		Kohana::$log->add(Log::DEBUG, 'WebDriver Response: '.Text::limit_chars($raw, 150));
+
 		$result = json_decode($raw, TRUE);
 
-		if ($error = curl_error($this->_curl)) 
+
+		if ($error = curl_error($curl))
 			throw new Kohana_Exception('Curl ":command" throws exception :error', array(':command' => $command, ':error
 				' => $error));
 
 		if ($result['status'] != 0)
-			throw new Kohana_Exception('Webdriver exception status :status', array($result['status']));
+			throw new FuncTest_Exception_Webdriver($result['status']);
 		
-		return $result;
+
+		return Arr::get($result, 'value');
 	}
 }

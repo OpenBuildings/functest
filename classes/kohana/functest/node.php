@@ -12,9 +12,9 @@ class Kohana_FuncTest_Node {
 
 	protected $driver;
 	protected $parent;
-	protected $id;
+	protected $id = NULL;
 
-	function __construct(FuncTest_Driver $driver, FuncTest_Node $parent = NULL, $id = '')
+	function __construct(FuncTest_Driver $driver, FuncTest_Node $parent = NULL, $id = NULL)
 	{
 		$this->driver = $driver;
 		$this->parent = $parent;
@@ -211,7 +211,16 @@ class Kohana_FuncTest_Node {
 	public function find($selector, array $filters = NULL)
 	{
 		$locator = FuncTest::locator($selector, $filters);
-		$node = $this->all($locator)->first();
+
+		$retries = ceil(Kohana::$config->load('functest.default_wait_time') / 50);
+
+		do
+		{
+			$node = $this->all($locator)->first();
+			$retries -= 1;
+			usleep(40000);
+		}
+		while ($retries > 0 AND ! $node);
 
 		if ($node == NULL)
 			throw new FuncTest_Exception_NotFound($locator, $this->driver);

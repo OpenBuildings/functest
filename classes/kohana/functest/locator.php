@@ -45,9 +45,23 @@ class Kohana_FuncTest_Locator {
 	{
 		foreach ($this->filters as $filter => $value) 
 		{
-			if ( ! $this->{"filter_by_{$filter}"}($item, $index, $value))
+			try 
 			{
-				return FALSE;
+				if ( ! $this->{"filter_by_{$filter}"}($item, $index, $value))
+				{
+					return FALSE;
+				}
+			} 
+			catch (FuncTest_Exception_WebDriver $exception) 
+			{
+				if ($exception->error() == 'StaleElementReference')
+				{
+					return FALSE;
+				}
+				else
+				{
+					throw $exception;	
+				}
 			}
 		}
 		return TRUE;
@@ -65,7 +79,7 @@ class Kohana_FuncTest_Locator {
 
 	public function filter_by_text(FuncTest_Node $item, $index, $value)
 	{
-		return strpos($item->text(), $value) !== FALSE;
+		return mb_stripos($item->text(), $value) !== FALSE;
 	}
 
 	public function filter_by_visible(FuncTest_Node $item, $index, $value)

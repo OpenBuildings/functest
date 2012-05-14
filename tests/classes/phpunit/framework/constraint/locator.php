@@ -11,7 +11,15 @@ class PHPUnit_Framework_Constraint_Locator extends PHPUnit_Framework_Constraint 
 
 	protected function matches($other)
 	{
-	  return count($other->all($this->locator)) > 0;
+		try 
+		{
+			$other->find($this->locator);
+			return TRUE;
+		} 
+		catch (FuncTest_Exception_NotFound $excption) 
+		{
+			return FALSE;
+		}
 	}
 
 	public function failureDescription($other)
