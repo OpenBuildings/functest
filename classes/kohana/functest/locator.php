@@ -45,23 +45,9 @@ class Kohana_FuncTest_Locator {
 	{
 		foreach ($this->filters as $filter => $value) 
 		{
-			try 
+			if ( ! $this->{"filter_by_{$filter}"}($item, $index, $value))
 			{
-				if ( ! $this->{"filter_by_{$filter}"}($item, $index, $value))
-				{
-					return FALSE;
-				}
-			} 
-			catch (FuncTest_Exception_WebDriver $exception) 
-			{
-				if ($exception->error() == 'StaleElementReference')
-				{
-					return FALSE;
-				}
-				else
-				{
-					throw $exception;	
-				}
+				return FALSE;
 			}
 		}
 		return TRUE;
@@ -128,7 +114,7 @@ class Kohana_FuncTest_Locator {
 		$matchers['by name']        = "@name = '$locator'";
 		$matchers['by id']          = "@id = '$locator'";
 		$matchers['by placeholder'] = "@placeholder = '$locator'";
-		$matchers['by label for']   = "@id = //label[contains(text(), '$locator')]/@for";
+		$matchers['by label for']   = "@id = //label[normalize-space() = '$locator']/@for";
 
 		return "//*[($type) and (".join(' or ', $matchers).")]";
 	}
@@ -137,7 +123,7 @@ class Kohana_FuncTest_Locator {
 	{
 		$matchers['by title']        = "contains(@title, '$locator')";
 		$matchers['by id']           = "@id = '$locator'";
-		$matchers['by content text'] = "contains(text(), '$locator')";
+		$matchers['by content text'] = "contains(normalize-space(), '$locator')";
 		$matchers['by img alt']      = "descendant::img[contains(@alt, '$locator')]";
 
 		return "//a[".join(' or ', $matchers)."]";	
@@ -149,7 +135,7 @@ class Kohana_FuncTest_Locator {
 
 		$matchers['by title']        = "contains(@title, '$locator')";
 		$matchers['by id']           = "@id = '$locator'";
-		$matchers['by content text'] = "contains(text(), '$locator')";
+		$matchers['by content text'] = "contains(normalize-space(), '$locator')";
 		$matchers['by img alt']      = "descendant::img[contains(@alt, '$locator')]";
 		$matchers['by value']        = "contains(@value, '$locator')";
 		$matchers['by name']         = "@name = '$locator'";

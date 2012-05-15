@@ -8,7 +8,7 @@ class PHPUnit_SaveOnFailure implements PHPUnit_Framework_TestListener {
 	{
 		$this->initialize();
 		$dir = Kohana::$config->load('functest.failures_dir');
-		$url = '!!';//$test->driver()->current_url();
+		$url = $test->driver()->current_url();
 
 		$error_message = <<<ERROR_MESSAGE
 <div 

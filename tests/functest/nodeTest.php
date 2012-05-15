@@ -115,7 +115,7 @@ class FuncTest_NodeTest extends FuncTest_Database_TestCase {
 		$this->page->uncheck('Enter Notify Me');
 		$this->assertNull($this->page->find('#notifyme')->attribute('checked'));
 
-		$this->page->select('Enter Country', 'us');
+		$this->page->select('Enter Country', 'United States');
 		$this->assertEquals('us', $this->page->find_field('Enter Country')->value());
 
 		$this->page->select('Enter Country', array('value' => 'uk'));

@@ -2,20 +2,6 @@
 
 class FuncTest_TestCase extends Unittest_TestCase {
 
-	static public function disambiguate($type, $selector, $filters, $message)
-	{
-		if ($filters === NULL)
-		{
-			$filters = array();
-		}
-		if (is_string($filters))
-		{
-			$filters = array();
-			$message = $filters;
-		}
-		return array($selector, $filters, strtr($message, array(':type' => $type, ':selector' => $selector)));
-	}
-
 	protected $driver_name;
 	protected $driver;
 
@@ -47,8 +33,9 @@ class FuncTest_TestCase extends Unittest_TestCase {
 	{
 		if ( ! $this->has_driver())
 		{
-			$this->driver = FuncTest::driver($this->driver_name);
+			$this->driver = FuncTest::driver($this, $this->driver_name);
 		}
+		$this->driver->current_test = $this;
 
 		return $this->driver;
 	}
@@ -60,7 +47,8 @@ class FuncTest_TestCase extends Unittest_TestCase {
 
 	public function visit($uri, array $query = NULL)
 	{
-		return $this->driver()->visit($uri, $query);
+		$this->driver()->visit($uri, $query);
+		return $this;
 	}
 
 	public function content()
@@ -77,62 +65,6 @@ class FuncTest_TestCase extends Unittest_TestCase {
 	{
 		return $this->driver()->current_url();
 	}
-
-
-	public function assertHasCss($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->hasCss($selector, $filters), $message);
-	}
-
-	public function assertHasNoCss($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->logicalNot($this->hasCss($selector, $filters)), $message);
-	}
-
-
-	public function assertHasField($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->hasField($selector, $filters), $message);
-	}
-
-	public function assertHasNoField($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->logicalNot($this->hasField($selector, $filters)), $message);
-	}
-
-
-	public function assertHasXPath($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->hasXpath($selector, $filters), $message);
-	}
-
-	public function assertHasNoXPath($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->logicalNot($this->hasXpath($selector, $filters)), $message);
-	}
-
-
-	public function assertHasLink($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->hasLink($selector, $filters), $message);
-	}
-
-	public function assertHasNoLink($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->logicalNot($this->hasLink($selector, $filters)), $message);
-	}
-
-
-	public function assertHasButton($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->hasButton($selector, $filters), $message);
-	}
-
-	public function assertHasNoButton($selector, $filters = NULL, $message = NULL)
-	{
-		return $this->assertThat($this->page(), $this->logicalNot($this->hasButton($selector, $filters)), $message);
-	}
-
 
 	public function hasCss($selector, array $filters = NULL)
 	{
@@ -158,6 +90,13 @@ class FuncTest_TestCase extends Unittest_TestCase {
 	{
 		return new PHPUnit_Framework_Constraint_Locator(array('link', $selector, $filters));
 	}
+
+	public function __call($method, $args)
+	{
+		return call_user_func_array(array($this->page(), $method), $args);
+	}
+
+
 
 
 } // End Kohana_Unittest_Jelly_TestCase

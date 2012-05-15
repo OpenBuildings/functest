@@ -14,6 +14,8 @@ abstract class Kohana_FuncTest_Driver {
 
 	public $name = NULL;
 
+	public $current_test = NULL;
+
 	/**
 	 * Return an array of HTML fragments that match a given XPath query
 	 * @param  string $id 

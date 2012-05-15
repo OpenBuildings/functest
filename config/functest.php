@@ -16,6 +16,7 @@ return array(
 		),
 		'selenium' => array(
 			'url' => 'http://33.33.33.1:4444/wd/hub/',
+			'reuse_session' => TRUE,
 			'desired' => array(
 				'browserName' => 'firefox'
 			)

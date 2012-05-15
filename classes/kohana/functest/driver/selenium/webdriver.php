@@ -18,11 +18,31 @@ class Kohana_FuncTest_Driver_Selenium_WebDriver
 	{
 		$config = Kohana::$config->load('functest.drivers.selenium');
 		$this->_url = $config['url'];
-		
+	
+		// Reuse the last session, and delete inactive sessions
+		$sessions = $this->get('sessions');
+		foreach ($sessions as $session) 
+		{
+			$id = Arr::get($session, 'id');
+			try
+			{
+				$session = $this->get("session/$id/window_handle");
+				$this->_session_id = $id;	
+				break;
+			}
+			catch (FuncTest_Exception_Webdriver $exception)
+			{
+				$this->delete("session/$id");
+			}
+		}
 
-		$session = $this->post('session', array('desiredCapabilities' => $config['desired']));
-		
-		$this->_session_id = $session['webdriver.remote.sessionid'];
+		// New Browser session
+		if ( ! $this->_session_id)
+		{
+			$session = $this->post('session', array('desiredCapabilities' => $config['desired']));
+			$this->_session_id = $session['webdriver.remote.sessionid'];
+		}
+
 		$this->_url .= "session/{$this->_session_id}/";
 
 		//$this->post('timeouts/implicit_wait', array('ms' => $config['implicit_wait']));
@@ -56,8 +76,6 @@ class Kohana_FuncTest_Driver_Selenium_WebDriver
 
 	public function call($command, array $options = array())
 	{
-		Kohana::$log->add(Log::DEBUG, 'WebDriver: '.$this->_url.$command);
-
 		$curl = curl_init();
 		$options[CURLOPT_URL] = $this->_url.$command;
 		$options[CURLOPT_RETURNTRANSFER] = TRUE;
@@ -70,7 +88,6 @@ class Kohana_FuncTest_Driver_Selenium_WebDriver
 		curl_setopt_array($curl, $options);
 		
 		$raw = trim(curl_exec($curl));
-		Kohana::$log->add(Log::DEBUG, 'WebDriver Response: '.Text::limit_chars($raw, 150));
 
 		$result = json_decode($raw, TRUE);
 

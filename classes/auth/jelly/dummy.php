@@ -26,9 +26,6 @@ class Auth_Jelly_Dummy extends Auth_Clippings {
 
 	public function auto_login()
 	{
-		if ($user = parent::auto_login())
-			return $user;
-
 		if (Kohana::$environment === Kohana::TESTING AND ($user = Request::initial()->query('_logged_in')))
 		{
 			$user = $this->_load_user($user);
@@ -36,6 +33,9 @@ class Auth_Jelly_Dummy extends Auth_Clippings {
 			return $user;
 		}
 
+		if ($user = parent::auto_login())
+			return $user;
+		
 		return FALSE;
 	}
 

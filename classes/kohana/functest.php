@@ -27,13 +27,13 @@ class Kohana_FuncTest {
 		return new FuncTest_NodeList($driver, $locator, $parent, $selector);
 	}
 
-	static public function driver($name)
+	static public function driver($test, $name)
 	{
 		if ( ! isset(FuncTest::$drivers[$name]))
 		{
 			$driver_class = 'FuncTest_Driver_'.ucfirst($name);
 
-			FuncTest::$drivers[$name] = new $driver_class();
+			FuncTest::$drivers[$name] = new $driver_class($this);
 		}
 
 		return FuncTest::$drivers[$name];

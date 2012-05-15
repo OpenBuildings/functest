@@ -15,23 +15,14 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 
 	protected $_webdriver;
 
-	function __construct()
-	{
-		$config = Kohana::$config->load('functest.drivers.selenium');
-	}
-
 	public function clear()
 	{
-		// if ($this->_session_id !== NULL)
-		// {
-		// 	$this->execute('testComplete');
-		// 	$this->_session_id = NULL;
-		// }
+		$this->webdriver()->delete('cookie');
 	}
 
-	public function session()
+	public function session_id()
 	{
-		return $this->_session_id;
+		return $this->webdriver()->session_id();
 	}
 
 	public function content($content = NULL)
@@ -109,7 +100,7 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 			$type = $this->attribute($id, 'type');
 			if ($type == 'checkbox' OR $type == 'radio')
 			{
-				$this->webdriver()->post("element/$id/click");
+				$this->webdriver()->post("element/$id/click", array());
 			}
 			else
 			{
@@ -118,13 +109,13 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		}
 		elseif ($tag_name == 'option')
 		{
-			$this->webdriver()->post("element/$id/click");
+			$this->webdriver()->post("element/$id/click", array());
 		}
 	}
 
 	public function select_option($id, $value)
 	{
-		$this->webdriver()->post("element/$id/click");
+		$this->webdriver()->post("element/$id/click", array());
 	}
 
 	public function confirm($confirm)
@@ -157,12 +148,12 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 	public function current_path()
 	{
 		$url = parse_url($this->webdriver()->get('url'));
-		return join('?', array_filter(Arr::extract($url, array('path', 'query'))));
+		return urldecode(join('?', array_filter(Arr::extract($url, array('path', 'query')))));
 	}
 
 	public function current_url()
 	{
-		return $this->webdriver()->get('url');
+		return urldecode($this->webdriver()->get('url'));
 	}
 
 	public function all($xpath, $parent = NULL)

@@ -21,6 +21,11 @@ class Kohana_FuncTest_Node {
 		$this->id = $id;
 	}
 
+	public function current_test()
+	{
+		return $this->driver->current_test;
+	}
+
 	public function load_vars($id)
 	{
 		$this->id = $id;
@@ -166,7 +171,7 @@ class Kohana_FuncTest_Node {
 	{
 		if ( ! is_array($option_filters))
 		{
-			$option_filters = array('value' => $option_filters);
+			$option_filters = array('text' => $option_filters);
 		}
 		$this->find(array('field', $selector, $filters))->find('option', $option_filters)->select_option();
 		return $this;
@@ -188,6 +193,75 @@ class Kohana_FuncTest_Node {
 		$this->driver->confirm($confirm);
 		return $this;
 	}
+
+	/**
+	 * ASSERTIONS
+	 */
+	
+	public function assertHasCss($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->hasCss($selector, $filters), $message);
+		return $this;
+	}
+
+	public function assertHasNoCss($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasCss($selector, $filters)), $message);
+		return $this;
+	}
+
+
+	public function assertHasField($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->hasField($selector, $filters), $message);
+		return $this;
+	}
+
+	public function assertHasNoField($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasField($selector, $filters)), $message);
+		return $this;
+	}
+
+
+	public function assertHasXPath($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->hasXpath($selector, $filters), $message);
+		return $this;
+	}
+
+	public function assertHasNoXPath($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasXpath($selector, $filters)), $message);
+		return $this;
+	}
+
+
+	public function assertHasLink($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->hasLink($selector, $filters), $message);
+		return $this;
+	}
+
+	public function assertHasNoLink($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasLink($selector, $filters)), $message);
+		return $this;
+	}
+
+
+	public function assertHasButton($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->hasButton($selector, $filters), $message);
+		return $this;
+	}
+
+	public function assertHasNoButton($selector, $filters = NULL, $message = NULL)
+	{
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasButton($selector, $filters)), $message);
+		return $this;
+	}
+
 
 	/**
 	 * FINDING
