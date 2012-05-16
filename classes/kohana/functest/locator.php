@@ -17,7 +17,7 @@ class Kohana_FuncTest_Locator {
 	protected $selector;
 	protected $filters;
 
-	function __construct($selector, array $filters = NULL)
+	function __construct($selector, array $filters = array())
 	{
 		if ( ! is_array($selector))
 		{

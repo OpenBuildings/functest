@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
 /**
- * Func_Test node - an represents HTML node
+ * Func_Test node - represents HTML node
  *
  * @package    Func_Test
  * @author     Ivan Kerin
@@ -115,69 +115,88 @@ class Kohana_FuncTest_Node {
 		return $this;
 	}
 
+	public function hover()
+	{
+		$this->driver->move_to($this->id());
+		return $this;
+	}
+
+
 	/**
 	 * ACTIONS
 	 */
 
-	public function click_on($selector, array $filters = NULL)
+	public function hover_on($selector, array $filters = array())
+	{
+		$this->find($selector, $filters)->hover();
+		return $this;
+	}
+
+	public function hover_link($selector, array $filters = array())
+	{
+		$this->find(array('link', $selector, $filters))->hover();
+		return $this;
+	}
+
+	public function click_on($selector, array $filters = array())
 	{
 		$this->find($selector, $filters)->click();
 		return $this;
 	}
 
-	public function click_link($selector, array $filters = NULL)
+	public function click_link($selector, array $filters = array())
 	{
 		$this->find(array('link', $selector, $filters))->click();
 		return $this;
 	}
 
-	public function click_button($selector, array $filters = NULL)
+	public function click_button($selector, array $filters = array())
 	{
 		$this->find(array('button', $selector, $filters))->click();
 		return $this;
 	}
 
-	public function fill_in($selector, $with, array $filters = NULL)
+	public function fill_in($selector, $with, array $filters = array())
 	{
-		$this->find(array('field', $selector, $filters))->set($with);
+		$this->find_field($selector, $filters)->set($with);
 		return $this;
 	}
 
-	public function choose($selector, array $filters = NULL)
+	public function choose($selector, array $filters = array())
 	{
-		$this->find(array('field', $selector, $filters))->set(TRUE);
+		$this->find_field($selector, $filters)->set(TRUE);
 		return $this;
 	}
 
-	public function check($selector, array $filters = NULL)
+	public function check($selector, array $filters = array())
 	{
-		$this->find(array('field', $selector, $filters))->set(TRUE);
+		$this->find_field($selector, $filters)->set(TRUE);
 		return $this;
 	}
 
-	public function uncheck($selector, array $filters = NULL)
+	public function uncheck($selector, array $filters = array())
 	{
-		$this->find(array('field', $selector, $filters))->set(FALSE);
+		$this->find_field($selector, $filters)->set(FALSE);
 		return $this;
 	}
 
-	public function attach_file($selector, $file, array $filters = NULL)
+	public function attach_file($selector, $file, array $filters = array())
 	{
-		$this->find(array('field', $selector, $filters))->set($file);
+		$this->find_field($selector, $filters)->set($file);
 		return $this;
 	}
 
-	public function select($selector, $option_filters, array $filters = NULL)
+	public function select($selector, $option_filters, array $filters = array())
 	{
 		if ( ! is_array($option_filters))
 		{
 			$option_filters = array('text' => $option_filters);
 		}
-		$this->find(array('field', $selector, $filters))->find('option', $option_filters)->select_option();
+		$this->find_field($selector, $filters)->find('option', $option_filters)->select_option();
 		return $this;
 	}
 
-	public function unselect($selector, $option_filters, array $filters = NULL)
+	public function unselect($selector, $option_filters, array $filters = array())
 	{
 		if ( ! is_array($option_filters))
 		{
@@ -198,65 +217,65 @@ class Kohana_FuncTest_Node {
 	 * ASSERTIONS
 	 */
 	
-	public function assertHasCss($selector, $filters = NULL, $message = NULL)
+	public function assertHasCss($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->hasCss($selector, $filters), $message);
 		return $this;
 	}
 
-	public function assertHasNoCss($selector, $filters = NULL, $message = NULL)
+	public function assertHasNoCss($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasCss($selector, $filters)), $message);
 		return $this;
 	}
 
 
-	public function assertHasField($selector, $filters = NULL, $message = NULL)
+	public function assertHasField($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->hasField($selector, $filters), $message);
 		return $this;
 	}
 
-	public function assertHasNoField($selector, $filters = NULL, $message = NULL)
+	public function assertHasNoField($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasField($selector, $filters)), $message);
 		return $this;
 	}
 
 
-	public function assertHasXPath($selector, $filters = NULL, $message = NULL)
+	public function assertHasXPath($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->hasXpath($selector, $filters), $message);
 		return $this;
 	}
 
-	public function assertHasNoXPath($selector, $filters = NULL, $message = NULL)
+	public function assertHasNoXPath($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasXpath($selector, $filters)), $message);
 		return $this;
 	}
 
 
-	public function assertHasLink($selector, $filters = NULL, $message = NULL)
+	public function assertHasLink($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->hasLink($selector, $filters), $message);
 		return $this;
 	}
 
-	public function assertHasNoLink($selector, $filters = NULL, $message = NULL)
+	public function assertHasNoLink($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasLink($selector, $filters)), $message);
 		return $this;
 	}
 
 
-	public function assertHasButton($selector, $filters = NULL, $message = NULL)
+	public function assertHasButton($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->hasButton($selector, $filters), $message);
 		return $this;
 	}
 
-	public function assertHasNoButton($selector, $filters = NULL, $message = NULL)
+	public function assertHasNoButton($selector, $filters = array(), $message = NULL)
 	{
 		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasButton($selector, $filters)), $message);
 		return $this;
@@ -267,22 +286,26 @@ class Kohana_FuncTest_Node {
 	 * FINDING
 	 */
 	
-	public function find_field($selector, array $filters = NULL)
+	public function find_field($selector, array $filters = array())
 	{
+		if (is_array($selector))
+		{
+			return $this->find($selector, $filters);
+		}
 		return $this->find(array('field', $selector, $filters));
 	}
 
-	public function find_link($selector, array $filters = NULL)
+	public function find_link($selector, array $filters = array())
 	{
 		return $this->find(array('link', $selector, $filters));
 	}
 
-	public function find_button($selector, array $filters = NULL)
+	public function find_button($selector, array $filters = array())
 	{
 		return $this->find(array('button', $selector, $filters));
 	}
 
-	public function find($selector, array $filters = NULL)
+	public function find($selector, array $filters = array())
 	{
 		$locator = FuncTest::locator($selector, $filters);
 
@@ -307,7 +330,7 @@ class Kohana_FuncTest_Node {
 		return $this->parent;
 	}
 
-	public function all($selector, array $filters = NULL)
+	public function all($selector, array $filters = array())
 	{
 		if ($selector instanceof FuncTest_Locator)
 		{

@@ -174,17 +174,13 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 			}
 		}
 
-		foreach ($elements as & $element) 
-		{
-			$element = $element['ELEMENT'];
-		}
-
-		return $elements;
+		return Arr::pluck($elements, 'ELEMENT');
 	}
 
 	public function next_query(array $query)
 	{
 		$this->_next_query = $query;
+		return $this;
 	}
 
 	public function has_page()
@@ -192,4 +188,16 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		return (bool) $this->webdriver()->session_id();
 	}
 
+	public function move_to($id = NULL, $x = NULL, $y = NULL)
+	{
+		$this->webdriver()->post('moveto', array_filter(array(
+			'element' => $id,
+			'xoffset' => $x,
+			'yoffset' => $y
+		), function($param)
+		{
+			return $param OR $param === 0;
+		}));
+		return $this;
+	}
 }

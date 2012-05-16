@@ -45,7 +45,7 @@ class FuncTest_TestCase extends Unittest_TestCase {
 		return $this->driver()->page();
 	}
 
-	public function visit($uri, array $query = NULL)
+	public function visit($uri, array $query = array())
 	{
 		$this->driver()->visit($uri, $query);
 		return $this;
@@ -66,27 +66,27 @@ class FuncTest_TestCase extends Unittest_TestCase {
 		return $this->driver()->current_url();
 	}
 
-	public function hasCss($selector, array $filters = NULL)
+	public function hasCss($selector, array $filters = array())
 	{
 		return new PHPUnit_Framework_Constraint_Locator(array('css', $selector, $filters));
 	}
 
-	public function hasXpath($selector, array $filters = NULL)
+	public function hasXpath($selector, array $filters = array())
 	{
 		return new PHPUnit_Framework_Constraint_Locator(array('xpath', $selector, $filters));
 	}
 
-	public function hasField($selector, array $filters = NULL)
+	public function hasField($selector, array $filters = array())
 	{
 		return new PHPUnit_Framework_Constraint_Locator(array('field', $selector, $filters));
 	}
 
-	public function hasButton($selector, array $filters = NULL)
+	public function hasButton($selector, array $filters = array())
 	{
 		return new PHPUnit_Framework_Constraint_Locator(array('button', $selector, $filters));
 	}
 
-	public function hasLink($selector, array $filters = NULL)
+	public function hasLink($selector, array $filters = array())
 	{
 		return new PHPUnit_Framework_Constraint_Locator(array('link', $selector, $filters));
 	}

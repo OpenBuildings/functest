@@ -26,7 +26,6 @@ abstract class Kohana_FuncTest_Driver {
 		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
-
 	/**
 	 * Return an the id of the html elemenet
 	 * @throws FuncTest_Exception_NotFound If element not found
@@ -219,5 +218,13 @@ abstract class Kohana_FuncTest_Driver {
 			$this->page = new FuncTest_Node($this);
 		}
 		return $this->page;
+	}
+
+	/**
+	 * Move the mouse to a certain element
+	 */
+	public function move_to()
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 }

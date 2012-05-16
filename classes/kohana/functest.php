@@ -12,7 +12,7 @@ class Kohana_FuncTest {
 
 	static protected $drivers = array();
 
-	static public function locator($locator, array $filters = NULL)
+	static public function locator($locator, array $filters = array())
 	{
 		return new FuncTest_Locator($locator, $filters);
 	}
@@ -33,7 +33,7 @@ class Kohana_FuncTest {
 		{
 			$driver_class = 'FuncTest_Driver_'.ucfirst($name);
 
-			FuncTest::$drivers[$name] = new $driver_class($this);
+			FuncTest::$drivers[$name] = new $driver_class();
 		}
 
 		return FuncTest::$drivers[$name];
