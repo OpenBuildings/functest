@@ -10,15 +10,15 @@ return array(
 	'drivers' => array(
 		'native' => array(
 			'environment' => array(
-				'Request::$client_ip' => '95.87.212.88',
+				'Request::$client_ip' => '8.8.8.8', // VALID IP HERE
 				'Request::$user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19',
 			)
 		),
 		'selenium' => array(
-			'url' => 'http://33.33.33.1:4444/wd/hub/',
+			'url' => 'http://localhost:4444/wd/hub/',
 			'reuse_session' => TRUE,
 			'desired' => array(
-				'browserName' => 'firefox'
+				'browserName' => 'firefox' // for chrome install chrome driver: http://code.google.com/p/chromedriver/wiki/GettingStarted
 			)
 		),
 		'phantomjs' => array(
