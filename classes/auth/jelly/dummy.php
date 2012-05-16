@@ -26,7 +26,7 @@ class Auth_Jelly_Dummy extends Auth_Clippings {
 
 	public function auto_login()
 	{
-		if (Kohana::$environment === Kohana::TESTING AND ($user = Request::initial()->query('_logged_in')))
+		if (Kohana::$environment === Kohana::TESTING AND Request::initial() AND ($user = Request::initial()->query('_logged_in')))
 		{
 			$user = $this->_load_user($user);
 			$this->complete_login($user);

@@ -70,7 +70,7 @@ class Kohana_FuncTest_Locator {
 
 	public function filter_by_visible(FuncTest_Node $item, $index, $value)
 	{
-		return $item->visible() === $value;
+		return $item->is_visible() === $value;
 	}
 
 	public function xpath()

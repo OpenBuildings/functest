@@ -92,13 +92,13 @@ class FuncTest_Driver_NodeTest extends FuncTest_Database_TestCase {
 
 	public function test_visible()
 	{
-		$value = $this->driver->visible("//select[@id='post_ads']");
+		$value = $this->driver->is_visible("//select[@id='post_ads']");
 		$this->assertTrue($value);
 
-		$value = $this->driver->visible("//div[@id='hidden']");
+		$value = $this->driver->is_visible("//div[@id='hidden']");
 		$this->assertFalse($value);
 
-		$value = $this->driver->visible("//div[@id='visible']");
+		$value = $this->driver->is_visible("//div[@id='visible']");
 		$this->assertTrue($value);
 	}
 

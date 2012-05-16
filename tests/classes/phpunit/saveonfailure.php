@@ -28,6 +28,8 @@ ERROR_MESSAGE;
 			'href=\'/' => 'href=\''.URL::base('http').'/',
 			'action="/' => 'action="'.URL::base('http').'/',
 			'action=\'/' => 'action=\''.URL::base('http').'/',
+			'src=\'/' => 'src=\''.URL::base('http').'/',
+			'src="/' => 'src="'.URL::base('http').'/',
 			'</body>' => $error_message.'</body>',
 		));
 

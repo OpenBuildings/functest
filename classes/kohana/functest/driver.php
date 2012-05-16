@@ -48,7 +48,7 @@ abstract class Kohana_FuncTest_Driver {
 	}
 
 	/**
-	 * Return the tag name of a HTML fragemnt, specified by the XPath query. 
+	 * Return the tag name of a HTML fragemnt, specified by id 
 	 * If multiple tags match - return the first one.
 	 * @param  string $id 
 	 * @return string        
@@ -59,7 +59,7 @@ abstract class Kohana_FuncTest_Driver {
 	}
 
 	/**
-	 * Return the tag attribute of an HTML fragment, spesified by the XPath query. 
+	 * Return the tag attribute of an HTML fragment, spesified by id 
 	 * If multiple tags match - return the first one.
 	 * @param  string $id 
 	 * @param  string $name 
@@ -71,7 +71,7 @@ abstract class Kohana_FuncTest_Driver {
 	}
 
 	/**
-	 * Return the HTML fragment, spesified by the XPath query. 
+	 * Return the HTML fragment, spesified by id 
 	 * If multiple tags match - return the first one.
 	 * @param  string $id 
 	 * @return string        
@@ -82,7 +82,7 @@ abstract class Kohana_FuncTest_Driver {
 	}
 
 	/**
-	 * Return the plain text of an HTML fragment, spesified by the XPath query. 
+	 * Return the plain text of an HTML fragment, spesified by id 
 	 * If multiple tags match - return the first one.
 	 * @param  string $id
 	 * @return string
@@ -93,7 +93,7 @@ abstract class Kohana_FuncTest_Driver {
 	}
 
 	/**
-	 * Retrun the value of an HTML fragment of a form input, spesified by the XPath query. 
+	 * Retrun the value of an HTML fragment of a form input, spesified by id 
 	 * If multiple tags match - return the first one. 
 	 * The value is specific for diferrent for each input type. 
 	 * - input -> value
@@ -111,17 +111,40 @@ abstract class Kohana_FuncTest_Driver {
 	}
 
 	/**
-	 * Return the visibility of an HTML fragment, spesified by the XPath query. 
+	 * Return the visibility of an HTML fragment, spesified by id 
 	 * If multiple tags match - return the first one.
 	 * 
 	 * @param  string $id 
 	 * @return string        
 	 */
-	public function visible($id)
+	public function is_visible($id)
 	{
 		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
 
+	/**
+	 * Return if the option is selected or not, spesified by id 
+	 * If multiple tags match - return the first one.
+	 * 
+	 * @param  string $id 
+	 * @return string        
+	 */
+	public function is_selected($id)
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
+	}
+
+	/**
+	 * Return if the input (checkbox/radio) is checked or not, spesified by id 
+	 * If multiple tags match - return the first one.
+	 * 
+	 * @param  string $id 
+	 * @return string        
+	 */
+	public function is_checked($id)
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
+	}
 	/**
 	 * Set the value for a form input tag.
 	 * If multiple tags match - use the first one.

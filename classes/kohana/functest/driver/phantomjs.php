@@ -76,11 +76,16 @@ class Kohana_FuncTest_Driver_Phantomjs extends FuncTest_Driver {
 		return $this->connection()->get("element/$id/value");	
 	}
 
-	public function visible($id)
+	public function is_visible($id)
 	{
 		return $this->connection()->get("element/$id/displayed");	
 	}
 
+	public function is_selected($id)
+	{
+		return $this->connection()->get("element/$id/selected");	
+	}
+	
 	public function set($id, $value)
 	{
 		$tag_name = $this->tag_name($id);
