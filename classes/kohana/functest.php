@@ -33,7 +33,7 @@ class Kohana_FuncTest {
 		{
 			$driver_class = 'FuncTest_Driver_'.ucfirst($name);
 
-			FuncTest::$drivers[$name] = new $driver_class($this);
+			FuncTest::$drivers[$name] = new $driver_class();
 		}
 
 		return FuncTest::$drivers[$name];

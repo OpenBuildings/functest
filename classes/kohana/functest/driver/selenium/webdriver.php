@@ -67,8 +67,9 @@ class Kohana_FuncTest_Driver_Selenium_WebDriver
 		return $this->call($command, $options);	
 	}
 
-	public function delete($command, array $options = array())
+	public function delete($command)
 	{
+		$options = array();
 		$options[CURLOPT_CUSTOMREQUEST] = Request::DELETE;
 		
 		return $this->call($command, $options);	

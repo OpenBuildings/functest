@@ -21,5 +21,10 @@ return array(
 				'browserName' => 'firefox'
 			)
 		),
+		'phantomjs' => array(
+			'command' => 'phantomjs '.MODPATH.'functest/assets/phantom.js',
+			'url' => 'http://localhost:4445/',
+			'timeout' => 20000,
+		),
 	)
 );
