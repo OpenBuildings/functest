@@ -33,7 +33,7 @@ class FuncTest_TestCase extends Unittest_TestCase {
 	{
 		if ( ! $this->has_driver())
 		{
-			$this->driver = FuncTest::driver($this, $this->driver_name);
+			$this->driver = FuncTest::driver($this->driver_name);
 		}
 		$this->driver->current_test = $this;
 

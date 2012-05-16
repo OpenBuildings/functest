@@ -225,7 +225,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoCss($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasCss($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasCss($selector, $filters)), $message);
 		return $this;
 	}
 
@@ -238,7 +238,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoField($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasField($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasField($selector, $filters)), $message);
 		return $this;
 	}
 
@@ -251,7 +251,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoXPath($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasXpath($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasXpath($selector, $filters)), $message);
 		return $this;
 	}
 
@@ -264,7 +264,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoLink($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasLink($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasLink($selector, $filters)), $message);
 		return $this;
 	}
 
@@ -277,7 +277,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoButton($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->hasButton($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasButton($selector, $filters)), $message);
 		return $this;
 	}
 
