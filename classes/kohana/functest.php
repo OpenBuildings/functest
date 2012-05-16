@@ -27,7 +27,7 @@ class Kohana_FuncTest {
 		return new FuncTest_NodeList($driver, $locator, $parent, $selector);
 	}
 
-	static public function driver($test, $name)
+	static public function driver($name)
 	{
 		if ( ! isset(FuncTest::$drivers[$name]))
 		{
