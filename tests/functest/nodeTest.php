@@ -66,8 +66,25 @@ class FuncTest_NodeTest extends FuncTest_Database_TestCase {
 		$this->assertEquals('input', $input->tag_name());
 		$this->assertEquals('Tomas', $input->attribute('value'));
 		$this->assertContains('Lorem ipsum dolor sit amet', $textarea->text());
-		$this->assertTrue($textarea->visible());
+		$this->assertTrue($textarea->is_visible());
 		$this->assertEquals('Tomas', $input->value());
+
+		$option = $this->page->find_field('country')->find('option');
+		$this->assertFalse($option->is_selected(), 'Should not be a selected option');
+		$option->select_option();
+		$this->assertTrue($option->is_selected(), 'Should be a selected option');
+
+		$checkbox = $this->page->find_field('Enter Notify Me');
+		$this->assertFalse($checkbox->is_checked(), 'Should not be checked by default');
+
+		$checkbox->set(TRUE);
+		$this->assertTrue($checkbox->is_checked(), 'Should be checked after action');
+
+		$radio = $this->page->find_field('Gender Female');
+		$this->assertTrue($radio->is_checked(), 'Should be checked by default');
+
+		$radio->set(FALSE);
+		$this->assertFalse($radio->is_checked(), 'Should not be checked after action');
 	}
 
 	public function test_setters()

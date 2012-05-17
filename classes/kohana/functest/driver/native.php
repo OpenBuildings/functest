@@ -14,7 +14,7 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 
 	public $name = 'native';
 
-	protected $resuqest;
+	protected $request;
 	protected $response;
 	protected $dom;
 	protected $xpath;
@@ -88,7 +88,9 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 
 		$this->environment->update_environment(array('_GET' => $query, '_POST' => $post, '_FILES' => $files));
 
+		$old_url = $this->current_url();
 		$this->request = new FuncTest_Driver_Native_Request($type, $url);
+		$this->request->referrer($old_url);
 
 		$this->response = $this->request->execute();
 		$this->initialize();
@@ -132,12 +134,22 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		return $this->forms->get_value($id);
 	}
 
-	public function visible($id)
+	public function is_visible($id)
 	{
 		$node = $this->dom($id);
 
 		$hidden_nodes = $this->xpath()->query("./ancestor-or-self::*[contains(@style, 'display:none') or contains(@style, 'display: none') or name()='script' or name()='head']", $node);
 		return $hidden_nodes->length == 0;
+	}
+
+	public function is_selected($id)
+	{
+		return (bool) $this->dom($id)->getAttribute('selected');
+	}
+
+	public function is_checked($id)
+	{
+		return (bool) $this->dom($id)->getAttribute('checked');
 	}
 
 	public function set($id, $value)
@@ -187,12 +199,12 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 
 	public function current_path()
 	{
-		return $this->request->uri();
+		return $this->request ? $this->request->uri() : NULL;
 	}
 
 	public function current_url()
 	{
-		return URL::site($this->request->uri(), TRUE);
+		return URL::site($this->current_path(), TRUE);
 	}
 
 	public function all($xpath, $parent = NULL)

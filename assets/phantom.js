@@ -201,4 +201,10 @@ webtest = server.listen(4445, function (request, response)
 			}, id, request.post.value);
 		})
 
+		.connect('GET', /^\/element\/(\d+)\/selected$/, function (id) {
+			response.result_evaluate(function (id) {
+				return window._phantomjs_elements[id].selected;
+			}, id);
+		})
+
 });

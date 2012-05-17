@@ -121,6 +121,5 @@ class FuncTest_LocatorTest extends FuncTest_Database_TestCase {
 
 		$this->assertNode(array('option', 'value' => 'us'), $us_option);
 	}
-
 }
 

@@ -76,9 +76,19 @@ class Kohana_FuncTest_Node {
 		return $this->driver->text($this->id);
 	}
 
-	public function visible()
+	public function is_visible()
 	{
-		return $this->driver->visible($this->id);	
+		return $this->driver->is_visible($this->id);	
+	}
+
+	public function is_selected()
+	{
+		return $this->driver->is_selected($this->id);
+	}
+
+	public function is_checked()
+	{
+		return $this->driver->is_checked($this->id);
 	}
 
 	public function value()

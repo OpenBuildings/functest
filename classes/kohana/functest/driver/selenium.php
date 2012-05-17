@@ -82,9 +82,19 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		return $this->webdriver()->get("element/$id/value");	
 	}
 
-	public function visible($id)
+	public function is_visible($id)
 	{
 		return $this->webdriver()->get("element/$id/displayed");	
+	}
+
+	public function is_selected($id)
+	{
+		return $this->webdriver()->get("element/$id/selected");	
+	}
+
+	public function is_checked($id)
+	{
+		return $this->webdriver()->get("element/$id/selected");	
 	}
 
 	public function set($id, $value)
