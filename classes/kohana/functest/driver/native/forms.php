@@ -130,8 +130,17 @@ class Kohana_FuncTest_Driver_Native_Forms
 	public function serialize_form($xpath)
 	{
 		$form = $this->xpath->find($xpath);
-		$fields = ".//*[(self::input and (((@type = 'radio' or @type = 'checkbox') and @checked) or (@type = 'hidden') or (@type = 'text') or not(@type))) or self::select or self::textarea]";
 
+		$types['radio']    = "(self::input and @type = 'radio' and @checked)";
+		$types['checkbox'] = "(self::input and @type = 'checkbox' and @checked)";
+		$types['hidden']   = "(self::input and @type = 'hidden')";
+		$types['password'] = "(self::input and @type = 'password')";
+		$types['text']     = "(self::input and @type = 'text')";
+		$types['notype']   = "(self::input and not(@type))";
+		$types['select']   = "(self::select)";
+		$types['textarea'] = "(self::textarea)";
+
+		$fields = ".//*[not(@disabled) and (".join(' or ', $types).")]";
 		$data = array();
 		foreach ($this->xpath->query($fields, $form) as $field) 
 		{

@@ -51,6 +51,7 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		@ $this->dom->loadHTML($this->content());
 		$this->xpath = new FuncTest_Driver_Native_XPath($this->dom);
 		$this->forms = new FuncTest_Driver_Native_Forms($this->dom, $this->xpath);
+		$this->request = Request::$initial;
 	}
 
 	public function forms()
@@ -68,17 +69,17 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		return $id ? $this->xpath()->find($id) : $this->dom;
 	}
 
-	public function get($uri, array $query = NULL)
+	public function get($uri, array $query = array())
 	{
 		return $this->request(Request::GET, $uri, $query);
 	}
 
-	public function post($uri, array $query = NULL, array $post = NULL, array $files = NULL)
+	public function post($uri, array $query = array(), array $post = array(), array $files = array())
 	{
 		return $this->request(Request::POST, $uri, $query, $post, $files);
 	}
 
-	public function request($type, $uri, array $query = NULL, array $post = NULL, array $files = NULL)
+	public function request($type, $uri, array $query = array(), array $post = array(), array $files = array())
 	{
 		$this->response = Response::factory();
 
@@ -126,7 +127,10 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 
 	public function text($id)
 	{
-		return $this->dom($id)->textContent;	
+		$text = $this->dom($id)->textContent;
+		$text = preg_replace('/[\t\n\r]/', ' ', $text);
+		$text = preg_replace('/\s\s+/', ' ', $text);
+		return trim($text);
 	}
 
 	public function value($id)
@@ -162,6 +166,11 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		$node = $this->forms->set_value($id, $value);
 	}
 
+	public function serialize_form($id)
+	{
+		return $this->forms->serialize_form($id);
+	}
+
 	public function click($id)
 	{
 		$node = $this->dom($id);
@@ -184,7 +193,7 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 			}
 			parse_str($post, $post);
 
-			$this->post($action, NULL, $post);
+			$this->post($action, array(), $post);
 		}
 		else
 		{
@@ -192,7 +201,7 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		}
 	}
 
-	public function visit($uri, array $query = NULL)
+	public function visit($uri, array $query = array())
 	{
 		return $this->get($uri, $query);
 	}
