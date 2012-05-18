@@ -106,6 +106,12 @@ class Kohana_FuncTest_Node {
 		$this->driver->set($this->id, $value);
 		return $this;
 	}
+	
+	public function append($value)
+	{
+		$this->driver->append($this->id, $value);
+		return $this;
+	}
 
 	public function click()
 	{

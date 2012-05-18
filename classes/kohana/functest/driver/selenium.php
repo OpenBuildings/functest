@@ -103,6 +103,7 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		
 		if ($tag_name == 'textarea')
 		{
+			$this->webdriver()->post("element/$id/clear", array());	
 			$this->webdriver()->post("element/$id/value", array('value' => str_split($value)));	
 		}
 		elseif ($tag_name == 'input') 
@@ -114,6 +115,7 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 			}
 			else
 			{
+				$this->webdriver()->post("element/$id/clear", array());	
 				$this->webdriver()->post("element/$id/value", array('value' => str_split($value)));	
 			}
 		}
@@ -121,6 +123,11 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		{
 			$this->webdriver()->post("element/$id/click", array());
 		}
+	}
+
+	public function append($id, $value)
+	{
+		$this->webdriver()->post("element/$id/value", array('value' => str_split($value)));	
 	}
 
 	public function select_option($id, $value)
