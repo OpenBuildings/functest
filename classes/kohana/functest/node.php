@@ -144,7 +144,7 @@ class Kohana_FuncTest_Node {
 
 	public function hover_link($selector, array $filters = array())
 	{
-		$this->find(array('link', $selector, $filters))->hover();
+		$this->find_link($selector, $filters)->hover();
 		return $this;
 	}
 
@@ -156,13 +156,13 @@ class Kohana_FuncTest_Node {
 
 	public function click_link($selector, array $filters = array())
 	{
-		$this->find(array('link', $selector, $filters))->click();
+		$this->find_link($selector, $filters)->click();
 		return $this;
 	}
 
 	public function click_button($selector, array $filters = array())
 	{
-		$this->find(array('button', $selector, $filters))->click();
+		$this->find_button($selector, $filters)->click();
 		return $this;
 	}
 
@@ -318,7 +318,6 @@ class Kohana_FuncTest_Node {
 	public function find($selector, array $filters = array())
 	{
 		$locator = FuncTest::locator($selector, $filters);
-
 		$retries = ceil(Kohana::$config->load('functest.default_wait_time') / 50);
 
 		do

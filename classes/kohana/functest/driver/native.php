@@ -127,7 +127,10 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 
 	public function text($id)
 	{
-		return trim(preg_replace('/\s\s+/', ' ', $this->dom($id)->textContent));
+		$text = $this->dom($id)->textContent;
+		$text = preg_replace('/[\t\n\r]/', ' ', $text);
+		$text = preg_replace('/\s\s+/', ' ', $text);
+		return trim($text);
 	}
 
 	public function value($id)
@@ -161,6 +164,11 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 	public function select_option($id, $value)
 	{
 		$node = $this->forms->set_value($id, $value);
+	}
+
+	public function serialize_form($id)
+	{
+		return $this->forms->serialize_form($id);
 	}
 
 	public function click($id)
