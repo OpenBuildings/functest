@@ -115,7 +115,10 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 			}
 			else
 			{
-				$this->webdriver()->post("element/$id/clear", array());	
+				if ($this->attribute($id, 'type') !== 'file')
+				{
+					$this->webdriver()->post("element/$id/clear", array());	
+				}
 				$this->webdriver()->post("element/$id/value", array('value' => str_split($value)));	
 			}
 		}
