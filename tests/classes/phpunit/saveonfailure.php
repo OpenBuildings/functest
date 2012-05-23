@@ -10,11 +10,24 @@ class PHPUnit_SaveOnFailure implements PHPUnit_Framework_TestListener {
 		$dir = Kohana::$config->load('functest.failures_dir');
 		$url = $test->driver()->current_url();
 
-		$javascript_errors = print_r($test->driver()->javascript_errors(), TRUE);
+		$javascript_errors = $test->driver()->javascript_errors();
+		$javascript_errors_html = '';
+
+		if ($javascript_errors)
+		{
+			$javascript_errors_html .= '<div style="margin-top:10px;"> Javascript Errors: <ul style="font-family:_monospace; font-size: 12px; background-color:white; padding: 10px;">';
+
+			foreach ($javascript_errors as $error) 
+			{
+				$javascript_errors_html .= '<li style="margin-bottom:5px;"><div style="color:red;">'.$error['errorMessage'].'</div><div style="font-size:11px"> in '.$error['sourceName'].' line '.$error['lineNumber'].'</div></li>';
+			}
+
+			$javascript_errors_html .= '</ul></div>';
+		}
 
 		$error_message = <<<ERROR_MESSAGE
 <div 
-	style="position: fixed; background: lightgrey; border: 1px solid red; padding: 10px 30px 10px 20px; color: black; width: 400px; margin-left: -200px; top: 10px; left: 50%; border-radius: 4px; z-index: 10000; font-size: 18px; line-height: 25px; ">
+	style="position: fixed; background: lightgrey; border: 1px solid red; padding: 10px 30px 10px 20px; color: black; width: 800px; margin-left: -400px; top: 10px; left: 50%; border-radius: 4px; z-index: 10000; font-size: 18px; line-height: 25px; ">
 	<div style="font-size:12px; padding-bottom:5px;">$url</div>
 	$title
 	<div 
@@ -22,7 +35,8 @@ class PHPUnit_SaveOnFailure implements PHPUnit_Framework_TestListener {
 		onclick="javascript: this.parentNode.parentNode.removeChild(this.parentNode); return false;">
 		&times;
 	</div>
-	$javascript_errors
+
+	$javascript_errors_html
 </div>
 ERROR_MESSAGE;
 

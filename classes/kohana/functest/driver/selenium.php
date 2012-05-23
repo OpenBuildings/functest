@@ -41,7 +41,7 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 
 	public function javascript_errors()
 	{
-		return $this->webdriver()->post('execute', array('script' => "return window.JSErrorCollector_errors ? window.JSErrorCollector_errors.pump() : []"));
+		return $this->webdriver()->post('execute', array('script' => "return window.JSErrorCollector_errors ? window.JSErrorCollector_errors.pump() : [];", 'args' => array()));
 	}
 	
 	// public function dom($id)
