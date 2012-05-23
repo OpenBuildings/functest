@@ -10,6 +10,8 @@ class PHPUnit_SaveOnFailure implements PHPUnit_Framework_TestListener {
 		$dir = Kohana::$config->load('functest.failures_dir');
 		$url = $test->driver()->current_url();
 
+		$javascript_errors = print_r($test->driver()->javascript_errors(), TRUE);
+
 		$error_message = <<<ERROR_MESSAGE
 <div 
 	style="position: fixed; background: lightgrey; border: 1px solid red; padding: 10px 30px 10px 20px; color: black; width: 400px; margin-left: -200px; top: 10px; left: 50%; border-radius: 4px; z-index: 10000; font-size: 18px; line-height: 25px; ">
@@ -20,6 +22,7 @@ class PHPUnit_SaveOnFailure implements PHPUnit_Framework_TestListener {
 		onclick="javascript: this.parentNode.parentNode.removeChild(this.parentNode); return false;">
 		&times;
 	</div>
+	$javascript_errors
 </div>
 ERROR_MESSAGE;
 
@@ -91,7 +94,7 @@ ERROR_MESSAGE;
 
 	public function startTest(PHPUnit_Framework_Test $test)
 	{
-		
+
 	}
 
 	public function endTest(PHPUnit_Framework_Test $test, $time)

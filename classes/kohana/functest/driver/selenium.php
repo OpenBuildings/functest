@@ -39,7 +39,11 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		return $this->_webdriver;
 	}
 
-
+	public function javascript_errors()
+	{
+		return $this->webdriver()->post('execute', array('script' => "return window.JSErrorCollector_errors ? window.JSErrorCollector_errors.pump() : []"));
+	}
+	
 	// public function dom($id)
 	// {
 	// 	return $id ? $this->xpath()->find($xpath) : $this->dom;
@@ -48,8 +52,7 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 	/**
 	 * GETTERS
 	 */
-	
-	public function tag_name($id)
+		public function tag_name($id)
 	{
 		return $this->webdriver()->get("element/$id/name");	
 	}

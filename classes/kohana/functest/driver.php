@@ -234,6 +234,15 @@ abstract class Kohana_FuncTest_Driver {
 	 * Return The root node
 	 * @return FuncTest_Node 
 	 */
+	public function javascript_errors()
+	{
+		return array();
+	}
+
+	/**
+	 * Return The root node
+	 * @return FuncTest_Node 
+	 */
 	public function page()
 	{
 		if ( ! $this->page)
