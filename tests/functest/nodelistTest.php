@@ -5,7 +5,7 @@
  * @group   functest
  * @group   functest.nodelist
  */
-class FuncTest_NodeListTest extends FuncTest_Database_TestCase {
+class FuncTest_NodeListTest extends FuncTest_Internal_TestCase {
 
 	public function setUp()
 	{

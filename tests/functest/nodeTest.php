@@ -5,7 +5,7 @@
  * @group   functest
  * @group   functest.node
  */
-class FuncTest_NodeTest extends FuncTest_Database_TestCase {
+class FuncTest_NodeTest extends FuncTest_Internal_TestCase {
 
 	public $page;
 	public $driver;

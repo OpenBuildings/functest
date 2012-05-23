@@ -6,7 +6,7 @@
  * @group   functest.driver
  * @group   functest.driver.native
  */
-class FuncTest_Driver_NodeTest extends FuncTest_Database_TestCase {
+class FuncTest_Driver_NodeTest extends FuncTest_Internal_TestCase {
 
 	public $driver;
 

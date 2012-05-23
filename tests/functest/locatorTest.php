@@ -5,7 +5,7 @@
  * @group   functest
  * @group   functest.locator
  */
-class FuncTest_LocatorTest extends FuncTest_Database_TestCase {
+class FuncTest_LocatorTest extends FuncTest_Internal_TestCase {
 
 	public function provider_types()
 	{
