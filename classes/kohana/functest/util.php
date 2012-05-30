@@ -38,14 +38,20 @@ class Kohana_FuncTest_Util
 	public static function css2xpath($path)
 	{
 		$path = (string) $path;
-		if (strstr($path, ',')) {
+
+		if (strstr($path, ',')) 
+		{
 			$paths       = explode(',', $path);
 			$expressions = array();
-			foreach ($paths as $path) {
-				$xpath = self::css2xpath(trim($path));
-				if (is_string($xpath)) {
+			foreach ($paths as $path) 
+			{
+				$xpath = Kohana_FuncTest_Util::css2xpath(trim($path));
+				if (is_string($xpath)) 
+				{
 					$expressions[] = $xpath;
-				} elseif (is_array($xpath)) {
+				} 
+				elseif (is_array($xpath)) 
+				{
 					$expressions = array_merge($expressions, $xpath);
 				}
 			}
@@ -55,29 +61,40 @@ class Kohana_FuncTest_Util
 		$paths    = array('//');
 		$path     = preg_replace('|\s+>\s+|', '>', $path);
 		$segments = preg_split('/\s+/', $path);
-		foreach ($segments as $key => $segment) {
-			$pathSegment = self::_tokenize($segment);
-			if (0 == $key) {
-				if (0 === strpos($pathSegment, '[contains(')) {
-					$paths[0] .= '*' . ltrim($pathSegment, '*');
-				} else {
+
+		foreach ($segments as $key => $segment) 
+		{
+			$pathSegment = Kohana_FuncTest_Util::_tokenize($segment);
+			if (0 == $key) 
+			{
+				if (0 === strpos($pathSegment, '[contains(')) 
+				{
+					$paths[0] .= '*'.ltrim($pathSegment, '*');
+				} 
+				else 
+				{
 					$paths[0] .= $pathSegment;
 				}
 				continue;
 			}
-			if (0 === strpos($pathSegment, '[contains(')) {
+			if (0 === strpos($pathSegment, '[contains(')) 
+			{
 				foreach ($paths as $key => $xpath) {
-					$paths[$key] .= '//*' . ltrim($pathSegment, '*');
-					$paths[]      = $xpath . $pathSegment;
+					$paths[$key] .= '//*'.ltrim($pathSegment, '*');
+					$paths[]      = $xpath.$pathSegment;
 				}
-			} else {
-				foreach ($paths as $key => $xpath) {
-					$paths[$key] .= '//' . $pathSegment;
+			} 
+			else 
+			{
+				foreach ($paths as $key => $xpath) 
+				{
+					$paths[$key] .= '//'.$pathSegment;
 				}
 			}
 		}
 
-		if (1 == count($paths)) {
+		if (1 == count($paths)) 
+		{
 			return $paths[0];
 		}
 		return implode('|', $paths);
@@ -102,7 +119,7 @@ class Kohana_FuncTest_Util
 		$expression = preg_replace_callback(
 			'|\[([a-z0-9_-]+)=[\'"]([^\'"]+)[\'"]\]|i',
 			function ($matches) {
-				return '[@' . strtolower($matches[1]) . "='" . $matches[2] . "']";
+				return '[@'.strtolower($matches[1])."='".$matches[2]."']";
 			},
 			$expression
 		);
@@ -111,8 +128,8 @@ class Kohana_FuncTest_Util
 		$expression = preg_replace_callback(
 			'|\[([a-z0-9_-]+)~=[\'"]([^\'"]+)[\'"]\]|i',
 			function ($matches) {
-				return "[contains(concat(' ', normalize-space(@" . strtolower($matches[1]) . "), ' '), ' " 
-					 . $matches[2] . " ')]";
+				return "[contains(concat(' ', normalize-space(@".strtolower($matches[1])."), ' '), ' " 
+					.$matches[2]." ')]";
 			},
 			$expression
 		);
@@ -121,8 +138,8 @@ class Kohana_FuncTest_Util
 		$expression = preg_replace_callback(
 			'|\[([a-z0-9_-]+)\*=[\'"]([^\'"]+)[\'"]\]|i',
 			function ($matches) {
-				return "[contains(@" . strtolower($matches[1]) . ", '" 
-					 . $matches[2] . "')]";
+				return "[contains(@".strtolower($matches[1]).", '" 
+					.$matches[2]."')]";
 			},
 			$expression
 		);
