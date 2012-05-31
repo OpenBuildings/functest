@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Auth_Jelly_Dummy extends Auth_Clippings {
+class Auth_Jam_Dummy extends Auth_Clippings {
 
 	static public function reload()
 	{

@@ -99,4 +99,4 @@ class FuncTest_TestCase extends Unittest_TestCase {
 
 
 
-} // End Kohana_Unittest_Jelly_TestCase
+} // End Kohana_Unittest_Jam_TestCase
