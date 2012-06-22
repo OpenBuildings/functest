@@ -58,7 +58,7 @@ class Kohana_FuncTest_Node {
 
 	public function __toString()
 	{
-		return $this->html();
+		return (string) $this->html();
 	}
 
 	public function tag_name()
@@ -131,9 +131,9 @@ class Kohana_FuncTest_Node {
 		return $this;
 	}
 
-	public function hover()
+	public function hover($x = NULL, $y = NULL)
 	{
-		$this->driver->move_to($this->id());
+		$this->driver->move_to($this->id(), $x, $y);
 		return $this;
 	}
 
@@ -241,10 +241,9 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoCss($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasCss($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->hasNoCss($selector, $filters), $message);
 		return $this;
 	}
-
 
 	public function assertHasField($selector, $filters = array(), $message = NULL)
 	{
@@ -254,7 +253,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoField($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasField($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->hasNoField($selector, $filters), $message);
 		return $this;
 	}
 
@@ -267,7 +266,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoXPath($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasXpath($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->hasNoXpath($selector, $filters), $message);
 		return $this;
 	}
 
@@ -280,7 +279,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoLink($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasLink($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->hasNoLink($selector, $filters), $message);
 		return $this;
 	}
 
@@ -293,7 +292,7 @@ class Kohana_FuncTest_Node {
 
 	public function assertHasNoButton($selector, $filters = array(), $message = NULL)
 	{
-		$this->current_test()->assertThat($this, $this->current_test()->logicalNot($this->current_test()->hasButton($selector, $filters)), $message);
+		$this->current_test()->assertThat($this, $this->current_test()->hasNoButton($selector, $filters), $message);
 		return $this;
 	}
 
@@ -339,6 +338,26 @@ class Kohana_FuncTest_Node {
 
 		return $node;
 	}
+
+	public function not_present($selector, array $filters = array())
+	{
+		$locator = FuncTest::locator($selector, $filters);
+		$retries = ceil(Kohana::$config->load('functest.default_wait_time') / 50);
+
+		do
+		{
+			$node = $this->all($locator)->first();
+			$retries -= 1;
+			usleep(40000);
+		}
+		while ($retries > 0 AND $node);
+
+		if ($node)
+			throw new FuncTest_Exception_Found($locator, $this->driver);
+
+		return TRUE;
+	}
+
 
 	public function end()
 	{

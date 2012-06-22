@@ -67,12 +67,12 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 		if ( ! $id)
 			return $this->content();
 
-		return $this->webdriver()->get('execute', array(
-			'script' => 'arguments[0].outerHTML',
+		return $this->webdriver()->post('execute', array(
+			'script' => 'return arguments[0].outerHTML',
 			'args' => array(
 				array('ELEMENT' => $id)
 			)
-		));	
+		));
 	}
 
 	public function text($id)

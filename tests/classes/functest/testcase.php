@@ -91,6 +91,32 @@ class FuncTest_TestCase extends Unittest_TestCase {
 		return new PHPUnit_Framework_Constraint_Locator(array('link', $selector, $filters));
 	}
 
+
+	public function hasNoCss($selector, array $filters = array())
+	{
+		return new PHPUnit_Framework_Constraint_Negative_Locator(array('css', $selector, $filters));
+	}
+
+	public function hasNoXpath($selector, array $filters = array())
+	{
+		return new PHPUnit_Framework_Constraint_Negative_Locator(array('xpath', $selector, $filters));
+	}
+
+	public function hasNoField($selector, array $filters = array())
+	{
+		return new PHPUnit_Framework_Constraint_Negative_Locator(array('field', $selector, $filters));
+	}
+
+	public function hasNoButton($selector, array $filters = array())
+	{
+		return new PHPUnit_Framework_Constraint_Negative_Locator(array('button', $selector, $filters));
+	}
+
+	public function hasNoLink($selector, array $filters = array())
+	{
+		return new PHPUnit_Framework_Constraint_Negative_Locator(array('link', $selector, $filters));
+	}
+
 	public function __call($method, $args)
 	{
 		return call_user_func_array(array($this->page(), $method), $args);

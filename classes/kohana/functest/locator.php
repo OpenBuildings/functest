@@ -115,6 +115,7 @@ class Kohana_FuncTest_Locator {
 		$matchers['by id']          = "@id = '$locator'";
 		$matchers['by placeholder'] = "@placeholder = '$locator'";
 		$matchers['by label for']   = "@id = //label[normalize-space() = '$locator']/@for";
+		$matchers['by option']      = "(self::select and ./option[(@value = \"\" or not(@value)) and contains(normalize-space(), \"$locator\")])";
 
 		return "//*[($type) and (".join(' or ', $matchers).")]";
 	}
