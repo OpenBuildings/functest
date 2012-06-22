@@ -77,7 +77,10 @@ class Kohana_FuncTest_Driver_Selenium extends FuncTest_Driver {
 
 	public function text($id)
 	{
-		return $this->webdriver()->get("element/$id/text");	
+		$text = $this->webdriver()->get("element/$id/text");
+		$text = preg_replace('/[\t\n\r]/', ' ', $text);
+		$text = preg_replace('/\s\s+/', ' ', $text);
+		return trim($text);
 	}
 
 	public function value($id)
