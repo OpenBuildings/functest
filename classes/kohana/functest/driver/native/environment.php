@@ -12,6 +12,7 @@ class Kohana_FuncTest_Driver_Native_Environment extends Unittest_Helpers {
 	public function update_environment(array $environment)
 	{
 		$environment = Arr::merge(Kohana::$config->load('functest.drivers.native.environment'), (array) $environment);
+
 		$this->clear();
 		$this->set_environment($environment);
 	}
