@@ -208,7 +208,7 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 
 	public function current_path()
 	{
-		return $this->request ? $this->request->uri() : NULL;
+		return $this->request ? URL::site($this->request->uri()) : NULL;
 	}
 
 	public function current_url()
