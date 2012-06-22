@@ -20,6 +20,7 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 	protected $xpath;
 	protected $forms;
 	protected $environment;
+	protected $modify_environment = array();
 
 	function __construct()
 	{
@@ -32,6 +33,18 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 	public function clear()
 	{
 		$this->environment->clear();	
+	}
+
+	public function modify_environment($env)
+	{
+		if ( ! $env)
+		{
+			$this->modify_environment = array();
+		}
+		else
+		{
+			$this->modify_environment = Arr::merge($this->modify_environment, $env);
+		}
 	}
 
 	public function content($content = NULL)
@@ -87,7 +100,12 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		$query = parse_url($url, PHP_URL_QUERY);
 		parse_str($query, $query);
 
-		$this->environment->update_environment(array('_GET' => $query, '_POST' => $post, '_FILES' => $files));
+		$this->environment->update_environment(
+			Arr::merge(
+				array('_GET' => $query, '_POST' => $post, '_FILES' => $files),
+				$this->modify_environment
+			)
+		);
 
 		$old_url = $this->current_url();
 		$this->request = new FuncTest_Driver_Native_Request($type, $url);
@@ -97,7 +115,6 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		$this->initialize();
 		return $this;
 	}
-
 
 	/**
 	 * GETTERS
