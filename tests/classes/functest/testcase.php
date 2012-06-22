@@ -5,6 +5,11 @@ class FuncTest_TestCase extends Unittest_TestCase {
 	protected $driver_name;
 	protected $driver;
 
+	public function test_dummy()
+	{
+		
+	}
+
 	public function setUp()
 	{
 		parent::setUp();
