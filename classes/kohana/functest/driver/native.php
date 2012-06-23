@@ -97,23 +97,31 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		$this->response = Response::factory();
 
 		$url = $uri.URL::query($query, FALSE);
+
 		$query = parse_url($url, PHP_URL_QUERY);
 		parse_str($query, $query);
 
 		$this->environment->update_environment(
 			Arr::merge(
-				array('_GET' => $query, '_POST' => $post, '_FILES' => $files),
+				array('_GET' => $query, '_POST' => $post, '_FILES' => $files, '_SESSION' => $_SESSION),
 				$this->modify_environment
 			)
 		);
 
 		$old_url = $this->current_url();
-		$this->request = new FuncTest_Driver_Native_Request($type, $url);
+
+		$this->request = new FuncTest_Driver_Native_Request($type, $url, $query, $post);
 		$this->request->referrer($old_url);
 
 		$this->response = $this->request->execute();
+
 		$this->initialize();
 		return $this;
+	}
+
+	public function response()
+	{
+		return $this->response;
 	}
 
 	/**

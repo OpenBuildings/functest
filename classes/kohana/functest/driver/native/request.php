@@ -10,7 +10,7 @@
  */
 class Kohana_FuncTest_Driver_Native_Request extends Request {
 
-	function __construct($method, $uri, HTTP_Cache $cache = NULL, $injected_routes = array()) 
+	function __construct($method, $uri, $query = array(), $post = array(), HTTP_Cache $cache = NULL, $injected_routes = array()) 
 	{
 		parent::__construct($uri, $cache, $injected_routes);
 
@@ -19,8 +19,8 @@ class Kohana_FuncTest_Driver_Native_Request extends Request {
 
 		$this->method($method);
 
-		$this->_query = $_GET;
-		$this->_post = $_POST;
+		$this->query($query);
+		$this->post($post);
 
 		Request::$initial = $this;
 	}
