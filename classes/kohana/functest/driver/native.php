@@ -35,15 +35,15 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		$this->environment->clear();	
 	}
 
-	public function modify_environment($env)
+	public function modify_environment($modify_environment)
 	{
-		if ( ! $env)
+		if ( ! $modify_environment)
 		{
 			$this->modify_environment = array();
 		}
 		else
 		{
-			$this->modify_environment = Arr::merge($this->modify_environment, $env);
+			$this->modify_environment = Arr::merge($this->modify_environment, $modify_environment);
 		}
 	}
 
