@@ -18,7 +18,8 @@ class Kohana_FuncTest_Driver_Native_Request extends Request {
 			throw new Kohana_Exception("Route :uri not found", array(':uri' => $uri));
 
 		$this->method($method);
-
+		$_GET = $query;
+		$_POST = $query;
 		$this->query($query);
 		$this->post($post);
 
@@ -62,9 +63,8 @@ class Kohana_FuncTest_Driver_Native_Request extends Request {
 
 			$query = parse_url($exception->url(), PHP_URL_QUERY);
 			parse_str($query, $query);
-			$_GET = $query;
 
-			$redirected_request = new FuncTest_Driver_Native_Request(Request::GET, $exception->url());
+			$redirected_request = new FuncTest_Driver_Native_Request(Request::GET, $exception->url(), $query);
 			$redirected_request->referrer($this->url());
 
 			Request::$initial = $redirected_request;
