@@ -133,7 +133,7 @@ class Kohana_FuncTest_Node {
 
 	public function hover($x = NULL, $y = NULL)
 	{
-		$this->driver->move_to($this->id(), $x, $y);
+		$this->driver->move_to($this->id, $x, $y);
 		return $this;
 	}
 
@@ -151,6 +151,12 @@ class Kohana_FuncTest_Node {
 	public function hover_link($selector, array $filters = array())
 	{
 		$this->find_link($selector, $filters)->hover();
+		return $this;
+	}
+
+	public function hover_field($selector, array $filters = array())
+	{
+		$this->find_field($selector, $filters)->hover();
 		return $this;
 	}
 
