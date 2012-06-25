@@ -235,6 +235,12 @@ class Kohana_FuncTest_Node {
 		return $this;
 	}
 
+	public function execute($script)
+	{
+		return $this->driver->execute($this->id, $script);
+	}
+
+
 	/**
 	 * ASSERTIONS
 	 */

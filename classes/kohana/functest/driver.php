@@ -259,4 +259,12 @@ abstract class Kohana_FuncTest_Driver {
 	{
 		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
 	}
+
+	/**
+	 * execute Javascript
+	 */
+	public function execute($id, $script)
+	{
+		throw new FuncTest_Exception_NotImplemented(__FUNCTION__, $this);
+	}
 }
