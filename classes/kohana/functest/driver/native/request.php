@@ -71,29 +71,6 @@ class Kohana_FuncTest_Driver_Native_Request extends Request {
 
 			$response = $redirected_request->execute();
 		}
-		catch (HTTP_Exception $exception)
-		{
-			$action = $exception->getCode() ? $exception->getCode() : 500;
-			$response = Request::factory(Route::get('error_handler')
-				->uri(array(
-					'controller' => 'errors',
-					'action' => $action,
-					'message' => base64_encode($exception->getMessage()))
-				))
-				->execute();
-		}
-		catch (Kohana_Exception $exception)
-		{
-			$code = $exception->getCode();
-
-			if (isset(Kohana_Exception::$php_errors[$code]))
-			{
-				// Use the human-readable error name
-				$code = Kohana_Exception::$php_errors[$code];
-			}
-
-			$response = Response::factory()->body(Kohana_Exception::text($exception)."\n--\n".$exception->getTraceAsString())->status(500);
-		}
 
 		return $response;
 	}
