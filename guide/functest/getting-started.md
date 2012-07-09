@@ -162,8 +162,40 @@ You can make assertions for multiple tags using the `->all()` method - it return
 			->assertHasCss('label', array('text' => 'Username'))
 			->fill_in('Username', "User $i");
 	}
-		
-	
+
+Filters and Locators
+--------------------
+
+HTML Tags of the page are located
+
+	$this->find('.big-div'); // Find a html tag with class of .big-div
+	$this->find_link('Link Button'); // Find an anchor tag with text of "Link Button"
+	$this->find_button('Link Button'); // Find an button tag with text of "Link Button"
+
+Most find and assert methods have similar methods for different locators (as shown above) and you can select the "default" locator in the config. Initally its set to "css"
+
+__Locators__
+
+* __css__ this is the basic locator and is nothing more than a css selector. It's not very advanced and does not handle pseudo classes and CSS 3 selecotors so don't get really complicated here. Most of the time you can chain the selectors multiple times to find what you want. `$this->all('.item')->first()->find('a.link')->find('span')`
+* __xpath__ you can use this if you need a really powerfull selector. It's mostly used internally by FuncTest
+* __link__ find html anchor tags. It searches for text inside anchors (including child elements), the title of the anchor, the id of the anchor or the alt text of a child img tag.
+* __field__ this is used to find input fields - it searches for the id, name or title of the input, the text of the label tag, pointing to that input, the placeholder attribute or the text of the option with no value for select tags.
+* __button__ its similar to the link selector, but searches for button tags (and inputs with type of button) - It searches for text inside button (including child elements), the title of the button, the id, name or value of the button or the alt text of a child img tag.
+
+__Filters__
+
+All of those locators can be supplemented with filters. They filter out the tags and select exactly the field you need. To use them simply add a second argument to finders (or third if its an action method)
+
+	$this->find('.item', array('text' => 'Item One'));
+	$this->find('.item', array('at' => 2));
+	$this->fill_in('.item', 'Text', array('visible' => TRUE));
+
+* __at__ simply select an element of the returned array of elements, if the page has more elements with the same selector. Starts at 0
+* __text__ only allow elements that has the specified text inside them. Normalizes the text to remove new lines and multiple spaces
+* __value__ only allow elements that have a value matching the specified one - works for all input fields - input, textarea and select
+* __visible__ only select visible (or hidden) elements
+
+
 Logs and Failures
 -----------------
 
