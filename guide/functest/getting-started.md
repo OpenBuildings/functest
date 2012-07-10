@@ -31,7 +31,7 @@ You should generally put your tests inside APPPATH/tests/* or MODPATH/*/tests/* 
 
 	}
 
-That test will open up a url of /my/url and check if there is a h1 tag containing the text 'Hellow World'. Those are just 2 methods of the [DSL](/OpenBuildings/functest/blob/master/guide/functest/getting-started.md) which is quite powerful.
+That test will open up a url of /my/url and check if there is a h1 tag containing the text 'Hellow World'. Those are just 2 methods of the [DSL](/OpenBuildings/functest/blob/master/guide/functest/dsl.md) which is quite powerful.
 
 _Notice:_
 Most Functional test frameworks and this one as well discourages using direct POST / PUT / DELETE requests, as users can't perform those from browsers and it are so are not supported by selenium or other drivers. That's way there is only a `visit()` method which acts as though the user entered some text into the URL field. However, if you really really want to perform such a request (for example testing out some API) you can still do that with `$this->driver()->get()`, `$this->driver()->post()`, `$this->driver()->put()` or `$this->driver()->delete()`. Keep in mind that you will not be able to convert to selenium tests later, if you use those methods.
@@ -168,19 +168,21 @@ Filters and Locators
 
 HTML Tags of the page are located by using several types of "locators"
 
-	$this->find('.big-div'); // Find a html tag with class of .big-div
+	$this->find('.big-div'); // Find a HTML tag with class of .big-div
 	$this->find_link('Link Button'); // Find an anchor tag with text of "Link Button"
 	$this->find_button('Link Button'); // Find an button tag with text of "Link Button"
 
-Most find and assert methods have similar methods for different locators (as shown above) and you can select the "default" locator in the config. Initally its set to "css"
+Most find and assert methods have similar methods for different locators (as shown above) and you can select the "default" locator in the configuration. Initially its set to "css"
 
 __Locators__
 
-* __css__ this is the basic locator and is nothing more than a css selector. It's not very advanced and does not handle pseudo classes and CSS 3 selecotors so don't get really complicated here. Most of the time you can chain the selectors multiple times to find what you want. `$this->all('.item')->first()->find('a.link')->find('span')`
-* __xpath__ you can use this if you need a really powerfull selector. It's mostly used internally by FuncTest
-* __link__ find html anchor tags. It searches for text inside anchors (including child elements), the title of the anchor, the id of the anchor or the alt text of a child img tag.
+* __css__ this is the basic locator and is nothing more than a css selector. It's not very advanced and does not handle pseudo classes and CSS 3 selectors so don't get really complicated here. Most of the time you can chain the selectors multiple times to find what you want. `$this->all('.item')->first()->find('a.link')->find('span')`
+* __xpath__ you can use this if you need a really powerful selector. It's mostly used internally by FuncTest
+* __link__ find HTML anchor tags. It searches for text inside anchors (including child elements), the title of the anchor, the id of the anchor or the alt text of a child img tag.
 * __field__ this is used to find input fields - it searches for the id, name or title of the input, the text of the label tag, pointing to that input, the placeholder attribute or the text of the option with no value for select tags.
 * __button__ its similar to the link selector, but searches for button tags (and inputs with type of button) - It searches for text inside button (including child elements), the title of the button, the id, name or value of the button or the alt text of a child img tag.
+
+`find()`, `click_on()`, `hover_on()` and all the assertions have locator specific methods. You can see all of them in the [DSL Page](/OpenBuildings/functest/blob/master/guide/functest/dsl.md)
 
 __Filters__
 
@@ -195,12 +197,12 @@ All of those locators can be supplemented with filters. They filter out the tags
 * __value__ only allow elements that have a value matching the specified one - works for all input fields - input, textarea and select
 * __visible__ only select visible (or hidden) elements
 
-> __Notice__ Filters are applied on all of the returned elements so its not very performant. Aspecially in the case of Selenium Driver - they require a roundtrip to the selenium server for each tag. Use them sparingly and with smaller collection of html tags.
+> __Notice__ Filters are applied on all of the returned elements so its not very performant. Especially in the case of Selenium Driver - they require a round trip to the selenium server for each tag. Use them sparingly and with smaller collection of HTML tags.
 
 Drivers
 -------
 
-Functest comes with 2 drivers out of the box - Native and Selenium - but you can write your own drivers (and send pull requests :)) by implementing the methods of the abstract driver. Drivers work even if not all of the methods have been implemented, for example native driver does not support any javascript stuff.
+FuncTest comes with 2 drivers out of the box - Native and Selenium - but you can write your own drivers (and send pull requests :)) by implementing the methods of the abstract driver. Drivers work even if not all of the methods have been implemented, for example native driver does not support any Javascript stuff.
 
 To change drivers modify the public $driver_name property:
 
@@ -218,7 +220,7 @@ To change drivers modify the public $driver_name property:
 
 _Native Driver_
 
-Native Driver is implemented around Kohana_Request and Kohana_Response methods thus reusing the Kohana classes between request which is significantly faster than sending external requests and starting other php threads. However the database and most of the objects stay the same and so there might be isolation issues. There is a lot of effort to keep all the environment variables different for each request but you will have to make sure your code does not keep state between requests. This driver does not support any javascript.
+Native Driver is implemented around Kohana_Request and Kohana_Response methods thus reusing the Kohana classes between request which is significantly faster than sending external requests and starting other php threads. However the database and most of the objects stay the same and so there might be isolation issues. There is a lot of effort to keep all the environment variables different for each request but you will have to make sure your code does not keep state between requests. This driver does not support any Javascript.
 
 _Selenium Driver_
 
