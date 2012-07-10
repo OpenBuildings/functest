@@ -9,6 +9,8 @@ Tutorials
 
 * [Getting Started](/OpenBuildings/functest/blob/master/guide/functest/getting-started.md)
 * [DSL](/OpenBuildings/functest/blob/master/guide/functest/dsl.md)
-* [Native Driver](/OpenBuildings/functest/blob/master/guide/functest/native-driver.md)
-* [Selenium Driver](/OpenBuildings/functest/blob/master/guide/functest/selenium-driver.md)
-* [Phantomjs Driver](/OpenBuildings/functest/blob/master/guide/functest/phantomjs-driver.md)
+
+
+----------
+
+Functest was developed by [OpenBuildings](http://openbuildings.com) Team as part of the [Clippings](http://clippings.com) Project, and is with the [ICS LICENSE](/OpenBuildings/functest/blob/master/LICENSE)- [ISC](http://www.opensource.org/licenses/isc-license.txt)

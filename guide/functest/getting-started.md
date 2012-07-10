@@ -166,7 +166,7 @@ You can make assertions for multiple tags using the `->all()` method - it return
 Filters and Locators
 --------------------
 
-HTML Tags of the page are located
+HTML Tags of the page are located by using several types of "locators"
 
 	$this->find('.big-div'); // Find a html tag with class of .big-div
 	$this->find_link('Link Button'); // Find an anchor tag with text of "Link Button"
@@ -195,6 +195,34 @@ All of those locators can be supplemented with filters. They filter out the tags
 * __value__ only allow elements that have a value matching the specified one - works for all input fields - input, textarea and select
 * __visible__ only select visible (or hidden) elements
 
+> __Notice__ Filters are applied on all of the returned elements so its not very performant. Aspecially in the case of Selenium Driver - they require a roundtrip to the selenium server for each tag. Use them sparingly and with smaller collection of html tags.
+
+Drivers
+-------
+
+Functest comes with 2 drivers out of the box - Native and Selenium - but you can write your own drivers (and send pull requests :)) by implementing the methods of the abstract driver. Drivers work even if not all of the methods have been implemented, for example native driver does not support any javascript stuff.
+
+To change drivers modify the public $driver_name property:
+
+	<?php defined('SYSPATH') OR die('No direct script access.');
+
+	/**
+	 * @group   func
+	 */
+	class myTest extends FuncTest_TestCase {
+
+		public $driver_name = 'selenium';
+
+		// ...
+	}
+
+_Native Driver_
+
+Native Driver is implemented around Kohana_Request and Kohana_Response methods thus reusing the Kohana classes between request which is significantly faster than sending external requests and starting other php threads. However the database and most of the objects stay the same and so there might be isolation issues. There is a lot of effort to keep all the environment variables different for each request but you will have to make sure your code does not keep state between requests. This driver does not support any javascript.
+
+_Selenium Driver_
+
+This driver uses selenium 2 JSON wire protocol to communicate with real browsers but you'll have to have selenium server running that talks to the said browser. It acts as a lightweight Selenium WebDriver implementation. 
 
 Logs and Failures
 -----------------

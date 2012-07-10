@@ -27,6 +27,12 @@ class Kohana_FuncTest_Locator {
 				$filters
 			);
 		}
+		// Manage nested selectors
+		elseif (is_array($selector[1]))
+		{
+			$selector = $selector[1];
+		}
+
 		$this->type = $selector[0];
 		$this->selector = $selector[1];
 		$this->filters = Arr::get($selector, 2, array());
