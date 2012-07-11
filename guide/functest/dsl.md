@@ -77,3 +77,31 @@ Finders
 * `find_button($selector, array $filters = array())` - Find an html button tag child of the current tag
 * `not_present($selector, array $filters = array())` - Oposite to the find() method
 * `all($selector, array $filters = array())` - Find a list of elements represented by the selector / filter. Returns an FuncTest_NodeList which is an iterator of FuncTest_Node objects
+
+
+Test Spesifict Methods
+----------------------
+
+These methods are used only by the testcase itself and cant be used from child tags
+
+* `visit($uri, array $query = array())` - point the browser to the given url. You can use relative urls (to the bootstrap) or absolute ones. It is important to use `$query` for query url parameters (?test=1) as they are merged with other system-generated ones, for example logging in with selenium driver
+* `current_path()` - Get the current URI path (without the domain)
+* `current_url()` - Get the current URL (with the domain)
+* `content()` - Get the raw html content of the page
+* `driver()` - Get the current driver object
+
+
+__Constraints__
+
+Those create PHPUnit constraints and can be chained with other constraints to create elaborate logical conditions where nessesery
+
+* `hasCss($selector, array $filters = array())`
+* `hasXpath($selector, array $filters = array())`
+* `hasField($selector, array $filters = array())`
+* `hasButton($selector, array $filters = array())`
+* `hasLink($selector, array $filters = array())`
+* `hasNoCss($selector, array $filters = array())`
+* `hasNoXpath($selector, array $filters = array())`
+* `hasNoField($selector, array $filters = array())`
+* `hasNoButton($selector, array $filters = array())`
+* `hasNoLink($selector, array $filters = array())`
