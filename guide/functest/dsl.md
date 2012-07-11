@@ -7,18 +7,18 @@ Each of those methods applies to the whole page or for each element that is retu
 Getters
 -------
 
-* `is_root()` _boolean_ is this the main html page? 
-* `dom()` _DOMDocument|DOMElement_ The DOMDocument or DOMElement representation of the current tag
-* `id()` _mixed_ The current internal ID, unique to this page
-* `html()` - _string_ -  * The html source of the current tag
-* `__toString()` - _string_ - The html source of the current tag
-* `tag_name()` - _string_ - The tag name of the current tag (body, div, input)
-* `attribute()` - _string_ - Attribute of the current tag
-* `text()` - _string _ - The text content of the current tag (similar to javascript's innerText)
-* `is_visible()` - _boolean_ - Is this element visible?
-* `is_selected()` - _boolean _ - Is this option element selected?
-* `is_checked()` - _boolean_ - Is this checkbox checked?
-* `value()` - _string _ - Get the value of the current form field
+* `is_root()` - is this the main html page? 
+* `dom()` - The DOMDocument or DOMElement representation of the current tag
+* `id()` - The current internal ID, unique to this page
+* `html()` -  The html source of the current tag
+* `__toString()` - The html source of the current tag
+* `tag_name()`  - The tag name of the current tag (body, div, input)
+* `attribute()` - Attribute of the current tag
+* `text()` - The text content of the current tag (similar to javascript's innerText)
+* `is_visible()` - Is this element visible?
+* `is_selected()` - Is this option element selected?
+* `is_checked()` - Is this checkbox checked?
+* `value()` - Get the value of the current form field
 
 
 Setters
@@ -49,10 +49,10 @@ Actions
 * `check($selector, array $filters)` - Check a spesific checkbox input tag inside the current tag
 * `uncheck($selector, array $filters)` - Uncheck a spesific checkbox input tag inside the current tag
 * `attach_file($selector, $file, array $filters)` - Attach a file to a spesific file input tag inside the current tag
-* `select($selector, $option_filters, array $filters)` - Select an option of a spesific select tag inside the current tag. To select the option the second parameter can be either a string of the option text or a filter to be applied on the options e.g. array('value' => 10)
-unselect($selector, $option_filters, array $filters)` - opposite to select
+* `select($selector, $option_filters, array $filters)` - Select an option of a spesific select tag inside the current tag. To select the option the second parameter can be either a string of the option text or a filter to be applied on the options e.g. `array('value' => 10)`
+* `unselect($selector, $option_filters, array $filters)` - opposite to select
 * `confirm($confirm)` - Confirm a javascript alert/confirm dialog box
-* `execute($javascript)` - _mixed_ Execute arbitrary javascript on the page and get the result
+* `execute($javascript)` - Execute arbitrary javascript on the page and get the result
 
 Assertions
 ----------
