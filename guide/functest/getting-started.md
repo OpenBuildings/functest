@@ -34,7 +34,7 @@ You should generally put your tests inside APPPATH/tests/* or MODPATH/*/tests/* 
 That test will open up a url of /my/url and check if there is a h1 tag containing the text 'Hellow World'. Those are just 2 methods of the [DSL](/OpenBuildings/functest/blob/master/guide/functest/dsl.md) which is quite powerful.
 
 _Notice:_
-Most Functional test frameworks and this one as well discourages using direct POST / PUT / DELETE requests, as users can't perform those from browsers and it are so are not supported by selenium or other drivers. That's way there is only a `visit()` method which acts as though the user entered some text into the URL field. However, if you really really want to perform such a request (for example testing out some API) you can still do that with `$this->driver()->get()`, `$this->driver()->post()`, `$this->driver()->put()` or `$this->driver()->delete()`. Keep in mind that you will not be able to convert to selenium tests later, if you use those methods.
+> Most Functional test frameworks and this one as well discourages using direct POST / PUT / DELETE requests, as users can't perform those from browsers directly and are so are not supported by selenium or other drivers. That's way there is only a `visit()` method which acts as though the user entered some text into the URL field. However, if you really really want to perform such a request (for example testing out some API) you can still do that with `$this->driver()->get()`, `$this->driver()->post()`, `$this->driver()->put()` or `$this->driver()->delete()`. Keep in mind that you will not be able to convert to selenium tests later, if you use those methods.
 
 
 Testing Forms
