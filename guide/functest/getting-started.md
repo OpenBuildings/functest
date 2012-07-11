@@ -14,7 +14,7 @@ That way both of those modules will be available only to phpunit.
 Your First Functest
 -------------------
 
-You should generally put your tests inside APPPATH/tests/* or MODPATH/*/tests/* directories - that's where Kohana's unittest is searching for them. So lets put a test as APPPATH/tests/func/myTest.php
+You should generally put your tests inside APPPATH/tests/* or MODPATH/\*/tests/\* directories - that's where Kohana's unittest is searching for them. So lets put a test as APPPATH/tests/func/myTest.php
 
 	<?php defined('SYSPATH') OR die('No direct script access.');
 
