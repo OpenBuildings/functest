@@ -218,13 +218,51 @@ To change drivers modify the public $driver_name property:
 		// ...
 	}
 
-_Native Driver_
+__Native Driver__
 
 Native Driver is implemented around Kohana_Request and Kohana_Response methods thus reusing the Kohana classes between request which is significantly faster than sending external requests and starting other php threads. However the database and most of the objects stay the same and so there might be isolation issues. There is a lot of effort to keep all the environment variables different for each request but you will have to make sure your code does not keep state between requests. This driver does not support any Javascript.
 
-_Selenium Driver_
+__Selenium Driver__
 
 This driver uses selenium 2 JSON wire protocol to communicate with real browsers but you'll have to have selenium server running that talks to the said browser. It acts as a lightweight Selenium WebDriver implementation. 
+
+
+Ajax
+----
+
+Ajax requests are handled with a small timeout to wait for existance of a given html tag on the page. For example if we have a link that triggers an ajax:
+
+	<a href="#">Click for ajax</a>
+
+And the requests loads this html onto the page
+
+	<div class="ajax-loaded">
+		<h2>Successful ajax request</h2>
+	</div>
+
+Then the test will look like this:
+
+
+	<?php defined('SYSPATH') OR die('No direct script access.');
+
+	/**
+	 * @group   func
+	 */
+	class myTest extends FuncTest_TestCase {
+
+		public function test_finders()
+		{
+			$this
+				->visit('/my/url')
+				->click_link('Click for ajax')
+				// This find does not give up right away but waits some time (default 2 seconds) for the element to appear on the page
+				->find('div.ajax-loaded')
+					->assertHasCss('h2', array('text' => 'Successful ajax request'));
+		}
+
+	}
+
+We use this techinique as there is no easy way to ask selenium to wait the ajax out for us. But it is a good idea to check the result of the ajax request anyway. The wait time is configurable in the config, or you can change them per test using Kohana's build in phpunit helpers to alter config parameters per test.
 
 Logs and Failures
 -----------------
