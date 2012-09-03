@@ -5,7 +5,7 @@ return array(
 	'modules' => array(
 
 		// This should be the path to this modules userguide pages, without the 'guide/'. Ex: '/guide/modulename/' would be 'modulename'
-		'webtest' => array(
+		'functest' => array(
 
 			// Whether this modules userguide pages should be shown
 			'enabled' => TRUE,
