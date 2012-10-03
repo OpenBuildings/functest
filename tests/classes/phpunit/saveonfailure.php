@@ -84,7 +84,7 @@ ERROR_MESSAGE;
 	{
 		if ($test instanceof FuncTest_TestCase AND $test->has_driver() AND $test->driver()->has_page())
 		{
-			$this->save($test, $e->getMessage(), $test->driver()->content());
+			$this->save($test, $e->getMessage(), $test->driver()->html());
 		}
 	}
 
@@ -92,7 +92,7 @@ ERROR_MESSAGE;
 	{
 		if ($test instanceof FuncTest_TestCase AND $test->has_driver() AND $test->driver()->has_page())
 		{
-			$this->save($test, $e->getMessage(), $test->driver()->content());
+			$this->save($test, $e->getMessage(), $test->driver()->html());
 		}
 	}
 
