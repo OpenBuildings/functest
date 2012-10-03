@@ -57,13 +57,19 @@ class Kohana_FuncTest_Util
 			}
 			return implode('|', $expressions);
 		}
-
+		
+		# (despark) Prevent splitting attribute values into segments.
+		$path = preg_replace_callback('/"(.*?)"/', 'FuncTest_Util::_encode_selector', $path);
+		
 		$paths    = array('//');
 		$path     = preg_replace('|\s+>\s+|', '>', $path);
 		$segments = preg_split('/\s+/', $path);
 
 		foreach ($segments as $key => $segment) 
 		{
+			# (despark) Restores attribute values.
+			$segment = str_replace('%20', ' ', $segment);
+			
 			$pathSegment = Kohana_FuncTest_Util::_tokenize($segment);
 			if (0 == $key) 
 			{
@@ -99,7 +105,17 @@ class Kohana_FuncTest_Util
 		}
 		return implode('|', $paths);
 	}
-
+	
+	/**
+	 * Callback method for preg_replace_callback.
+	 * 
+	 * @author Despark
+	 */
+	protected static function _encode_selector($matches)
+	{
+		return '"'.str_replace(' ', '%20', $matches[1]).'"';
+	}
+	
 	/**
 	 * Tokenize CSS expressions to XPath
 	 *
