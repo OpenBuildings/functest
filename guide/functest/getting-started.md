@@ -1,6 +1,9 @@
 Getting started with Functest
 =============================
 
+Instalation
+-----------
+
 Functest requires kohana's Unittest module to operate. So you'll have to enable both in your modules/unittest/bootsrap.php file:
 
 	Kohana::modules(Kohana::modules() + array(
@@ -10,6 +13,22 @@ Functest requires kohana's Unittest module to operate. So you'll have to enable 
 	));
 
 That way both of those modules will be available only to phpunit.
+
+Functest has the ability to save the content HTML on each fail to show you the exact state of the web page where the failure occurred.
+To do this you will have to modify your phpunit.xml to add a listener like this:
+
+	<phpunit colors="true" bootstrap="modules/unittest/bootstrap.php">
+		<testsuites>
+			<testsuite name="Tests">
+				<file>modules/unittest/tests.php</file>
+			</testsuite>
+		</testsuites>
+		<listeners>
+		  <listener class="PHPUnit_SaveOnFailure" file="modules/functest/tests/classes/phpunit/saveonfailure.php"></listener>
+		</listeners>
+	</phpunit>
+
+After that each failure is logged in APPPATH/logs/functest/ folder.
 
 Your First Functest
 -------------------
@@ -263,10 +282,5 @@ Then the test will look like this:
 	}
 
 We use this techinique as there is no easy way to ask selenium to wait the ajax out for us. But it is a good idea to check the result of the ajax request anyway. The wait time is configurable in the config, or you can change them per test using Kohana's build in phpunit helpers to alter config parameters per test.
-
-Logs and Failures
------------------
-
-Whenever you have a failure / error in a test, a snapshot of the current state of the HTML will be put in the APPPATH/logs/functest/ Folder with the text of the failure so you can easily find out why it occurred.
 
 

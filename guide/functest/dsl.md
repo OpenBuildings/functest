@@ -24,7 +24,7 @@ Getters
 Setters
 -------
 
-Those are basic setters that operate on the current tag
+Those are basic setters that operate on the current tag. These are low level methods and you should generally not have to use them at all. They are mostly used internally by the Actions.
  
 * `set($value)` - Set the value for the current form field. 
 * `append($value)` - Append to the current value - useful for textarea / input fields
