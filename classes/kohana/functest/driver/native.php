@@ -92,6 +92,16 @@ class Kohana_FuncTest_Driver_Native extends FuncTest_Driver {
 		return $this->request(Request::POST, $uri, $query, $post, $files);
 	}
 
+	public function put($uri, array $query = array(), array $payload = array(), array $files = array())
+	{
+		return $this->request(Request::PUT, $uri, $query, $payload, $files);
+	}
+
+	public function delete($uri, array $query = array())
+	{
+		return $this->request(Request::DELETE, $uri, $query);
+	}
+
 	public function request($type, $uri, array $query = array(), array $post = array(), array $files = array())
 	{
 		$this->response = Response::factory();
