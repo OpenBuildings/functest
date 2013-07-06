@@ -1,0 +1,21 @@
+{
+    "name": "openbuildings/flex-storage",
+    "description": "Flexible storage provider for files (rackspace, aws, ftp, local)",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Ivan Kerin",
+            "email": "ivan@openbuildings.com",
+            "role": "Author"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {"Flex\\Storage\\": "src/"}
+    }
+}
