@@ -7,8 +7,8 @@ This is basically a php port of jnicklas's capybara, and handles Functional / In
 Tutorials
 ---------
 
-* [Getting Started](/OpenBuildings/functest/blob/master/guide/functest/getting-started.md)
-* [DSL](/OpenBuildings/functest/blob/master/guide/functest/dsl.md)
+* [Getting Started](guide/functest/getting-started.md)
+* [DSL](guide/functest/dsl.md)
 
 
 ----------
