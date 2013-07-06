@@ -3,10 +3,15 @@
 return array(
 	'default_driver' => 'native',
 	'default_locator_type' => 'css',
-	'default_wait_time' => 2000,
+	'default_wait_time' => 4000,
 	'save_on_failure' => TRUE,
 	'failures_dir' => APPPATH.'logs/functest/',
-
+	'screanshots_dir' => APPPATH.'logs/functest-screenshots/',
+	'database' => Kohana::TESTING,
+	'apptests' => FALSE,
+	'modules' => array(
+		'functest',
+	),
 	'drivers' => array(
 		'native' => array(
 			'environment' => array(
@@ -22,9 +27,11 @@ return array(
 			)
 		),
 		'phantomjs' => array(
-			'command' => 'phantomjs '.MODPATH.'functest/assets/phantom.js',
+			'user_agent' => 'Mozilla/5.0 (Unknown; Linux i686) AppleWebKit/534.34 (KHTML, like Gecko) PhantomJS/1.9.1 Safari/534.34',
+			'command' => 'phantomjs --ignore-ssl-errors=true '.MODPATH.'functest/assets/phantom.js '.MODPATH.'functest/assets/phantomjs-connection.js',
 			'url' => 'http://localhost:4445/',
-			'timeout' => 20000,
+			'pid' => APPPATH.'logs/phantomjs.pid',
+			'autostart' => TRUE,
 		),
 	)
 );

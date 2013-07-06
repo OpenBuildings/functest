@@ -71,12 +71,12 @@ Assertions
 Finders
 -------
 
-* `find($selector, array $filters = array()` - Find an html tag child of the current tag. This is the basic find method that is used by all the other finders. To work with ajax requests it waits a bit (defualt 2 seconds) for the content to appear on the page before throwing an FuncTest_Exception_NotFound exception
+* `find($selector, array $filters = array()` - Find an html tag child of the current tag. This is the basic find method that is used by all the other finders. To work with ajax requests it waits a bit (defualt 2 seconds) for the content to appear on the page before throwing an Functest_Exception_Notfound exception
 * `find_field($selector, array $filters = array())` - Find an html form field child of the current tag
 * `find_link($selector, array $filters = array()` - Find an html form field child of the current tag
 * `find_button($selector, array $filters = array())` - Find an html button tag child of the current tag
 * `not_present($selector, array $filters = array())` - Oposite to the find() method
-* `all($selector, array $filters = array())` - Find a list of elements represented by the selector / filter. Returns an FuncTest_NodeList which is an iterator of FuncTest_Node objects
+* `all($selector, array $filters = array())` - Find a list of elements represented by the selector / filter. Returns an Functest_Nodelist which is an iterator of Functest_Node objects
 
 
 Test Spesifict Methods

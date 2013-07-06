@@ -40,7 +40,7 @@ You should generally put your tests inside APPPATH/tests/* or MODPATH/\*/tests/\
 	/**
 	 * @group   func
 	 */
-	class myTest extends FuncTest_TestCase {
+	class myTest extends Functest_TestCase {
 
 		public function test_finders()
 		{
@@ -96,7 +96,7 @@ We will have this test:
 	/**
 	 * @group   func
 	 */
-	class myTest extends FuncTest_TestCase {
+	class myTest extends Functest_TestCase {
 
 		public function test_finders()
 		{
@@ -125,7 +125,7 @@ Sometimes you want to fill in forms inside a particular form as there may be oth
 	/**
 	 * @group   func
 	 */
-	class myTest extends FuncTest_TestCase {
+	class myTest extends Functest_TestCase {
 
 		public function test_finders()
 		{
@@ -196,7 +196,7 @@ Most find and assert methods have similar methods for different locators (as sho
 __Locators__
 
 * __css__ this is the basic locator and is nothing more than a css selector. It's not very advanced and does not handle pseudo classes and CSS 3 selectors so don't get really complicated here. Most of the time you can chain the selectors multiple times to find what you want. `$this->all('.item')->first()->find('a.link')->find('span')`
-* __xpath__ you can use this if you need a really powerful selector. It's mostly used internally by FuncTest
+* __xpath__ you can use this if you need a really powerful selector. It's mostly used internally by Functest
 * __link__ find HTML anchor tags. It searches for text inside anchors (including child elements), the title of the anchor, the id of the anchor or the alt text of a child img tag.
 * __field__ this is used to find input fields - it searches for the id, name or title of the input, the text of the label tag, pointing to that input, the placeholder attribute or the text of the option with no value for select tags.
 * __button__ its similar to the link selector, but searches for button tags (and inputs with type of button) - It searches for text inside button (including child elements), the title of the button, the id, name or value of the button or the alt text of a child img tag.
@@ -221,7 +221,7 @@ All of those locators can be supplemented with filters. They filter out the tags
 Drivers
 -------
 
-FuncTest comes with 2 drivers out of the box - Native and Selenium - but you can write your own drivers (and send pull requests :)) by implementing the methods of the abstract driver. Drivers work even if not all of the methods have been implemented, for example native driver does not support any Javascript stuff.
+Functest comes with 2 drivers out of the box - Native and Selenium - but you can write your own drivers (and send pull requests :)) by implementing the methods of the abstract driver. Drivers work even if not all of the methods have been implemented, for example native driver does not support any Javascript stuff.
 
 To change drivers modify the public $driver_name property:
 
@@ -230,7 +230,7 @@ To change drivers modify the public $driver_name property:
 	/**
 	 * @group   func
 	 */
-	class myTest extends FuncTest_TestCase {
+	class myTest extends Functest_TestCase {
 
 		public $driver_name = 'selenium';
 
@@ -243,7 +243,7 @@ Native Driver is implemented around Kohana_Request and Kohana_Response methods t
 
 __Selenium Driver__
 
-This driver uses selenium 2 JSON wire protocol to communicate with real browsers but you'll have to have selenium server running that talks to the said browser. It acts as a lightweight Selenium WebDriver implementation. 
+This driver uses selenium 2 JSON wire protocol to communicate with real browsers but you'll have to have selenium server running that talks to the said browser. It acts as a lightweight Selenium Webdriver implementation. 
 
 
 Ajax
@@ -267,7 +267,7 @@ Then the test will look like this:
 	/**
 	 * @group   func
 	 */
-	class myTest extends FuncTest_TestCase {
+	class myTest extends Functest_TestCase {
 
 		public function test_finders()
 		{

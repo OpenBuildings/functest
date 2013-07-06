@@ -36,6 +36,9 @@
 				<input name="post[tag][rating]" value="20"/>
 			</div>
 			<div class="row">
+				<input type="number" name="post[tag][quantity]" value="1"/>
+			</div>
+			<div class="row">
 				<textarea name="post[body]" id="post_body" cols="30" rows="10">Lorem Ipsum</textarea>
 			</div>
 
