@@ -21,19 +21,6 @@ spl_autoload_register('test_autoload');
 
 Kohana::$config
 	->load('database')
-		->set('default', array(
-			'type'       => 'MySQL',
-			'connection' => array(
-				'hostname'   => 'localhost',
-				'database'   => 'test-functest',
-				'username'   => 'root',
-				'password'   => '',
-				'persistent' => TRUE,
-			),
-			'table_prefix' => '',
-			'charset'      => 'utf8',
-			'caching'      => FALSE,
-		))
 		->set(Kohana::TESTING, array(
 			'type'       => 'MySQL',
 			'connection' => array(
