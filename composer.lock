@@ -3,9 +3,80 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e28b9a27f7d6a45f55975a3dc8336cd1",
+    "hash": "ccc2ed2e1083cda26fcb29ce54dc5f90",
     "packages": [
-
+        {
+            "name": "composer/installers",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/installers.git",
+                "reference": "v1.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/installers/zipball/v1.0.4",
+                "reference": "v1.0.4",
+                "shasum": ""
+            },
+            "replace": {
+                "shama/baton": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "composer-installer",
+            "extra": {
+                "class": "Composer\\Installers\\Installer",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer\\Installers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "http://dontkry.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A multi-framework Composer library installer",
+            "homepage": "http://composer.github.com/installers/",
+            "keywords": [
+                "TYPO3 Flow",
+                "TYPO3 Neos",
+                "agl",
+                "cakephp",
+                "codeigniter",
+                "drupal",
+                "fuelphp",
+                "installer",
+                "joomla",
+                "kohana",
+                "laravel",
+                "li3",
+                "lithium",
+                "mako",
+                "modulework",
+                "phpbb",
+                "ppi",
+                "silverstripe",
+                "symfony",
+                "wordpress",
+                "zend"
+            ],
+            "time": "2013-06-20 02:36:19"
+        }
     ],
     "packages-dev": [
         {
@@ -99,6 +170,41 @@
                 "web service"
             ],
             "time": "2013-07-05 20:17:54"
+        },
+        {
+            "name": "openbuildings/kohana-test-bootsrap",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OpenBuildings/kohana-test-bootstrap.git",
+                "reference": "a29d23b06038bb4c15d927bb48d68cbbd41d8c34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OpenBuildings/kohana-test-bootstrap/zipball/a29d23b06038bb4c15d927bb48d68cbbd41d8c34",
+                "reference": "a29d23b06038bb4c15d927bb48d68cbbd41d8c34",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Kerin",
+                    "email": "ivan@openbuildings.com",
+                    "homepage": "https://github.com/OpenBuildings/jam",
+                    "role": "Author"
+                }
+            ],
+            "description": "Kohana core classes repackaged with composer, used to test modules",
+            "time": "2013-07-08 09:03:44"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -872,11 +978,12 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "satooshi/php-coveralls": 20
+        "satooshi/php-coveralls": 20,
+        "openbuildings/kohana-test-bootsrap": 20
     },
-    "platform": [
-
-    ],
+    "platform": {
+        "php": ">=5.3.0"
+    },
     "platform-dev": [
 
     ]
