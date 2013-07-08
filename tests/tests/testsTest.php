@@ -20,8 +20,11 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 				$this->modpath.$this->test_folder.'test_file2.txt',
 			)
 		);
+		$list_files = Functest_Tests::list_files($this->test_folder, array('functest' => $this->modpath));
 
-		$this->assertEquals($expected, Functest_Tests::list_files($this->test_folder, array('functest' => $this->modpath)));
+		sort($list_files['functest']);
+
+		$this->assertEquals($expected, $list_files);
 	}
 
 	public function test_module_directories()
