@@ -1,5 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
+use Symfony\Component\CssSelector\CssSelector;
+
 /**
  * Func_Test Locator - converts varios locator formats into xpath
  *
@@ -116,7 +118,7 @@ class Kohana_Functest_Locator {
 
 	public function css_to_xpath($locator)
 	{
-		return Functest_Util::css2xpath($locator);
+		return '//'.CssSelector::toXPath($locator);;
 	}
 
 	public function xpath_to_xpath($locator)
