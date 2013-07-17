@@ -20,10 +20,13 @@ abstract class Kohana_Functest_Fixture_Datafiles extends Functest_Fixture_Cachab
 
 		$cache_file = fopen($this->cache_file(), 'w');
 		ftruncate($cache_file, 0);
+
+		$files = $this->files();
+		sort($files);
 		
 		try 
 		{
-			foreach ($this->files() as $file) 
+			foreach ($files as $file) 
 			{
 				require_once $file;
 			}
