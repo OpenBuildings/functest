@@ -57,8 +57,11 @@ abstract class Kohana_Functest_Fixture_Database {
 	public function dump_data($file)
 	{
 		$params = Arr::merge(array(':file' => $file), $this->params());
-		
-		return $this->command("mysqldump -u:username -p:password --skip-comments --skip-triggers --compact --no-create-info :database > :file ", $params);
+		if ($params[':password'])
+		{
+			$params[':password'] = '-p'.$params[':password'];
+		}
+		return $this->command('mysqldump -u:username :password --skip-comments --skip-triggers --compact --no-create-info :database > :file ', $params);
 
 		return $this;
 	}
@@ -76,8 +79,13 @@ abstract class Kohana_Functest_Fixture_Database {
 	public function dump_structure($file)
 	{
 		$params = Arr::merge(array(':file' => $file), $this->params());
+
+		if ($params[':password'])
+		{
+			$params[':password'] = '-p'.$params[':password'];
+		}
 		
-		return $this->command("mysqldump -u:username -p:password -h:hostname --skip-comments --add-drop-table --no-data :database | sed 's/AUTO_INCREMENT=[0-9]*\b//' > :file ", $params);
+		return $this->command("mysqldump -u:username :password -h:hostname --skip-comments --add-drop-table --no-data :database | sed 's/AUTO_INCREMENT=[0-9]*\b//' > :file ", $params);
 	}
 
 	public function load($file)
