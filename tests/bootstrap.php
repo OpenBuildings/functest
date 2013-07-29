@@ -4,20 +4,11 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 Kohana::modules(array(
 	'database' => MODPATH.'database',
-	'module'   => __DIR__.'/..',
+	'auth'     => MODPATH.'auth',
+	'cache'    => MODPATH.'cache',
+	'functest' => __DIR__.'/..',
+	'test'     => __DIR__.'/../tests/testmodule',
 ));
-
-function test_autoload($class)
-{
-	$file = str_replace('_', '/', $class);
-
-	if ($file = Kohana::find_file('tests/classes', $file))
-	{
-		require_once $file;
-	}
-}
-
-spl_autoload_register('test_autoload');
 
 Kohana::$config
 	->load('database')
@@ -33,4 +24,17 @@ Kohana::$config
 			'table_prefix' => '',
 			'charset'      => 'utf8',
 			'caching'      => FALSE,
+		))
+		->set('pdo_test', array(
+			'type'       => 'PDO',
+			'connection' => array(
+				'dsn'        => 'mysql:host=localhost;db_name=test-functest',
+				'username'   => 'root',
+				'password'   => '',
+				'persistent' => TRUE,
+			),
+			'table_prefix' => '',
+			'charset'      => 'utf8',
+			'caching'      => FALSE,
 		));
+

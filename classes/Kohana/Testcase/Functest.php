@@ -1,5 +1,10 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
+use Openbuildings\PHPUnitSpiderling\Testcase_Spiderling;
+use Openbuildings\PHPUnitSpiderling\Driver_Selenium_Connection;
+use Openbuildings\PHPUnitSpiderling\Driver_Phantomjs_Connection;
+use Openbuildings\EnvironmentBackup\Environment_Group_Config;
+
 /**
  * Testcase_Functest definition
  *
@@ -7,22 +12,19 @@
  * @author Ivan Kerin
  * @copyright  (c) 2011-2013 Despark Ltd.
  */
-abstract class Kohana_Testcase_Functest extends PHPUnit_Framework_TestCase {
-	
-	protected $_driver;
-	protected $_driver_type;
-	protected $_environment;
+abstract class Kohana_Testcase_Functest extends Testcase_Spiderling {
 	
 	public function setUp()
 	{
-		$driver = Arr::path($this->getAnnotations(), 'method.driver', array(Kohana::$config->load('functest.default_driver')));
-
-		$this->_driver_type = $driver[0];
-
-		if ($this->_driver_type === 'native')
+		if (in_array($this->driver_type(), array('kohana', 'simple')))
 		{
-			Functest_Fixture_Database::instance()->db()->begin();
+			Functest_Tests::begin_transaction();
 		}
+	}
+
+	public function driver_type()
+	{
+		return parent::driver_type() ?: Kohana::$config->load('functest.default_driver');
 	}
 
 	public function tearDown()
@@ -37,80 +39,54 @@ abstract class Kohana_Testcase_Functest extends PHPUnit_Framework_TestCase {
 			$this->environment()->restore();
 		}
 		
-		if ($this->_driver_type === 'native')
+		if (in_array($this->driver_type(), array('kohana', 'simple')))
 		{
-			Functest_Fixture_Database::instance()->db()->rollback();
+			Functest_Tests::rollback_transaction();
 		}
 		else
 		{
-			Functest_Tests::datafiles()->reset();
+			Functest_Tests::load_fixtures();
 		}
 		
 		parent::tearDown();
 	}
 
-	public function driver()
+	public function driver_phantomjs()
 	{
-		if ( ! $this->_driver)
-		{
-			$this->_driver = Functest::driver($this->_driver_type);
-		}
+		$driver = parent::driver_phantomjs();
 
-		return $this->_driver;
+		$config = Kohana::$config->load('functest.drivers.phantomjs');
+
+		$connection = new Driver_Phantomjs_Connection($config['server']);
+		$connection->start($config['pid'], $config['log']);
+
+		return $driver
+			->connection($connection)
+			->base_url(URL::site(TRUE));
 	}
 
-	public function driver_type()
+	public function driver_selenium()
 	{
-		return $this->_driver_type;
+		$driver = parent::driver_selenium();
+
+		$config = Kohana::$config->load('functest.drivers.selenium');
+		
+		$connection = new Driver_Selenium_Connection($config['server']);
+		$connection->start($config['desired']);
+
+		return $driver
+			->connection($connection)
+			->base_url(URL::site(TRUE));
 	}
 
 	public function environment()
 	{
 		if ($this->_environment === NULL)
 		{
-			$this->_environment = Functest_Environment::factory();
+			$this->_environment = parent::environment();
+			$this->_environment->groups('config', new Environment_Group_Config());
 		}
 		return $this->_environment;
 	}
 
-	public function is_driver_active()
-	{
-		return (bool) $this->_driver;
-	}
-
-	public function is_environment_active()
-	{
-		return (bool) $this->_environment;
-	}
-
-	public function page()
-	{
-		return $this->driver()->page();
-	}
-
-	public function visit($uri, array $query = array())
-	{
-		$this->driver()->visit($uri, $query);
-		return $this;
-	}
-
-	public function content()
-	{
-		return $this->driver()->content();
-	}
-
-	public function current_path()
-	{
-		return $this->driver()->current_path();
-	}
-
-	public function current_url()
-	{
-		return $this->driver()->current_url();
-	}
-
-	public function __call($method, $args)
-	{
-		return call_user_func_array(array($this->page(), $method), $args);
-	}
 }

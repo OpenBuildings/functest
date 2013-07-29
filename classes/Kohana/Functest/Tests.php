@@ -10,12 +10,12 @@
 abstract class Kohana_Functest_Tests {
 
 	public static $_suite = NULL;
-	public static $_datafiles = NULL;
+	CONST FIXTURE_CACHE = '_database_fixtures_cache';
 
 	public static function autoload($class)
 	{
 		$file = str_replace('_', '/', $class);
-
+		
 		if ($file = Kohana::find_file('tests/classes', $file))
 		{
 			require_once $file;
@@ -31,36 +31,55 @@ abstract class Kohana_Functest_Tests {
 	 * * Restores exception phpunit error handlers (for cli)
 	 * * registeres an autoloader to load test files
 	 */
-	public static function configure_environment()
+	public static function enable_environment()
 	{
-		// restore_exception_handler();
-		// restore_error_handler();
-
 		spl_autoload_register(array('Functest_Tests', 'autoload'));
 	}
 
-	public static function configure_database()
+	public static function disable_environment()
 	{
-		Functest_Fixture_Database::instance()->truncate_all();
-		Functest_Tests::datafiles()->update();
+		spl_autoload_unregister(array('Functest_Tests', 'autoload'));
 	}
 
-	public static function datafiles()
+	public static function fixture_files()
 	{
-		if (Functest_Tests::$_datafiles === NULL)
+		$search_directory = 'tests'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'fixtures';
+
+		$fixture_files = Functest_Tests::list_files($search_directory, Functest_Tests::module_directories());
+
+		if (count($fixture_files) > 1) 
 		{
-			$fixture_files = Functest_Tests::list_files('tests'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'fixtures', Functest_Tests::module_directories());
-
 			$fixture_files = call_user_func_array('Arr::merge', $fixture_files);
-			
-			$cache_file = Arr::get(Kohana::modules(), 'functest').'tests'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'fixtures.sql';
-
-			Functest_Tests::$_datafiles = Functest_Fixture_Datafiles::factory()
-				->cache_file($cache_file)
-				->files($fixture_files);
 		}
-		
-		return Functest_Tests::$_datafiles;
+
+		return array_values(Arr::flatten($fixture_files));
+	}
+
+	public static function begin_transaction()
+	{
+		Functest_Fixture::instance()->pdo()->beginTransaction();
+	}
+
+	public static function rollback_transaction()
+	{
+		Functest_Fixture::instance()->pdo()->rollback();
+	}
+
+	public static function load_fixtures()
+	{
+		$fixture = Functest_Fixture::instance();
+		$import_sql = Cache::instance('file')->get(Functest_Tests::FIXTURE_CACHE);
+
+		if ($import_sql)
+		{
+			$fixture->replace($import_sql);
+		}
+		else
+		{
+			$fixture->truncate_all();
+			$fixture->execute_import_files(Functest_Tests::fixture_files());
+			Cache::instance('file')->set(Functest_Tests::FIXTURE_CACHE, $fixture->dump());
+		}
 	}
 
 	public static function list_files($dir, array $paths)
@@ -94,21 +113,23 @@ abstract class Kohana_Functest_Tests {
 		return $module_directories;
 	}
 
+	public static function tests()
+	{
+		$files = Kohana::list_files('tests/tests', Functest_Tests::module_directories());
+		$files = Arr::flatten($files);
+
+		return array_values(array_filter($files, function($file){
+			return substr($file, -8) === 'Test.php';
+		}));
+	}
+
 	public static function suite()
 	{
 		if ( ! Functest_Tests::$_suite)
 		{
 			Functest_Tests::$_suite = new PHPUnit_Framework_TestSuite;
 
-			$modules_for_testing = Arr::extract(Kohana::modules(), Kohana::$config->load('functest.modules'));
-
-			$files = Kohana::list_files('tests/tests', Functest_Tests::module_directories());
-			$files = Arr::flatten($files);
-			$files = array_filter($files, function($file){
-				return substr($file, -8) === 'Test.php';
-			});
-
-			Functest_Tests::$_suite->addTestFiles($files);
+			Functest_Tests::$_suite->addTestFiles(Functest_Tests::tests());
 		}
 
 		return Functest_Tests::$_suite;

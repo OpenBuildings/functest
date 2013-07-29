@@ -104,6 +104,7 @@ if ( ! defined('KOHANA_START_MEMORY'))
 }
 
 $_SERVER["PHP_APP_ENV"] = 'testing';
+Kohana::$environment = Kohana::TESTING;
 
 // Bootstrap the application
 require APPPATH.'bootstrap'.EXT;
@@ -117,5 +118,5 @@ Kohana::modules(Kohana::modules() + array(
 	'functest' => MODPATH.'functest', 
 ));
 
-Functest_Tests::configure_environment();
-Functest_Tests::configure_database();
+Functest_Tests::enable_environment();
+Functest_Tests::load_fixtures();
