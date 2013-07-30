@@ -151,7 +151,7 @@ class Kohana_Functest_Driver_Native extends Functest_Driver {
 	public function text($id)
 	{
 		$text = $this->dom($id)->textContent;
-		$text = preg_replace('/([\t\n\r]|\s\s+| )/', ' ', $text);
+		$text = preg_replace('/([\t\n\r]+|\s\s+| )/', ' ', $text);
 		
 		return trim($text);
 	}
