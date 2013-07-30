@@ -1,9 +1,5 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
-class PDOMock extends \PDO {
-    public function __construct() {}
-}
-
 /**
  * Functest_TestsTest 
  *
@@ -127,22 +123,22 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 
 	public function test_transactions()
 	{
-		$pdo = Functest_Fixture::instance()->pdo();
+		$database = $this->getMock('Database_MySQL', array(), array(), '', FALSE);
 
-		$test_pdo = $this->getMock('PDOMock');
+		$this->environment()->backup_and_set(array(
+			'Database::$instances' => array(
+				Kohana::TESTING => $database,
+			)
+		));
 
-		$test_pdo->expects($this->once())
-			->method('beginTransaction');
+		$database->expects($this->once())
+			->method('begin');
 
-		$test_pdo->expects($this->once())
+		$database->expects($this->once())
 			->method('rollback');
-
-		Functest_Fixture::instance()->pdo($test_pdo);
 
 		Functest_Tests::begin_transaction();
 		Functest_Tests::rollback_transaction();
-
-		Functest_Fixture::instance()->pdo($pdo);
 	}
 
 	public function test_tests()
