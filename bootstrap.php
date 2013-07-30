@@ -104,10 +104,11 @@ if ( ! defined('KOHANA_START_MEMORY'))
 }
 
 $_SERVER["PHP_APP_ENV"] = 'testing';
-Kohana::$environment = Kohana::TESTING;
 
 // Bootstrap the application
 require APPPATH.'bootstrap'.EXT;
+
+Kohana::$environment = Kohana::TESTING;
 
 // Disable output buffering
 ob_end_flush();

@@ -10,7 +10,6 @@ return array(
 	'database' => Kohana::TESTING,
 	'apptests' => TRUE,
 	'modules' => array(
-		'functest',
 	),
 	'drivers' => array(
 		'native' => array(
@@ -26,7 +25,7 @@ return array(
 			)
 		),
 		'phantomjs' => array(
-			'server' => 'http://localhost:4445/',
+			'server' => 'http://localhost/',
 			'pid' => APPPATH.'logs/phantomjs.pid',
 			'log' => APPPATH.'logs/phantomjs.log',
 		),

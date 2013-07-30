@@ -1,8 +1,8 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
 use Openbuildings\PHPUnitSpiderling\Testcase_Spiderling;
-use Openbuildings\PHPUnitSpiderling\Driver_Selenium_Connection;
-use Openbuildings\PHPUnitSpiderling\Driver_Phantomjs_Connection;
+use Openbuildings\Spiderling\Driver_Selenium_Connection;
+use Openbuildings\Spiderling\Driver_Phantomjs_Connection;
 use Openbuildings\EnvironmentBackup\Environment_Group_Config;
 
 /**
@@ -16,6 +16,8 @@ abstract class Kohana_Testcase_Functest extends Testcase_Spiderling {
 	
 	public function setUp()
 	{
+		parent::setUp();
+
 		if (in_array($this->driver_type(), array('kohana', 'simple')))
 		{
 			Functest_Tests::begin_transaction();
@@ -62,7 +64,7 @@ abstract class Kohana_Testcase_Functest extends Testcase_Spiderling {
 
 		return $driver
 			->connection($connection)
-			->base_url(URL::site(TRUE));
+			->base_url(URL::base(TRUE));
 	}
 
 	public function driver_selenium()
@@ -76,7 +78,7 @@ abstract class Kohana_Testcase_Functest extends Testcase_Spiderling {
 
 		return $driver
 			->connection($connection)
-			->base_url(URL::site(TRUE));
+			->base_url(URL::base(TRUE));
 	}
 
 	public function environment()

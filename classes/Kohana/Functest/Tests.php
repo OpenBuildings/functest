@@ -57,12 +57,12 @@ abstract class Kohana_Functest_Tests {
 
 	public static function begin_transaction()
 	{
-		Functest_Fixture::instance()->pdo()->beginTransaction();
+		Database::instance(Kohana::$config->load('functest.database'))->begin();
 	}
 
 	public static function rollback_transaction()
 	{
-		Functest_Fixture::instance()->pdo()->rollback();
+		Database::instance(Kohana::$config->load('functest.database'))->rollback();
 	}
 
 	public static function load_fixtures()
