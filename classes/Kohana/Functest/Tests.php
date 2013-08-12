@@ -52,7 +52,11 @@ abstract class Kohana_Functest_Tests {
 			$fixture_files = call_user_func_array('Arr::merge', $fixture_files);
 		}
 
-		return array_values(Arr::flatten($fixture_files));
+		$flattened_files = array_values(Arr::flatten($fixture_files));
+		
+		sort($flattened_files);
+
+		return $flattened_files;
 	}
 
 	public static function begin_transaction()
