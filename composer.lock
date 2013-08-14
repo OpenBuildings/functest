@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d198ea0795f163e137627691317f6ac7",
+    "hash": "7200e3d0113710f8f759e63e9cb72695",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "v1.0.4"
+                "reference": "v1.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/v1.0.4",
-                "reference": "v1.0.4",
+                "url": "https://api.github.com/repos/composer/installers/zipball/v1.0.5",
+                "reference": "v1.0.5",
                 "shasum": ""
             },
             "replace": {
@@ -46,7 +46,7 @@
                 {
                     "name": "Kyle Robinson Young",
                     "email": "kyle@dontkry.com",
-                    "homepage": "http://dontkry.com",
+                    "homepage": "https://github.com/shama",
                     "role": "Developer"
                 }
             ],
@@ -75,20 +75,20 @@
                 "wordpress",
                 "zend"
             ],
-            "time": "2013-06-20 02:36:19"
+            "time": "2013-08-07 17:25:08"
         },
         {
             "name": "openbuildings/db-fixtures",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/db-fixtures.git",
-                "reference": "0.2.0"
+                "reference": "0.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/db-fixtures/zipball/0.2.0",
-                "reference": "0.2.0",
+                "url": "https://api.github.com/repos/OpenBuildings/db-fixtures/zipball/0.2.1",
+                "reference": "0.2.1",
                 "shasum": ""
             },
             "type": "library",
@@ -110,7 +110,7 @@
                 }
             ],
             "description": "Load data into the database and cache with raw sql inserts",
-            "time": "2013-07-27 07:59:45"
+            "time": "2013-07-30 09:42:34"
         },
         {
             "name": "openbuildings/environment-backup",
@@ -152,16 +152,16 @@
         },
         {
             "name": "openbuildings/phpunit-spiderling",
-            "version": "0.1.0",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/phpunit-spiderling.git",
-                "reference": "0.1.0"
+                "reference": "0.1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/0.1.0",
-                "reference": "0.1.0",
+                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/0.1.4",
+                "reference": "0.1.4",
                 "shasum": ""
             },
             "require": {
@@ -190,20 +190,20 @@
                 }
             ],
             "description": "Use openbuildings/spiderling in phpunit tests",
-            "time": "2013-07-24 20:51:44"
+            "time": "2013-08-12 08:06:59"
         },
         {
             "name": "openbuildings/spiderling",
-            "version": "0.2.2",
+            "version": "0.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/spiderling.git",
-                "reference": "0.2.2"
+                "reference": "0.2.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/spiderling/zipball/0.2.2",
-                "reference": "0.2.2",
+                "url": "https://api.github.com/repos/OpenBuildings/spiderling/zipball/0.2.8",
+                "reference": "0.2.8",
                 "shasum": ""
             },
             "require": {
@@ -211,7 +211,7 @@
                 "symfony/css-selector": "v2.2.2"
             },
             "require-dev": {
-                "claylo/selenium-server-standalone": "dev-master",
+                "claylo/selenium-server-standalone": "2.*",
                 "openbuildings/kohana-test-bootsrap": "dev-master"
             },
             "type": "library",
@@ -233,7 +233,7 @@
                 }
             ],
             "description": "Crawl the web with kohana, phantomjs or selenium",
-            "time": "2013-07-24 07:31:06"
+            "time": "2013-08-12 10:29:12"
         },
         {
             "name": "symfony/css-selector",
@@ -286,16 +286,16 @@
     "packages-dev": [
         {
             "name": "openbuildings/kohana-test-bootsrap",
-            "version": "dev-master",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/kohana-test-bootstrap.git",
-                "reference": "cddca062f44f638568e6065527f73c7f8301c139"
+                "reference": "0.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/kohana-test-bootstrap/zipball/cddca062f44f638568e6065527f73c7f8301c139",
-                "reference": "cddca062f44f638568e6065527f73c7f8301c139",
+                "url": "https://api.github.com/repos/OpenBuildings/kohana-test-bootstrap/zipball/0.1.0",
+                "reference": "0.1.0",
                 "shasum": ""
             },
             "type": "library",
@@ -317,16 +317,16 @@
                 }
             ],
             "description": "Kohana core classes repackaged with composer, used to test modules",
-            "time": "2013-07-17 15:13:43"
+            "time": "2013-08-12 09:28:25"
         }
     ],
     "aliases": [
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "openbuildings/kohana-test-bootsrap": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": {
         "php": ">=5.3.0"
     },
