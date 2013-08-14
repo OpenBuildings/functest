@@ -14,7 +14,6 @@
     "require": {
         "php": ">=5.3.0",
         "composer/installers": "*",
-        "symfony/css-selector": "v2.2.2",
         "openbuildings/phpunit-spiderling": "0.1.*",
         "openbuildings/db-fixtures": "0.2.*"
     },

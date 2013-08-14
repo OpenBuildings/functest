@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7200e3d0113710f8f759e63e9cb72695",
+    "hash": "c4d742e6fd77e0f770448492b92021db",
     "packages": [
         {
             "name": "composer/installers",
@@ -152,16 +152,16 @@
         },
         {
             "name": "openbuildings/phpunit-spiderling",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/phpunit-spiderling.git",
-                "reference": "0.1.4"
+                "reference": "0.1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/0.1.4",
-                "reference": "0.1.4",
+                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/0.1.5",
+                "reference": "0.1.5",
                 "shasum": ""
             },
             "require": {
@@ -169,7 +169,7 @@
             },
             "require-dev": {
                 "claylo/selenium-server-standalone": "2.*",
-                "openbuildings/kohana-test-bootsrap": "dev-master"
+                "openbuildings/kohana-test-bootsrap": "0.1.*"
             },
             "type": "library",
             "autoload": {
@@ -190,29 +190,29 @@
                 }
             ],
             "description": "Use openbuildings/spiderling in phpunit tests",
-            "time": "2013-08-12 08:06:59"
+            "time": "2013-08-14 09:52:57"
         },
         {
             "name": "openbuildings/spiderling",
-            "version": "0.2.8",
+            "version": "0.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/spiderling.git",
-                "reference": "0.2.8"
+                "reference": "0.2.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/spiderling/zipball/0.2.8",
-                "reference": "0.2.8",
+                "url": "https://api.github.com/repos/OpenBuildings/spiderling/zipball/0.2.9",
+                "reference": "0.2.9",
                 "shasum": ""
             },
             "require": {
                 "openbuildings/environment-backup": "0.1.*",
-                "symfony/css-selector": "v2.2.2"
+                "symfony/css-selector": "2.3.*"
             },
             "require-dev": {
                 "claylo/selenium-server-standalone": "2.*",
-                "openbuildings/kohana-test-bootsrap": "dev-master"
+                "openbuildings/kohana-test-bootsrap": "0.1.*"
             },
             "type": "library",
             "autoload": {
@@ -233,21 +233,21 @@
                 }
             ],
             "description": "Crawl the web with kohana, phantomjs or selenium",
-            "time": "2013-08-12 10:29:12"
+            "time": "2013-08-14 09:45:07"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.2.2",
+            "version": "v2.3.3",
             "target-dir": "Symfony/Component/CssSelector",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "v2.2.2"
+                "reference": "v2.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.2.2",
-                "reference": "v2.2.2",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.3.3",
+                "reference": "v2.3.3",
                 "shasum": ""
             },
             "require": {
@@ -256,7 +256,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -276,11 +276,15 @@
                 {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
                 }
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2013-05-19 19:00:13"
+            "time": "2013-07-21 12:12:18"
         }
     ],
     "packages-dev": [
