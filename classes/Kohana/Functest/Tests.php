@@ -72,7 +72,7 @@ abstract class Kohana_Functest_Tests {
 	public static function load_fixtures()
 	{
 		$fixture = Functest_Fixture::instance();
-		$import_sql = Cache::instance('file')->get(Functest_Tests::FIXTURE_CACHE);
+		$import_sql = Kohana::cache(Functest_Tests::FIXTURE_CACHE);
 
 		if ($import_sql)
 		{
@@ -82,7 +82,7 @@ abstract class Kohana_Functest_Tests {
 		{
 			$fixture->truncate_all();
 			$fixture->execute_import_files(Functest_Tests::fixture_files());
-			Cache::instance('file')->set(Functest_Tests::FIXTURE_CACHE, $fixture->dump());
+			Kohana::cache(Functest_Tests::FIXTURE_CACHE, $fixture->dump());
 		}
 	}
 
