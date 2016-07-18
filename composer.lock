@@ -1,41 +1,47 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "c4d742e6fd77e0f770448492b92021db",
+    "hash": "371b3a29e7fd4122fb7661c514e8ebb8",
+    "content-hash": "6a280d76889dfcabdc17d9cc0e87d26e",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.5",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "v1.0.5"
+                "reference": "a3595c5272a6f247228abb20076ed27321e4aae9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/v1.0.5",
-                "reference": "v1.0.5",
+                "url": "https://api.github.com/repos/composer/installers/zipball/a3595c5272a6f247228abb20076ed27321e4aae9",
+                "reference": "a3595c5272a6f247228abb20076ed27321e4aae9",
                 "shasum": ""
             },
+            "require": {
+                "composer-plugin-api": "^1.0"
+            },
             "replace": {
+                "roundcube/plugin-installer": "*",
                 "shama/baton": "*"
             },
             "require-dev": {
                 "composer/composer": "1.0.*@dev",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "4.1.*"
             },
-            "type": "composer-installer",
+            "type": "composer-plugin",
             "extra": {
-                "class": "Composer\\Installers\\Installer",
+                "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
                     "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Composer\\Installers\\": "src/"
+                "psr-4": {
+                    "Composer\\Installers\\": "src/Composer/Installers"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -46,36 +52,62 @@
                 {
                     "name": "Kyle Robinson Young",
                     "email": "kyle@dontkry.com",
-                    "homepage": "https://github.com/shama",
-                    "role": "Developer"
+                    "homepage": "https://github.com/shama"
                 }
             ],
             "description": "A multi-framework Composer library installer",
-            "homepage": "http://composer.github.com/installers/",
+            "homepage": "https://composer.github.io/installers/",
             "keywords": [
-                "TYPO3 Flow",
-                "TYPO3 Neos",
+                "Craft",
+                "Dolibarr",
+                "Hurad",
+                "ImageCMS",
+                "MODX Evo",
+                "Mautic",
+                "OXID",
+                "RadPHP",
+                "SMF",
+                "Thelia",
+                "WolfCMS",
                 "agl",
+                "aimeos",
+                "annotatecms",
+                "bitrix",
                 "cakephp",
+                "chef",
                 "codeigniter",
+                "concrete5",
+                "croogo",
+                "dokuwiki",
                 "drupal",
+                "elgg",
+                "expressionengine",
                 "fuelphp",
+                "grav",
                 "installer",
                 "joomla",
                 "kohana",
                 "laravel",
-                "li3",
                 "lithium",
+                "magento",
                 "mako",
+                "mediawiki",
                 "modulework",
+                "moodle",
                 "phpbb",
+                "piwik",
                 "ppi",
+                "puppet",
+                "roundcube",
+                "shopware",
                 "silverstripe",
                 "symfony",
+                "typo3",
                 "wordpress",
-                "zend"
+                "zend",
+                "zikula"
             ],
-            "time": "2013-08-07 17:25:08"
+            "time": "2016-07-05 06:18:20"
         },
         {
             "name": "openbuildings/db-fixtures",
@@ -83,12 +115,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/db-fixtures.git",
-                "reference": "0.2.1"
+                "reference": "0dbd1424f3b866cc043dddfed598daad1b579a49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/db-fixtures/zipball/0.2.1",
-                "reference": "0.2.1",
+                "url": "https://api.github.com/repos/OpenBuildings/db-fixtures/zipball/0dbd1424f3b866cc043dddfed598daad1b579a49",
+                "reference": "0dbd1424f3b866cc043dddfed598daad1b579a49",
                 "shasum": ""
             },
             "type": "library",
@@ -118,12 +150,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/environment-backup.git",
-                "reference": "0.1.1"
+                "reference": "382d388ec2a9d9c414965a20347671328ab0b1f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/environment-backup/zipball/0.1.1",
-                "reference": "0.1.1",
+                "url": "https://api.github.com/repos/OpenBuildings/environment-backup/zipball/382d388ec2a9d9c414965a20347671328ab0b1f2",
+                "reference": "382d388ec2a9d9c414965a20347671328ab0b1f2",
                 "shasum": ""
             },
             "require-dev": {
@@ -152,24 +184,24 @@
         },
         {
             "name": "openbuildings/phpunit-spiderling",
-            "version": "0.1.5",
+            "version": "0.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/phpunit-spiderling.git",
-                "reference": "0.1.5"
+                "reference": "c51365450dbfe2416deb4b43bfd0f6490d4b99c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/0.1.5",
-                "reference": "0.1.5",
+                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/c51365450dbfe2416deb4b43bfd0f6490d4b99c9",
+                "reference": "c51365450dbfe2416deb4b43bfd0f6490d4b99c9",
                 "shasum": ""
             },
             "require": {
                 "openbuildings/spiderling": "0.2.*"
             },
             "require-dev": {
-                "claylo/selenium-server-standalone": "2.*",
-                "openbuildings/kohana-test-bootsrap": "0.1.*"
+                "openbuildings/kohana-test-bootsrap": "0.1.*",
+                "se/selenium-server-standalone": "^2.43"
             },
             "type": "library",
             "autoload": {
@@ -185,34 +217,33 @@
                 {
                     "name": "Ivan Kerin",
                     "email": "ivan@openbuildings.com",
-                    "homepage": "https://github.com/OpenBuildings/jam",
                     "role": "Author"
                 }
             ],
             "description": "Use openbuildings/spiderling in phpunit tests",
-            "time": "2013-08-14 09:52:57"
+            "time": "2016-03-16 13:42:04"
         },
         {
             "name": "openbuildings/spiderling",
-            "version": "0.2.9",
+            "version": "0.2.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/spiderling.git",
-                "reference": "0.2.9"
+                "reference": "38982eb1e6c0e1712c2cfd263fd5cba50ebd7b04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/spiderling/zipball/0.2.9",
-                "reference": "0.2.9",
+                "url": "https://api.github.com/repos/OpenBuildings/spiderling/zipball/38982eb1e6c0e1712c2cfd263fd5cba50ebd7b04",
+                "reference": "38982eb1e6c0e1712c2cfd263fd5cba50ebd7b04",
                 "shasum": ""
             },
             "require": {
-                "openbuildings/environment-backup": "0.1.*",
-                "symfony/css-selector": "2.3.*"
+                "openbuildings/environment-backup": "~0.1.1",
+                "symfony/css-selector": "^2.3"
             },
             "require-dev": {
-                "claylo/selenium-server-standalone": "2.*",
-                "openbuildings/kohana-test-bootsrap": "0.1.*"
+                "openbuildings/kohana-test-bootsrap": "~0.1.2",
+                "se/selenium-server-standalone": "2.40"
             },
             "type": "library",
             "autoload": {
@@ -228,41 +259,42 @@
                 {
                     "name": "Ivan Kerin",
                     "email": "ivan@openbuildings.com",
-                    "homepage": "https://github.com/OpenBuildings/jam",
                     "role": "Author"
                 }
             ],
             "description": "Crawl the web with kohana, phantomjs or selenium",
-            "time": "2013-08-14 09:45:07"
+            "time": "2015-09-07 09:34:41"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.3.3",
-            "target-dir": "Symfony/Component/CssSelector",
+            "version": "v2.8.8",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "v2.3.3"
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "9da4c615ba303850986e0480cc472bf704cfdb64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/v2.3.3",
-                "reference": "v2.3.3",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/9da4c615ba303850986e0480cc472bf704cfdb64",
+                "reference": "9da4c615ba303850986e0480cc472bf704cfdb64",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Symfony\\Component\\CssSelector\\": ""
-                }
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -270,36 +302,36 @@
             ],
             "authors": [
                 {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
                 },
                 {
                     "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
-                    "name": "Jean-François Simon",
-                    "email": "jeanfrancois.simon@sensiolabs.com"
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "Symfony CssSelector Component",
-            "homepage": "http://symfony.com",
-            "time": "2013-07-21 12:12:18"
+            "homepage": "https://symfony.com",
+            "time": "2016-06-29 05:31:50"
         }
     ],
     "packages-dev": [
         {
             "name": "openbuildings/kohana-test-bootsrap",
-            "version": "0.1.0",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/kohana-test-bootstrap.git",
-                "reference": "0.1.0"
+                "reference": "57c9cae9bd97edbe58d1c41c35c499c7d54f4030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/kohana-test-bootstrap/zipball/0.1.0",
-                "reference": "0.1.0",
+                "url": "https://api.github.com/repos/OpenBuildings/kohana-test-bootstrap/zipball/57c9cae9bd97edbe58d1c41c35c499c7d54f4030",
+                "reference": "57c9cae9bd97edbe58d1c41c35c499c7d54f4030",
                 "shasum": ""
             },
             "type": "library",
@@ -321,20 +353,16 @@
                 }
             ],
             "description": "Kohana core classes repackaged with composer, used to test modules",
-            "time": "2013-08-12 09:28:25"
+            "time": "2013-10-01 08:57:54"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.0"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
