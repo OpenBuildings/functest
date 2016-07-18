@@ -13,10 +13,9 @@ Kohana::modules(array(
 Kohana::$config
 	->load('database')
 		->set(Kohana::TESTING, array(
-			'type'       => 'MySQL',
+			'type'       => 'PDO',
 			'connection' => array(
-				'hostname'   => 'localhost',
-				'database'   => 'test-functest',
+				'dsn'        => 'mysql:host=localhost;db_name=test-functest',
 				'username'   => 'root',
 				'password'   => '',
 				'persistent' => TRUE,
