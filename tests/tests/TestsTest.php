@@ -91,8 +91,7 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 	{
 		global $_functest_test_counter;
 		$_functest_test_counter = 0;
-
-		Cache::instance('file')->delete(Functest_Tests::FIXTURE_CACHE);
+		Kohana::cache(Functest_Tests::FIXTURE_CACHE, null, 0);
 		Database::instance(Kohana::TESTING)->query(NULL, 'DELETE FROM table1');
 
 		Functest_Tests::load_fixtures();

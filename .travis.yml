@@ -3,16 +3,34 @@ language: php
 
 php:
   - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7
+  - hhvm
+
+env:
+  - DEPS=normal
+  - DEPS=highest
+  - DEPS=lowest
+
+
+before_install: composer selfupdate
+
+install:
+  - if [ "$DEPS" = "normal" ]; then composer install --no-interaction; fi;
+  - if [ "$DEPS" = "highest" ]; then composer update --no-interaction; fi;
+  - if [ "$DEPS" = "lowest" ]; then composer update --no-interaction --prefer-lowest --prefer-stable; fi;
 
 script:
   - mkdir -p build/logs
   - phpunit --coverage-clover build/logs/clover.xml
 
 before_script:
-  - composer require --dev satooshi/php-coveralls:dev-master
-  - composer install
   - mysql -e 'create database `test-functest`;'
   - mysql test-functest < tests/test_data/database.sql
 
 after_script:
   - php vendor/bin/coveralls -v
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml

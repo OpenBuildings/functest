@@ -14,7 +14,7 @@
     "require": {
         "php": ">=5.3.0",
         "composer/installers": "*",
-        "openbuildings/phpunit-spiderling": "0.1.*",
+        "openbuildings/phpunit-spiderling": "^0.1.13",
         "openbuildings/db-fixtures": "0.2.*"
     },
     "require-dev": {
