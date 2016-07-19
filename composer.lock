@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "371b3a29e7fd4122fb7661c514e8ebb8",
-    "content-hash": "6a280d76889dfcabdc17d9cc0e87d26e",
+    "hash": "fd8e3b1d1539ab20f90750ebc7998b1f",
+    "content-hash": "47b22f8887fc6764ae0da79c80fd2968",
     "packages": [
         {
             "name": "composer/installers",
@@ -184,19 +184,20 @@
         },
         {
             "name": "openbuildings/phpunit-spiderling",
-            "version": "0.1.12",
+            "version": "0.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/phpunit-spiderling.git",
-                "reference": "c51365450dbfe2416deb4b43bfd0f6490d4b99c9"
+                "reference": "f3c607cfaee67b9a6682436ee4d440e6d40755c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/c51365450dbfe2416deb4b43bfd0f6490d4b99c9",
-                "reference": "c51365450dbfe2416deb4b43bfd0f6490d4b99c9",
+                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/f3c607cfaee67b9a6682436ee4d440e6d40755c9",
+                "reference": "f3c607cfaee67b9a6682436ee4d440e6d40755c9",
                 "shasum": ""
             },
             "require": {
+                "openbuildings/environment-backup": "0.1.*",
                 "openbuildings/spiderling": "0.2.*"
             },
             "require-dev": {
@@ -221,7 +222,7 @@
                 }
             ],
             "description": "Use openbuildings/spiderling in phpunit tests",
-            "time": "2016-03-16 13:42:04"
+            "time": "2016-07-19 08:21:28"
         },
         {
             "name": "openbuildings/spiderling",
