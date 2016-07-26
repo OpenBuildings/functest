@@ -82,7 +82,7 @@ abstract class Kohana_Functest_Tests {
 		{
 			$fixture->truncate_all();
 			$fixture->execute_import_files(Functest_Tests::fixture_files());
-			Kohana::cache(Functest_Tests::FIXTURE_CACHE, $fixture->dump());
+			Kohana::cache(Functest_Tests::FIXTURE_CACHE, $fixture->dump(), Date::HOUR);
 		}
 	}
 
