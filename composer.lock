@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fd8e3b1d1539ab20f90750ebc7998b1f",
-    "content-hash": "47b22f8887fc6764ae0da79c80fd2968",
+    "content-hash": "21996e627bac7adc6abc824d10bb8ddc",
     "packages": [
         {
             "name": "composer/installers",
@@ -107,7 +106,65 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-07-05 06:18:20"
+            "time": "2016-07-05T06:18:20+00:00"
+        },
+        {
+            "name": "kohana/core",
+            "version": "v3.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kohana/core.git",
+                "reference": "bdbe81afb5a09cee4269d2e2210a0d293265231a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kohana/core/zipball/bdbe81afb5a09cee4269d2e2210a0d293265231a",
+                "reference": "bdbe81afb5a09cee4269d2e2210a0d293265231a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "kohana/koharness": "*@dev",
+                "kohana/unittest": "3.3.*@dev"
+            },
+            "suggest": {
+                "ext-curl": "*",
+                "ext-http": "*",
+                "ext-mcrypt": "*"
+            },
+            "type": "library",
+            "extra": {
+                "installer-paths": {
+                    "vendor/{$vendor}/{$name}": [
+                        "type:kohana-module"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-3.3/develop": "3.3.x-dev",
+                    "dev-3.4/develop": "3.4.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kohana Team",
+                    "email": "team@kohanaframework.org",
+                    "homepage": "http://kohanaframework.org/team",
+                    "role": "developer"
+                }
+            ],
+            "description": "Core system classes for the Kohana application framework",
+            "homepage": "http://kohanaframework.org",
+            "keywords": [
+                "framework",
+                "kohana"
+            ],
+            "time": "2016-07-25T13:15:13+00:00"
         },
         {
             "name": "openbuildings/db-fixtures",
@@ -142,7 +199,7 @@
                 }
             ],
             "description": "Load data into the database and cache with raw sql inserts",
-            "time": "2013-07-30 09:42:34"
+            "time": "2013-07-30T09:42:34+00:00"
         },
         {
             "name": "openbuildings/environment-backup",
@@ -180,7 +237,7 @@
                 }
             ],
             "description": "Backup/restore environment variables: globals, static vars, configs",
-            "time": "2013-07-24 07:26:52"
+            "time": "2013-07-24T07:26:52+00:00"
         },
         {
             "name": "openbuildings/phpunit-spiderling",
@@ -222,7 +279,7 @@
                 }
             ],
             "description": "Use openbuildings/spiderling in phpunit tests",
-            "time": "2016-07-19 08:21:28"
+            "time": "2016-07-19T08:21:28+00:00"
         },
         {
             "name": "openbuildings/spiderling",
@@ -264,7 +321,7 @@
                 }
             ],
             "description": "Crawl the web with kohana, phantomjs or selenium",
-            "time": "2015-09-07 09:34:41"
+            "time": "2015-09-07T09:34:41+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -317,23 +374,87 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 05:31:50"
+            "time": "2016-06-29T05:31:50+00:00"
         }
     ],
     "packages-dev": [
         {
-            "name": "openbuildings/kohana-test-bootsrap",
-            "version": "0.1.2",
+            "name": "kohana/database",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/OpenBuildings/kohana-test-bootstrap.git",
-                "reference": "57c9cae9bd97edbe58d1c41c35c499c7d54f4030"
+                "url": "https://github.com/kohana/database.git",
+                "reference": "3edf2fe2cc6deeab41acfff032f38f697f9ef6fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/kohana-test-bootstrap/zipball/57c9cae9bd97edbe58d1c41c35c499c7d54f4030",
-                "reference": "57c9cae9bd97edbe58d1c41c35c499c7d54f4030",
+                "url": "https://api.github.com/repos/kohana/database/zipball/3edf2fe2cc6deeab41acfff032f38f697f9ef6fc",
+                "reference": "3edf2fe2cc6deeab41acfff032f38f697f9ef6fc",
                 "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "kohana/core": ">=3.3",
+                "php": ">=5.3.6"
+            },
+            "require-dev": {
+                "kohana/core": "3.3.*@dev",
+                "kohana/koharness": "*@dev",
+                "kohana/unittest": "3.3.*@dev"
+            },
+            "suggest": {
+                "ext-mysql": "*",
+                "ext-pdo": "*"
+            },
+            "type": "kohana-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.3/develop": "3.3.x-dev",
+                    "dev-3.4/develop": "3.4.x-dev"
+                },
+                "installer-paths": {
+                    "vendor/{$vendor}/{$name}": [
+                        "type:kohana-module"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kohana Team",
+                    "email": "team@kohanaframework.org",
+                    "homepage": "http://kohanaframework.org/team",
+                    "role": "developer"
+                }
+            ],
+            "description": "The official Kohana module for database interactions, building queries, and prepared statements",
+            "homepage": "http://kohanaframework.org",
+            "keywords": [
+                "database",
+                "framework",
+                "kohana"
+            ],
+            "time": "2016-03-23T17:12:30+00:00"
+        },
+        {
+            "name": "openbuildings/kohana-test-bootstrap",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/OpenBuildings/kohana-test-bootstrap.git",
+                "reference": "83b9e254f385b907c859b8332e4396b151a7e80e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/OpenBuildings/kohana-test-bootstrap/zipball/83b9e254f385b907c859b8332e4396b151a7e80e",
+                "reference": "83b9e254f385b907c859b8332e4396b151a7e80e",
+                "shasum": ""
+            },
+            "require": {
+                "kohana/core": "^3.3"
             },
             "type": "library",
             "autoload": {
@@ -348,13 +469,17 @@
             "authors": [
                 {
                     "name": "Ivan Kerin",
-                    "email": "ivan@openbuildings.com",
-                    "homepage": "https://github.com/OpenBuildings/jam",
+                    "email": "ikerin@gmail.com",
                     "role": "Author"
+                },
+                {
+                    "name": "Haralan Dobrev",
+                    "email": "hkdobrev@gmail.com",
+                    "role": "Maintainer"
                 }
             ],
-            "description": "Kohana core classes repackaged with composer, used to test modules",
-            "time": "2013-10-01 08:57:54"
+            "description": "Helper package for testing Kohana modules",
+            "time": "2016-07-28T14:07:23+00:00"
         }
     ],
     "aliases": [],
