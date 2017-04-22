@@ -1,6 +1,8 @@
 ---
 language: php
 
+sudo: false
+
 php:
   - 7.0
   - 7.1
@@ -11,7 +13,21 @@ env:
   - DEPS=highest
   - DEPS=lowest
 
-before_install: composer selfupdate
+matrix:
+  fast_finish: true
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+  - $HOME/.composer/cache
+
+notifications:
+  email: false
+  slack:
+    secure: ixWu6kWtNIlzzdImpu4MdvGYpA6ZPp/dQpMAp6FDO2oHHB55J9ossBYtVtBXPCDs9OxqfQl2yqbE+TkhfIfkZqIbhvX2+CiIomvYSKZDvryUlCfbfV29behmSVIVYvg3b8Tba+nAyZeJA2guUyAy02WGr3n4I+PDgZC3Wa/mv94=
 
 install:
   - if [ "$DEPS" = "normal" ]; then composer install --no-interaction; fi;
