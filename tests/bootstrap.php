@@ -4,8 +4,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 Kohana::modules(array(
 	'database' => MODPATH.'database',
-	'auth'     => MODPATH.'auth',
-	'cache'    => MODPATH.'cache',
 	'functest' => __DIR__.'/..',
 	'test'     => __DIR__.'/../tests/testmodule',
 ));
