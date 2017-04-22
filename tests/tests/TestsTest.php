@@ -122,7 +122,9 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 
 	public function test_transactions()
 	{
-		$database = $this->getMock('Database_MySQL', array(), array(), '', FALSE);
+		$database = $this->getMockBuilder('Database_MySQL')
+            ->disableOriginalConstructor()
+            ->getMock();
 
 		$this->environment()->backup_and_set(array(
 			'Database::$instances' => array(
