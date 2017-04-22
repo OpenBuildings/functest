@@ -12,7 +12,7 @@ return array(
 	'modules' => array(
 	),
 	'drivers' => array(
-		'native' => array(
+		'kohana' => array(
 			'environment' => array(
 				'Request::$client_ip' => '8.8.8.8', // VALID IP HERE
 				'Request::$user_agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19',

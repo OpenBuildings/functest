@@ -89,6 +89,10 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 
 	public function test_load_fixtures()
 	{
+		try {
+			Functest_Tests::rollback_transaction();
+		} catch (\PDOException $e) {}
+
 		global $_functest_test_counter;
 		$_functest_test_counter = 0;
 		Kohana::cache(Functest_Tests::FIXTURE_CACHE, null, 0);
@@ -122,7 +126,9 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 
 	public function test_transactions()
 	{
-		$database = $this->getMock('Database_MySQL', array(), array(), '', FALSE);
+		$database = $this->getMockBuilder('Database_MySQL')
+			->disableOriginalConstructor()
+			->getMock();
 
 		$this->environment()->backup_and_set(array(
 			'Database::$instances' => array(
@@ -157,7 +163,7 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 		$suite = Functest_Tests::suite();
 		$suite2 = Functest_Tests::suite();
 
-		$this->assertInstanceOf('PHPUnit_Framework_TestSuite', $suite);
+		$this->assertInstanceOf(\PHPUnit\Framework\TestSuite::class, $suite);
 		$this->assertSame($suite, $suite2);
 	}
 }

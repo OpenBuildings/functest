@@ -13,18 +13,18 @@ class Functest_FixtureTest extends Testcase_Functest_Internal {
 
 	public function test_database_to_pdo()
 	{
-		$fixutres = new Functest_Fixture();
+		$fixtures = new Functest_Fixture();
 
-		$pdo = $fixutres->database_to_pdo(Kohana::TESTING);
-
-		$this->assertInstanceOf('PDO', $pdo);
-
-		$pdo = $fixutres->database_to_pdo('pdo_test');
+		$pdo = $fixtures->database_to_pdo(Kohana::TESTING);
 
 		$this->assertInstanceOf('PDO', $pdo);
 
-		$this->setExpectedException('Kohana_Exception');
+		$pdo = $fixtures->database_to_pdo('pdo_test');
 
-		$pdo = $fixutres->database_to_pdo('pdo_not_exists');
+		$this->assertInstanceOf('PDO', $pdo);
+
+		$this->expectException(\Kohana_Exception::class);
+
+		$pdo = $fixtures->database_to_pdo('pdo_not_exists');
 	}
 }

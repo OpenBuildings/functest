@@ -25,8 +25,9 @@ abstract class Kohana_Functest_Fixture extends Fixture {
 	{
 		$config = Kohana::$config->load('database.'.$database);
 
-		if ( ! $config) 
+		if ( ! $config) {
 			throw new Kohana_Exception('Database configuration for :database not found', array(':database' => $database));
+		}
 		
 		$connection = $config['connection'];
 		$pdo = NULL;
