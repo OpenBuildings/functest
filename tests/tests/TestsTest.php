@@ -89,6 +89,10 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 
 	public function test_load_fixtures()
 	{
+		try {
+			Functest_Tests::rollback_transaction();
+		} catch (\PDOException $e) {}
+
 		global $_functest_test_counter;
 		$_functest_test_counter = 0;
 		Kohana::cache(Functest_Tests::FIXTURE_CACHE, null, 0);

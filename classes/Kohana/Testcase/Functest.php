@@ -46,7 +46,9 @@ abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
 		
 		if (in_array($this->driver_type(), array('kohana', 'simple')))
 		{
-			Functest_Tests::rollback_transaction();
+			try {
+				Functest_Tests::rollback_transaction();
+			} catch (\PDOException $e) {}
 		}
 		else
 		{
