@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "88c1cf9561e6343d823f03c3251978c7",
+    "content-hash": "f7e4959341bfd0440e6795317342685d",
     "packages": [
         {
             "name": "composer/installers",
@@ -337,16 +337,16 @@
         },
         {
             "name": "openbuildings/phpunit-spiderling",
-            "version": "0.2.0-rc.1",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/phpunit-spiderling.git",
-                "reference": "3eb70f8ca045532046cf9c05d5a88db580928bca"
+                "reference": "5aede7af12035338ab84d06290a6473a34c906b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/3eb70f8ca045532046cf9c05d5a88db580928bca",
-                "reference": "3eb70f8ca045532046cf9c05d5a88db580928bca",
+                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/5aede7af12035338ab84d06290a6473a34c906b9",
+                "reference": "5aede7af12035338ab84d06290a6473a34c906b9",
                 "shasum": ""
             },
             "require": {
@@ -376,7 +376,7 @@
                 }
             ],
             "description": "Use openbuildings/spiderling in phpunit tests",
-            "time": "2017-03-22T01:19:18+00:00"
+            "time": "2017-04-22T11:05:36+00:00"
         },
         {
             "name": "openbuildings/spiderling",
@@ -1934,9 +1934,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "openbuildings/phpunit-spiderling": 5
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

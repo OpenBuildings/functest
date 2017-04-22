@@ -14,7 +14,7 @@
     "require": {
         "php": "^7",
         "composer/installers": "*",
-        "openbuildings/phpunit-spiderling": "^0.2@rc",
+        "openbuildings/phpunit-spiderling": "^0.2",
         "openbuildings/db-fixtures": "0.2.*",
         "kohana/core": "^3.3"
     },
