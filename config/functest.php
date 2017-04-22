@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
 return array(
-	'default_driver' => 'native',
+	'default_driver' => 'kohana',
 	'default_locator_type' => 'css',
 	'default_wait_time' => 4000,
 	'save_on_failure' => TRUE,

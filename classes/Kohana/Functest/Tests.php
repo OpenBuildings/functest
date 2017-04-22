@@ -131,7 +131,7 @@ abstract class Kohana_Functest_Tests {
 	{
 		if ( ! Functest_Tests::$_suite)
 		{
-			Functest_Tests::$_suite = new PHPUnit_Framework_TestSuite;
+			Functest_Tests::$_suite = new \PHPUnit\Framework\TestSuite;
 
 			Functest_Tests::$_suite->addTestFiles(Functest_Tests::tests());
 		}

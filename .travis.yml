@@ -22,13 +22,13 @@ install:
   - if [ "$DEPS" = "highest" ]; then composer update --no-interaction; fi;
   - if [ "$DEPS" = "lowest" ]; then composer update --no-interaction --prefer-lowest --prefer-stable; fi;
 
-script:
-  - mkdir -p build/logs
-  - phpunit --coverage-clover build/logs/clover.xml
-
 before_script:
+  - mkdir -p build/logs
   - mysql -e 'create database `test-functest`;'
   - mysql test-functest < tests/test_data/database.sql
+
+script:
+  - vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar

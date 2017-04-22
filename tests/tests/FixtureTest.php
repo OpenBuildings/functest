@@ -23,7 +23,7 @@ class Functest_FixtureTest extends Testcase_Functest_Internal {
 
 		$this->assertInstanceOf('PDO', $pdo);
 
-		$this->setExpectedException('Kohana_Exception');
+		$this->expectException(\Kohana_Exception::class);
 
 		$pdo = $fixutres->database_to_pdo('pdo_not_exists');
 	}

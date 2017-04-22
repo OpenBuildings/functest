@@ -123,8 +123,8 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 	public function test_transactions()
 	{
 		$database = $this->getMockBuilder('Database_MySQL')
-            ->disableOriginalConstructor()
-            ->getMock();
+			->disableOriginalConstructor()
+			->getMock();
 
 		$this->environment()->backup_and_set(array(
 			'Database::$instances' => array(
@@ -159,7 +159,7 @@ class Functest_TestsTest extends Testcase_Functest_Internal {
 		$suite = Functest_Tests::suite();
 		$suite2 = Functest_Tests::suite();
 
-		$this->assertInstanceOf('PHPUnit_Framework_TestSuite', $suite);
+		$this->assertInstanceOf(\PHPUnit\Framework\TestSuite::class, $suite);
 		$this->assertSame($suite, $suite2);
 	}
 }

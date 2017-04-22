@@ -14,12 +14,13 @@
     "require": {
         "php": ">=5.3.0",
         "composer/installers": "*",
-        "openbuildings/phpunit-spiderling": "^0.1.13",
+        "openbuildings/phpunit-spiderling": "^0.2@rc",
         "openbuildings/db-fixtures": "0.2.*",
         "kohana/core": "^3.3"
     },
     "require-dev": {
         "openbuildings/kohana-test-bootstrap": "^0.2",
-        "kohana/database": "^3.3"
+        "kohana/database": "^3.3",
+        "phpunit/phpunit": "^6.1"
     }
 }
