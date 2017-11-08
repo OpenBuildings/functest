@@ -15,7 +15,7 @@
         "php": "^7",
         "composer/installers": "*",
         "openbuildings/phpunit-spiderling": "^0.2",
-        "openbuildings/db-fixtures": "0.2.*",
+        "openbuildings/db-fixtures": "^0.2 || ^0.3",
         "kohana/core": "^3.3"
     },
     "require-dev": {
