@@ -16,8 +16,8 @@ use Openbuildings\EnvironmentBackup\Environment_Group_Config;
  * @copyright  (c) 2011-2013 Despark Ltd.
  */
 abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
-	
-	public function setUp()
+
+	protected function setUp()
 	{
 		parent::setUp();
 
@@ -32,7 +32,7 @@ abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
 		return parent::driver_type() ?: Kohana::$config->load('functest.default_driver');
 	}
 
-	public function tearDown()
+	protected function tearDown()
 	{
 		if ($this->is_driver_active())
 		{
@@ -43,7 +43,7 @@ abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
 		{
 			$this->environment()->restore();
 		}
-		
+
 		if (in_array($this->driver_type(), array('kohana', 'simple')))
 		{
 			try {
@@ -54,7 +54,7 @@ abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
 		{
 			Functest_Tests::load_fixtures();
 		}
-		
+
 		parent::tearDown();
 	}
 
@@ -77,7 +77,7 @@ abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
 		$driver = parent::driver_selenium();
 
 		$config = Kohana::$config->load('functest.drivers.selenium');
-		
+
 		$connection = new Driver_Selenium_Connection($config['server']);
 		$connection->start($config['desired']);
 
