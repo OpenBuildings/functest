@@ -35,7 +35,7 @@ install:
 
 before_script:
   - mkdir -p build/logs
-  - mysql -e 'create database `test-functest`;'
+  - mysql -e 'create database if not exists `test-functest`;'
   - mysql test-functest < tests/test_data/database.sql
 
 script:
