@@ -12,7 +12,7 @@ abstract class Kohana_Testcase_Functest_Internal extends Testcase_Functest {
 	public $modpath;
 	public $test_folder;
 
-	public function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$this->environment()->backup_and_set(array(
