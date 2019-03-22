@@ -17,7 +17,7 @@ use Openbuildings\EnvironmentBackup\Environment_Group_Config;
  */
 abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
 
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
@@ -32,7 +32,7 @@ abstract class Kohana_Testcase_Functest extends SpiderlingTestCase {
 		return parent::driver_type() ?: Kohana::$config->load('functest.default_driver');
 	}
 
-	protected function tearDown()
+	protected function tearDown(): void
 	{
 		if ($this->is_driver_active())
 		{
