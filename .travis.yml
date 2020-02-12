@@ -1,4 +1,7 @@
 ---
+services:
+  - mysql
+
 language: php
 
 sudo: false
