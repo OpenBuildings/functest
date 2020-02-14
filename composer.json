@@ -16,12 +16,12 @@
         "composer/installers": "*",
         "openbuildings/phpunit-spiderling": "^0.3",
         "openbuildings/db-fixtures": "^0.2 || ^0.3",
-        "kohana/core": "^3.3"
+        "kohana/core": "^3.3",
+        "phpunit/phpunit": "^7"
     },
     "require-dev": {
         "openbuildings/kohana-test-bootstrap": "^0.2",
-        "kohana/database": "^3.3",
-        "phpunit/phpunit": "^7"
+        "kohana/database": "^3.3"
     },
     "config": {
         "platform": {
