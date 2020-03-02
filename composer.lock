@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "553f9e2e2127a46e2b7571711535b7f7",
+    "content-hash": "19762c1b04e7f675aa3f22ea83d92fec",
     "packages": [
         {
             "name": "composer/installers",
@@ -272,17 +272,24 @@
         },
         {
             "name": "openbuildings/db-fixtures",
-            "version": "0.2.1",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/db-fixtures.git",
-                "reference": "0dbd1424f3b866cc043dddfed598daad1b579a49"
+                "reference": "5551d1d1a015976570a02f8a4a7b88280184c8ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/db-fixtures/zipball/0dbd1424f3b866cc043dddfed598daad1b579a49",
-                "reference": "0dbd1424f3b866cc043dddfed598daad1b579a49",
+                "url": "https://api.github.com/repos/OpenBuildings/db-fixtures/zipball/5551d1d1a015976570a02f8a4a7b88280184c8ce",
+                "reference": "5551d1d1a015976570a02f8a4a7b88280184c8ce",
                 "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7"
             },
             "type": "library",
             "autoload": {
@@ -298,12 +305,11 @@
                 {
                     "name": "Ivan Kerin",
                     "email": "ivan@openbuildings.com",
-                    "homepage": "https://github.com/OpenBuildings/jam",
                     "role": "Author"
                 }
             ],
             "description": "Load data into the database and cache with raw sql inserts",
-            "time": "2013-07-30T09:42:34+00:00"
+            "time": "2020-03-02T13:32:06+00:00"
         },
         {
             "name": "openbuildings/environment-backup",
@@ -345,16 +351,16 @@
         },
         {
             "name": "openbuildings/phpunit-spiderling",
-            "version": "0.3.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenBuildings/phpunit-spiderling.git",
-                "reference": "cf20ea79e195b0e5a6ed84eef472583a66a02551"
+                "reference": "0b124f0be23a859ae319ca2273ef86265c0338d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/cf20ea79e195b0e5a6ed84eef472583a66a02551",
-                "reference": "cf20ea79e195b0e5a6ed84eef472583a66a02551",
+                "url": "https://api.github.com/repos/OpenBuildings/phpunit-spiderling/zipball/0b124f0be23a859ae319ca2273ef86265c0338d1",
+                "reference": "0b124f0be23a859ae319ca2273ef86265c0338d1",
                 "shasum": ""
             },
             "require": {
@@ -385,7 +391,7 @@
                 }
             ],
             "description": "Use openbuildings/spiderling in phpunit tests",
-            "time": "2019-03-22T11:15:40+00:00"
+            "time": "2020-02-11T11:57:05+00:00"
         },
         {
             "name": "openbuildings/spiderling",
@@ -1963,7 +1969,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1, <7.4"
+        "php": "^7.1"
     },
     "platform-dev": [],
     "platform-overrides": {
